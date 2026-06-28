@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.zip
+.env
+.env.local
+calculator.html
+calculator.js
+dist/calculator.html
+dist/calculator.js

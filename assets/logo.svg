@@ -1,0 +1,10 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">PointerScore 100 Logo</title>
+  <desc id="desc">Modernes P und S Monogramm mit trennendem Querstrich.</desc>
+  <rect x="10" y="10" width="140" height="140" rx="30" fill="#F5FBFF"/>
+  <rect x="11" y="11" width="138" height="138" rx="29" stroke="#B7E6FF" stroke-width="2"/>
+  <path d="M39 112V48H67.6C82.3 48 91.8 56.1 91.8 68.8C91.8 81.7 82 90 67.2 90H54.7V112H39ZM54.7 76.7H65.8C72.2 76.7 76 73.8 76 68.9C76 64 72.2 61.1 65.8 61.1H54.7V76.7Z" fill="#06192D"/>
+  <path d="M82.2 118L103.4 42H114.8L93.6 118H82.2Z" fill="#0EA5E9"/>
+  <path d="M105.6 113.2C94.8 113.2 86.5 109.8 80.8 104.4L89.1 93.7C93.6 97.8 99.6 100.4 105.8 100.4C111.3 100.4 114.5 98.5 114.5 95.1C114.5 91.4 110.8 90.2 103.7 87.8L98.3 85.9C89.8 82.9 83.2 77.9 83.2 68.5C83.2 57.7 93 49.4 106.6 49.4C114.9 49.4 122.5 52.2 128.1 57.1L120.3 67.9C116 64.5 111.7 62.8 106.8 62.8C102.1 62.8 99.3 64.6 99.3 67.8C99.3 71.2 103.5 72.4 110.4 74.7L115.8 76.5C125.9 79.8 131.1 85.3 131.1 94.4C131.1 105.5 121.8 113.2 105.6 113.2Z" fill="#0F5F8F"/>
+  <path d="M128 37L135 44L128 51L121 44L128 37Z" fill="#38BDF8"/>
+</svg>
