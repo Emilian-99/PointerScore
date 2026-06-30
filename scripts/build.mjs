@@ -19,6 +19,7 @@ const sourceEntries = [
   "auth-page.js",
   "dashboard.js",
   "calculator-app.js",
+  "rechner",
   "calculator-logic.js",
   "demo-calculator.js",
   "demo-company-data.js",

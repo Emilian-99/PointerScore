@@ -39,7 +39,8 @@ for (const file of files.filter((entry) => entry.endsWith(".html"))) {
       continue;
     }
 
-    const clean = decodeURIComponent(reference.split("#")[0].split("?")[0]);
+    let clean = decodeURIComponent(reference.split("#")[0].split("?")[0]);
+    if (clean.endsWith("/")) clean += "index.html";
     const target = clean === "/"
       ? "index.html"
       : clean.startsWith("/")

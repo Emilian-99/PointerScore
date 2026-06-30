@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="PointerScore Rechner V1.2 – strukturierte Unternehmensbewertung in fünf Kategorien.">
+  <title>PointerScore Rechner V1.2</title><link rel="stylesheet" href="./styles.css">
+</head>
+<body class="is-auth-loading">
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="../dashboard.html" aria-label="Zurück zum PointerScore Dashboard"><span class="brand-logo" aria-hidden="true"></span><span>PointerScore 100</span></a>
+    <div class="app-header-actions"><a href="../dashboard.html">Dashboard</a><div class="header-meta"><strong>PointerScore Rechner</strong><span>V1.2</span></div><button type="button" data-logout>Abmelden</button></div>
+  </div>
+</header>
+<main id="top">
+<section class="calculator-intro formal-intro" aria-labelledby="page-title">
+  <div>
+    <p class="page-kicker">Strukturierte Unternehmensanalyse</p>
+    <h1 id="page-title">PointerScore Rechner</h1>
+    <p>Unternehmenskennzahlen eintragen, Teilbereiche auswerten und einen nachvollziehbaren Gesamtscore von 0 bis 100 erhalten.</p>
+  </div>
+  <div class="method-note"><strong>PointerScore V1.2</strong><span>Fünf Kategorien · 100 Punkte</span></div>
+</section><div class="calculator-shell" id="calculator">
+    <form id="score-form" class="form-column" novalidate>
+      <div class="completion-card" aria-live="polite">
+        <div class="completion-head"><span>Fortschritt</span><strong id="completion-text">0 von 5 abgeschlossen</strong></div>
+        <div class="completion-track" aria-hidden="true"><span id="completion-fill"></span></div>
+      </div>
+
+      <div id="form-message" class="form-message" role="alert" hidden></div>
+
+      <section class="form-card">
+        <div class="section-heading"><span class="step">01</span><div><h2>Unternehmen einordnen</h2><p>Branche und Stellung im Markt</p></div></div>
+        <div class="field-grid two-columns">
+          <div class="field company-name-field"><label for="companyName">Unternehmensname <span class="info-tip" tabindex="0" data-tooltip="Name des Unternehmens, das mit PointerScore bewertet wird." aria-label="Info zum Unternehmensnamen">i</span></label><input id="companyName" name="companyName" type="text" autocomplete="organization" maxlength="80" required placeholder="–"></div>
+          <div class="field"><label for="industry">Branche <span class="info-tip" tabindex="0" data-tooltip="Ordnet das Zukunftspotenzial anhand des Tätigkeitsbereichs ein." aria-label="Info zur Branche">i</span></label><select id="industry" name="industry" required><option value="">Bitte auswählen</option></select></div>
+          <div class="field"><label for="marketPosition">Marktposition <span class="info-tip" tabindex="0" data-tooltip="Zeigt, wie stark das Unternehmen gegenüber seinen Wettbewerbern aufgestellt ist." aria-label="Info zur Marktposition">i</span></label><select id="marketPosition" name="marketPosition" required><option value="">Bitte auswählen</option></select></div>
+        </div>
+      </section>
+
+      <section class="form-card">
+        <div class="section-heading"><span class="step">02</span><div><h2>Wachstum</h2><p>Drei abgeschlossene Geschäftsjahre, in derselben Einheit</p></div></div>
+        <fieldset><legend>Umsatz <span class="info-tip" tabindex="0" data-tooltip="Umsatz der letzten drei abgeschlossenen Geschäftsjahre – Grundlage für die Wachstumsbewertung." aria-label="Info zum Umsatz">i</span></legend><div class="field-grid three-columns">
+          <div class="field"><label for="revenue1">Jahr 1</label><div class="input-wrap"><input id="revenue1" name="revenue1" inputmode="decimal" required placeholder="–"><span>Mio.</span></div></div>
+          <div class="field"><label for="revenue2">Jahr 2</label><div class="input-wrap"><input id="revenue2" name="revenue2" inputmode="decimal" required placeholder="–"><span>Mio.</span></div></div>
+          <div class="field"><label for="revenue3">Jahr 3</label><div class="input-wrap"><input id="revenue3" name="revenue3" inputmode="decimal" required placeholder="–"><span>Mio.</span></div></div>
+        </div></fieldset>
+        <fieldset><legend>Gewinn <span class="info-tip" tabindex="0" data-tooltip="Nettoergebnis der letzten drei Geschäftsjahre. Negative Werte werden konservativ bewertet." aria-label="Info zum Gewinn">i</span></legend><div class="field-grid three-columns">
+          <div class="field"><label for="profit1">Jahr 1</label><div class="input-wrap"><input id="profit1" name="profit1" inputmode="decimal" required placeholder="–"><span>Mio.</span></div></div>
+          <div class="field"><label for="profit2">Jahr 2</label><div class="input-wrap"><input id="profit2" name="profit2" inputmode="decimal" required placeholder="–"><span>Mio.</span></div></div>
+          <div class="field"><label for="profit3">Jahr 3</label><div class="input-wrap"><input id="profit3" name="profit3" inputmode="decimal" required placeholder="–"><span>Mio.</span></div></div>
+        </div></fieldset>
+      </section>
+
+      <section class="form-card">
+        <div class="section-heading"><span class="step">03</span><div><h2>Stabilität & Profitabilität</h2><p>Bilanzstärke und aktuelles Ergebnis</p></div></div>
+        <div class="field-grid two-columns">
+          <div class="field"><label for="totalDebt">Gesamtschulden <span class="info-tip" tabindex="0" data-tooltip="Alle zinstragenden und bilanzierten Schulden des Unternehmens." aria-label="Info zu Gesamtschulden">i</span></label><div class="input-wrap"><input id="totalDebt" name="totalDebt" inputmode="decimal" required placeholder="–"><span>Mio.</span></div></div>
+          <div class="field"><label for="totalAssets">Gesamtvermögen <span class="info-tip" tabindex="0" data-tooltip="Summe aller Vermögenswerte. Mit den Schulden ergibt sich daraus die Schuldenquote." aria-label="Info zum Gesamtvermögen">i</span></label><div class="input-wrap"><input id="totalAssets" name="totalAssets" inputmode="decimal" required placeholder="–"><span>Mio.</span></div></div>
+          <div class="field"><label for="currentRevenue">Aktueller Umsatz <span class="info-tip" tabindex="0" data-tooltip="Umsatz des letzten Geschäftsjahres oder der letzten zwölf Monate." aria-label="Info zum aktuellen Umsatz">i</span></label><div class="input-wrap"><input id="currentRevenue" name="currentRevenue" inputmode="decimal" required placeholder="–"><span>Mio.</span></div></div>
+          <div class="field"><label for="currentProfit">Aktueller Gewinn <span class="info-tip" tabindex="0" data-tooltip="Aktuelles Nettoergebnis. Im Verhältnis zum Umsatz entsteht die Nettomarge." aria-label="Info zum aktuellen Gewinn">i</span></label><div class="input-wrap"><input id="currentProfit" name="currentProfit" inputmode="decimal" required placeholder="–"><span>Mio.</span></div></div>
+        </div>
+      </section>
+
+      <section class="form-card">
+        <div class="section-heading"><span class="step">04</span><div><h2>Bewertung</h2><p>Kurs-Gewinn-Verhältnis</p></div></div>
+        <div class="field-grid single-column">
+          <div class="field"><label for="peRatio">KGV <span class="info-tip" tabindex="0" data-tooltip="Kurs-Gewinn-Verhältnis: Aktienkurs im Verhältnis zum Gewinn je Aktie." aria-label="Info zum KGV">i</span></label><div class="input-wrap"><input id="peRatio" name="peRatio" inputmode="decimal" required placeholder="–"><span>x</span></div></div>
+        </div>
+      </section>
+
+      <section class="form-card">
+        <div class="section-heading"><span class="step">05</span><div><h2>Unternehmensqualität</h2><p>ROE oder ROIC</p></div></div>
+        <div class="quality-field quality-field-wide">
+          <div class="metric-toggle" role="group" aria-label="Qualitätskennzahl"><button type="button" class="toggle-button active" data-metric="ROE" aria-pressed="true">ROE</button><button type="button" class="toggle-button" data-metric="ROIC" aria-pressed="false">ROIC</button></div>
+          <div class="field"><label id="quality-label" for="qualityMetric"><span id="quality-label-text">ROE</span> <span class="info-tip" tabindex="0" data-tooltip="ROE misst die Eigenkapitalrendite. ROIC misst die Rendite des eingesetzten Kapitals." aria-label="Info zu ROE oder ROIC">i</span></label><div class="input-wrap"><input id="qualityMetric" name="qualityMetric" inputmode="decimal" required placeholder="–"><span>%</span></div></div>
+        </div>
+        <p class="field-note">Nutze ROIC, wenn ROE wegen negativem Eigenkapital verzerrt oder nicht sinnvoll ist.</p>
+      </section>
+
+      <div class="form-actions"><button class="primary-button" type="submit">PointerScore berechnen <span>→</span></button></div>
+    </form>
+
+    <aside class="result-column" aria-live="polite">
+      <section id="result-loading" class="result-card result-loading" hidden aria-live="assertive">
+        <div class="calculation-spinner" aria-hidden="true"></div>
+        <h2>Score wird berechnet</h2>
+        <p>Die fünf Bewertungsbereiche werden ausgewertet.</p>
+        <div class="loading-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      </section>
+      <section id="result-empty" class="result-card result-empty">
+        <div class="empty-score">—</div><h2>Dein Ergebnis erscheint hier</h2>
+        <p>Fülle alle Felder aus, um den Gesamtscore und die fünf Teilbewertungen zu sehen.</p>
+        <div class="category-preview"><span>Zukunftspotenzial <b>25</b></span><span>Wachstum <b>25</b></span><span>Finanzielle Stabilität <b>20</b></span><span>Bewertung <b>10</b></span><span>Unternehmensqualität <b>20</b></span></div>
+      </section>
+      <section id="result-content" class="result-card" hidden>
+        <div class="result-topline"><span>PointerScore Ergebnis</span><span>V1.2</span></div><h2 class="overall-title">Gesamtscore</h2><p id="result-company" class="result-company"></p>
+        <div class="score-ring" id="score-ring"><div><strong id="total-score">0</strong><span>/ 100</span></div></div>
+        <div id="signal-badge" class="signal-badge"></div><p id="signal-copy" class="signal-copy"></p>
+        <div id="category-results" class="category-results"></div><section class="analysis-card" aria-labelledby="analysis-title"><h3 id="analysis-title">Automatische Analyse</h3><div class="analysis-columns"><div><h4 class="strength-title">Stärken</h4><ul id="analysis-strengths"></ul></div><div><h4 class="potential-title">Verbesserungspotenzial</h4><ul id="analysis-potential"></ul></div></div></section>
+        <div class="metrics-card"><h3>Berechnete Kennzahlen</h3><dl id="calculated-metrics"></dl></div><div class="save-analysis-row"><button type="button" class="primary-button" id="save-button">Analyse speichern</button><span id="save-note" role="status"></span></div><div class="export-actions"><button type="button" class="export-button" id="pdf-button"><span aria-hidden="true">↓</span> Analyse als PDF herunterladen</button><button type="button" class="export-button" id="print-button"><span aria-hidden="true">⌁</span> Analyse drucken</button></div><p id="export-note" class="export-note" role="status" hidden></p>
+      </section>
+    </aside>
+  </div>
+
+  <section class="disclaimer" id="faq-note"><span>i</span><p><strong>Keine Anlageberatung.</strong> PointerScore dient ausschließlich Bildungs- und Informationszwecken. Der Score ersetzt weder eigene Recherche noch eine persönliche Beratung.</p></section>
+</main>
+<footer><span>PointerScore 100</span><span>Investieren nach System, nicht nach Gefühl.</span></footer>
+<script src="../runtime-config.js"></script><script type="module" src="./app.js"></script>
+</body></html>

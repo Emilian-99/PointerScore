@@ -37,6 +37,10 @@ async function findFile(urlPath) {
     try {
       const info = await stat(candidate);
       if (info.isFile()) return candidate;
+      if (info.isDirectory()) {
+        const indexFile = path.join(candidate, "index.html");
+        if ((await stat(indexFile)).isFile()) return indexFile;
+      }
     } catch {}
   }
   return null;

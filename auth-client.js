@@ -35,7 +35,7 @@ export async function requireUser() {
   const user = await getVerifiedUser();
   if (user) return user;
 
-  const authUrl = new URL("auth.html", window.location.href);
+  const authUrl = new URL("/auth.html", window.location.origin);
   authUrl.searchParams.set("redirect", window.location.pathname + window.location.search);
   window.location.replace(authUrl.href);
   return null;
