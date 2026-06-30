@@ -8,6 +8,8 @@ translations["Die wichtigsten Unternehmensbereiche zeigen insgesamt ein überzeu
 translations["Beispielunternehmen"] = "Example company";
 translations["Gesamtscore"] = "Total score";
 translations["Gesamtscore 82 von 100"] = "Total score 82 out of 100";
+translations["Angaben gemäß § 5 DDG"] = "Information pursuant to Section 5 DDG";
+translations["Verantwortlich für den Inhalt"] = "Responsible for content";
 const originalDocumentTitle = document.title;
 
 Object.assign(translations, {
