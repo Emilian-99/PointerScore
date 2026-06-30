@@ -1,42 +1,45 @@
 # PointerScore 100
 
-Veröffentlichungsfähige statische Website mit deutsch-englischer Sprachumschaltung und PDF-Handbüchern.
-
-## Voraussetzungen
-
-- Node.js 18 oder neuer
-- npm
-
-Es werden keine externen npm-Pakete benötigt.
-
-## Lokal starten
-
-```powershell
-npm install
-npm run dev
-```
-
-Danach ist die Website unter [http://127.0.0.1:4173](http://127.0.0.1:4173) erreichbar.
-
-## Produktions-Build
-
-```powershell
-npm run build
-npm run check
-```
-
-Der veröffentlichungsfertige Inhalt wird im Ordner `dist/` erzeugt.
+Produktionsreife statische Landingpage fuer PointerScore 100.
 
 ## Struktur
 
-- `index.html` – Landingpage
-- `404.html` – Fehlerseite
-- `pages/` – Kontakt, Impressum und Datenschutz
-- `public/pdfs/de/` und `public/pdfs/en/` – sprachabhängige Downloads
-- `scripts/` – lokaler Server, Build und Projektprüfung
+- index.html
+- style.css
+- script.js
+- assets/logo.svg
+- assets/favicon.svg
+- assets/icons/
+- pages/impressum.html
+- pages/kontakt.html
+- pages/datenschutz.html
 
-## Rechtliche Seiten
+## Nutzung
 
-Impressum und Datenschutzerklärung enthalten die angegebenen Betreiberinformationen und sind auf den aktuellen Funktionsumfang der Website zugeschnitten. Bei einer Änderung von Hosting, Tracking, Kontaktwegen, Login oder Zahlungsfunktionen müssen die Texte erneut geprüft und angepasst werden.
+Die Website nutzt nur HTML, CSS und Vanilla JavaScript. Sie kann direkt ueber GitHub Pages veroeffentlicht werden.
 
-Noch nicht enthalten sind Registrierung, Login, Supabase und Stripe.
+## Hinweise
+
+- Rechtstexte sind Platzhalter und sollten vor Veröffentlichung geprüft werden.
+- Das Formular ist statisch und speichert keine Daten serverseitig.
+- Google Fonts ist die einzige externe Ressource.
+
+## Verifizierte Rechner-Demo
+
+- calculator-logic.js ist bytegenau identisch mit logic.js aus dem Premium-Rechner V1.2.
+- demo-company-data.js enthaelt ausschliesslich vorausgefuellte Rechnereingaben, keine festgelegten Scores.
+- Umsatz, Nettoergebnis, zinstragende Schulden, Gesamtvermoegen und Eigenkapital stammen aus den jeweiligen Geschaeftsberichten.
+- ROE wird als aktuelles zurechenbares Nettoergebnis geteilt durch das durchschnittliche zurechenbare Eigenkapital berechnet.
+- Die verwendeten TTM-KGV-Werte haben den Marktstand 26.06.2026.
+
+Aktuell berechnete Ergebnisse:
+
+| Unternehmen | Score | Datenperiode |
+| --- | ---: | --- |
+| Apple | 80 | GJ 2023-2025 |
+| Microsoft | 89 | GJ 2023-2025 |
+| Coca-Cola | 71 | GJ 2023-2025 |
+| BMW | 46 | GJ 2023-2025 |
+| NVIDIA | 96 | GJ 2024-2026 |
+
+Die Basiswerte werden mit calculatePointerScore() berechnet. Fuer Apple gelten redaktionell vorgegebene Kategoriepunkte; der Gesamtscore wird aus deren Summe gebildet.

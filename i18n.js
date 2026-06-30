@@ -8,32 +8,192 @@ translations["Die wichtigsten Unternehmensbereiche zeigen insgesamt ein überzeu
 translations["Beispielunternehmen"] = "Example company";
 translations["Gesamtscore"] = "Total score";
 translations["Gesamtscore 82 von 100"] = "Total score 82 out of 100";
-
-Object.assign(translations, {"PointerScore Rechner | Unternehmen strukturiert bewerten":"PointerScore Calculator | Structured company evaluation","Seite nicht gefunden | PointerScore 100":"Page not found | PointerScore 100","Rechner testen":"Try calculator","Login":"Login","Registrieren":"Register","Demnächst verfügbar":"Coming soon","Jetzt kostenlos testen":"Try it for free","Kann ich den Rechner ohne Konto testen?":"Can I try the calculator without an account?","Ja. Die aktuelle Vorschau ist frei zugänglich und funktioniert ohne Registrierung. Login und Bezahlung werden erst in einer späteren Version ergänzt.":"Yes. The current preview is freely accessible and works without registration. Login and payment will be added in a later version.","Kostenlose Vorschau":"Free preview","Unternehmen mit System bewerten.":"Evaluate companies systematically.","Trage einige zentrale Kennzahlen ein. Der Rechner ordnet sie transparent in fünf Kategorien ein und erstellt live einen Gesamtscore von 0 bis 100.":"Enter a few key metrics. The calculator transparently classifies them into five categories and creates a live total score from 0 to 100.","Ohne Login testbar":"Test without login","Eingaben":"Inputs","Unternehmensdaten":"Company data","Beispielwerte zurücksetzen":"Reset example values","Unternehmen":"Company","Branche und Marktposition":"Industry and market position","Begrenzt":"Limited","Unterdurchschnittlich":"Below average","Solide":"Solid","Stark":"Strong","Außergewöhnlich":"Exceptional","Umsatzwachstum (3J)":"Revenue growth (3Y)","Gewinnwachstum (3J)":"Earnings growth (3Y)","Schuldenquote":"Debt ratio","Nettomarge":"Net margin","Kurs-Gewinn-Verhältnis (KGV)":"Price-to-earnings ratio (P/E)","ROIC":"ROIC","Wird berechnet":"Calculating","Ändere die Werte, um die Bewertung live zu aktualisieren.":"Change the values to update the evaluation live.","Stärken":"Strengths","Schwächen":"Weaknesses","Keine Anlageberatung. Die Vorschau dient ausschließlich Bildungs- und Testzwecken.":"Not investment advice. This preview is provided solely for educational and testing purposes.","Seite nicht gefunden":"Page not found","Hier gibt es leider keinen Score.":"Unfortunately, there is no score here.","Die gewünschte Seite wurde verschoben, gelöscht oder die Adresse ist nicht korrekt.":"The requested page has been moved, deleted or the address is incorrect.","Zur Startseite":"Go to homepage","Wie können wir helfen?":"How can we help?","Fragen zu PointerScore 100, dem Rechner oder einer möglichen Zusammenarbeit beantworten wir gerne per E-Mail.":"We are happy to answer questions about PointerScore 100, the calculator or a potential collaboration by email.","Vor Veröffentlichung ergänzen":"Complete before publishing","Die markierten Angaben sind bewusst als Platzhalter vorbereitet.":"The marked information has deliberately been prepared as placeholders.","Anbieter":"Provider","[Vollständiger Name oder Unternehmen]":"[Full name or company]","[Straße und Hausnummer]":"[Street and house number]","[PLZ, Ort und Land]":"[Postal code, city and country]","Weitere Angaben, falls zutreffend":"Additional information, if applicable","[Rechtsform, vertretungsberechtigte Person, Register und Registernummer ergänzen]":"[Add legal form, authorized representative, register and registration number]","[Umsatzsteuer-ID ergänzen]":"[Add VAT ID]","Verantwortlich für Inhalte":"Responsible for content","[Name und vollständige Anschrift ergänzen]":"[Add name and full address]","Diese Vorlage ersetzt keine rechtliche Prüfung. Vor der Veröffentlichung müssen alle Platzhalter durch zutreffende Angaben ersetzt werden.":"This template does not replace a legal review. All placeholders must be replaced with accurate information before publication.","Vor Veröffentlichung prüfen":"Review before publishing","Diese einfache Vorlage muss an den tatsächlichen Hosting- und Funktionsumfang angepasst werden.":"This simple template must be adapted to the actual hosting setup and functionality.","Verantwortliche Stelle":"Controller","[Vollständige Anschrift]":"[Full address]","Hosting und technische Zugriffsdaten":"Hosting and technical access data","Beim Aufruf der Website kann der Hosting-Anbieter technisch erforderliche Zugriffsdaten wie IP-Adresse, Zeitpunkt, aufgerufene Datei, Browsertyp und Betriebssystem in Server-Protokollen verarbeiten.":"When the website is accessed, the hosting provider may process technically required access data such as IP address, time, requested file, browser type and operating system in server logs.","[Hosting-Anbieter, Anschrift, Speicherfrist und Rechtsgrundlage ergänzen]":"[Add hosting provider, address, retention period and legal basis]","Lokale Spracheinstellung":"Local language preference","Die gewählte Sprache wird ausschließlich im lokalen Speicher des Browsers gespeichert. Die Einstellung wird nicht an PointerScore übertragen und kann durch Löschen der Browserdaten entfernt werden.":"The selected language is stored only in the browser's local storage. The preference is not transmitted to PointerScore and can be removed by clearing browser data.","Bei einer Kontaktaufnahme per E-Mail werden die übermittelten Angaben zur Bearbeitung der Anfrage verarbeitet. [Speicherdauer und Rechtsgrundlage ergänzen]":"When you contact us by email, the submitted information is processed to handle your request. [Add retention period and legal basis]","Externe Schriftarten":"External fonts","Diese Website lädt derzeit Schriftarten von Google Fonts. Dabei kann eine Verbindung zu Servern des Anbieters aufgebaut werden. Vor Veröffentlichung sollte entschieden werden, ob die Schriftarten lokal bereitgestellt werden.":"This website currently loads fonts from Google Fonts. This may establish a connection to the provider's servers. Before publication, decide whether to host the fonts locally.","Rechte betroffener Personen":"Data subject rights","[Informationen zu Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerspruch und Beschwerderecht ergänzen]":"[Add information on access, rectification, deletion, restriction, portability, objection and the right to lodge a complaint]","Diese Vorlage ersetzt keine individuelle Datenschutz- oder Rechtsberatung.":"This template does not replace individual privacy or legal advice.","Keine Anlageberatung. PointerScore dient ausschließlich Bildungs- und Informationszwecken.":"Not investment advice. PointerScore is provided solely for educational and informational purposes."});
-translations["Hauptnavigation"] = "Main navigation";
-translations["PointerScore 100 Startseite"] = "PointerScore 100 homepage";
-translations["Navigation öffnen"] = "Open navigation";
-translations["Navigation schließen"] = "Close navigation";
-translations["Inhalte des Handbuchs"] = "Handbook contents";
-translations["Vorschau des PointerScore Handbuchs"] = "PointerScore handbook preview";
-translations["PointerScore Handbuch als PDF herunterladen"] = "Download the PointerScore handbook as a PDF";
-translations["Titelseite des kostenlosen PointerScore 100 Handbuchs"] = "Cover of the free PointerScore 100 handbook";
-translations["PointerScore Rechner"] = "PointerScore Calculator";
-translations["Kontakt | PointerScore 100"] = "Contact | PointerScore 100";
-translations["Impressum | PointerScore 100"] = "Legal notice | PointerScore 100";
-translations["Datenschutz | PointerScore 100"] = "Privacy | PointerScore 100";
-Object.assign(translations, {"Datenschutzerklärung":"Privacy Policy","Angaben gemäß § 5 DDG":"Information pursuant to Section 5 DDG","Verantwortlich für den Inhalt":"Responsible for content","Verantwortlich für journalistisch-redaktionelle Inhalte gemäß § 18 Abs. 2 MStV:":"Responsible for journalistic and editorial content pursuant to Section 18(2) MStV:","Verbraucherstreitbeilegung":"Consumer dispute resolution","Ich bin nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.":"I am neither willing nor obliged to participate in dispute resolution proceedings before a consumer arbitration board.","Haftung für Inhalte":"Liability for content","Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden. Gesetzliche Verpflichtungen zur Entfernung oder Sperrung von Informationen bleiben unberührt.":"The content of this website has been prepared with the greatest possible care. However, no guarantee can be given for its accuracy, completeness or timeliness. Statutory obligations to remove or block information remain unaffected.","Haftung für Links":"Liability for links","Diese Website kann Links zu externen Websites Dritter enthalten, auf deren Inhalte kein Einfluss besteht. Für diese fremden Inhalte ist stets der jeweilige Anbieter oder Betreiber verantwortlich. Bei Bekanntwerden von Rechtsverletzungen werden entsprechende Links entfernt.":"This website may contain links to external third-party websites whose content is beyond our control. The respective provider or operator is always responsible for such third-party content. Links will be removed if legal violations become known.","Urheberrecht":"Copyright","Die auf dieser Website erstellten Inhalte und Werke unterliegen dem deutschen Urheberrecht. Jede Verwertung außerhalb der gesetzlich zulässigen Grenzen bedarf der vorherigen schriftlichen Zustimmung des jeweiligen Rechteinhabers.":"The content and works created for this website are subject to German copyright law. Any use beyond the limits permitted by law requires the prior written consent of the respective rights holder.","Hinweis zu Finanzinformationen":"Financial information notice","PointerScore dient ausschließlich Bildungs- und Informationszwecken. Die Inhalte und Berechnungsergebnisse stellen keine Anlageberatung, keine Finanzanalyse und keine Aufforderung zum Kauf oder Verkauf von Finanzinstrumenten dar. Investitionen sind mit Risiken bis hin zum vollständigen Verlust des eingesetzten Kapitals verbunden.":"PointerScore is provided solely for educational and informational purposes. Its content and calculation results do not constitute investment advice, financial analysis or an invitation to buy or sell financial instruments. Investments involve risks up to and including the complete loss of the invested capital.","Stand: 28. Juni 2026":"Last updated: June 28, 2026","1. Verantwortlicher":"1. Controller","Verantwortlicher im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:":"The controller within the meaning of the General Data Protection Regulation (GDPR) is:","2. Allgemeine Hinweise zur Datenverarbeitung":"2. General information on data processing","Personenbezogene Daten werden nur verarbeitet, soweit dies zur Bereitstellung dieser Website, zur Gewährleistung ihrer Sicherheit oder zur Bearbeitung von Anfragen erforderlich ist. Eine Weitergabe erfolgt nur, wenn sie für diese Zwecke erforderlich ist, eine gesetzliche Pflicht besteht oder eine Einwilligung vorliegt.":"Personal data is processed only to the extent necessary to provide this website, ensure its security or respond to enquiries. Data is disclosed only when required for these purposes, when there is a legal obligation or when consent has been given.","Als Rechtsgrundlagen kommen insbesondere Art. 6 Abs. 1 lit. b DSGVO für vorvertragliche Kommunikation, Art. 6 Abs. 1 lit. c DSGVO für rechtliche Verpflichtungen und Art. 6 Abs. 1 lit. f DSGVO für berechtigte Interessen an einem sicheren und funktionsfähigen Webangebot in Betracht.":"The relevant legal bases include Article 6(1)(b) GDPR for pre-contractual communication, Article 6(1)(c) GDPR for legal obligations and Article 6(1)(f) GDPR for legitimate interests in a secure and functional website.","3. Hosting über GitHub Pages":"3. Hosting via GitHub Pages","Diese Website wird über GitHub Pages bereitgestellt. Anbieter für Nutzer im Europäischen Wirtschaftsraum ist GitHub B.V., Prins Bernhardplein 200, 1097 JB Amsterdam, Niederlande. Mutterunternehmen ist GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.":"This website is provided via GitHub Pages. The provider for users in the European Economic Area is GitHub B.V., Prins Bernhardplein 200, 1097 JB Amsterdam, Netherlands. Its parent company is GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.","Beim Aufruf der Website verarbeitet GitHub technisch erforderliche Zugriffsdaten. Dazu können insbesondere IP-Adresse, Datum und Uhrzeit des Zugriffs, aufgerufene Seite oder Datei, Referrer-URL, Browsertyp, Betriebssystem und weitere Verbindungsdaten gehören. GitHub weist ausdrücklich darauf hin, dass die IP-Adresse von Besuchern einer GitHub-Pages-Website zu Sicherheitszwecken protokolliert und gespeichert wird.":"When the website is accessed, GitHub processes technically required access data. This may include the IP address, date and time of access, requested page or file, referrer URL, browser type, operating system and other connection data. GitHub expressly states that the IP addresses of visitors to a GitHub Pages website are logged and stored for security purposes.","Die Verarbeitung erfolgt zur sicheren, stabilen und technisch fehlerfreien Bereitstellung der Website auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt in der sicheren und zuverlässigen Veröffentlichung des Webangebots. Auf die konkrete Speicherdauer bei GitHub besteht kein unmittelbarer Einfluss.":"Processing is carried out to provide the website securely, reliably and without technical errors on the basis of Article 6(1)(f) GDPR. The legitimate interest is the secure and reliable publication of the website. There is no direct control over the specific retention period used by GitHub.","GitHub kann Daten auch in den USA und anderen Ländern verarbeiten. GitHub nennt für internationale Übermittlungen insbesondere die Standardvertragsklauseln der Europäischen Kommission als Schutzmechanismus. Weitere Informationen enthält die":"GitHub may also process data in the United States and other countries. GitHub identifies the European Commission's Standard Contractual Clauses in particular as a safeguard for international transfers. Further information is available in the","Datenschutzerklärung von GitHub":"GitHub Privacy Statement","4. Verschlüsselte Übertragung":"4. Encrypted transmission","Die Website wird über eine verschlüsselte HTTPS-Verbindung ausgeliefert. Dadurch werden Daten, die zwischen Browser und Website übertragen werden, vor dem unbefugten Mitlesen durch Dritte geschützt.":"The website is delivered over an encrypted HTTPS connection. This protects data transmitted between the browser and the website against unauthorized interception by third parties.","5. Spracheinstellung im Browser":"5. Language preference in the browser","Die gewählte Sprache wird unter dem Schlüssel „pointerscore-language“ im lokalen Speicher des Browsers gespeichert. Gespeichert wird ausschließlich die Auswahl „de“ oder „en“. Die Einstellung verbleibt auf dem verwendeten Gerät, wird nicht an PointerScore übertragen und kann durch Löschen der Website-Daten im Browser entfernt werden.":"The selected language is stored under the key “pointerscore-language” in the browser's local storage. Only the selection “de” or “en” is stored. The preference remains on the device, is not transmitted to PointerScore and can be removed by deleting the website data in the browser.","Die Speicherung dient dazu, die ausdrücklich gewählte Sprache bei späteren Besuchen beizubehalten. Sie ist für die vom Nutzer gewünschte Sprachfunktion erforderlich. Rechtsgrundlage für den Zugriff auf den lokalen Speicher ist § 25 Abs. 2 Nr. 2 TDDDG; soweit ein Personenbezug besteht, erfolgt die Verarbeitung zudem auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO.":"The storage is used to retain the expressly selected language for future visits. It is necessary for the language feature requested by the user. The legal basis for accessing local storage is Section 25(2) No. 2 TDDDG; where personal data is involved, processing is also based on Article 6(1)(f) GDPR.","6. PointerScore-Rechner":"6. PointerScore Calculator","Die in den frei testbaren Rechner eingegebenen Unternehmensdaten und Kennzahlen werden ausschließlich im Browser verarbeitet. Sie werden weder an PointerScore noch an einen externen Server übertragen und nicht dauerhaft gespeichert. Beim Neuladen oder Schließen der Seite gehen die Eingaben verloren.":"The company data and metrics entered into the freely accessible calculator are processed exclusively in the browser. They are neither transmitted to PointerScore nor to an external server and are not stored permanently. The inputs are lost when the page is reloaded or closed.","7. PDF-Downloads":"7. PDF downloads","Die angebotenen Handbücher werden direkt von derselben Website geladen. Dabei entstehen keine zusätzlichen Verarbeitungsvorgänge über die beim allgemeinen Websiteaufruf beschriebenen Server-Zugriffsdaten hinaus.":"The handbooks are downloaded directly from the same website. This does not involve any additional processing beyond the server access data described for general website visits.","8. Kontaktaufnahme per E-Mail":"8. Contact by email","Bei einer Kontaktaufnahme per E-Mail werden die mitgeteilten Daten, insbesondere E-Mail-Adresse, Name, Nachrichteninhalt und technische Begleitdaten, zur Bearbeitung und Beantwortung der Anfrage verarbeitet.":"When you contact us by email, the information provided, in particular your email address, name, message content and accompanying technical data, is processed to handle and respond to the enquiry.","Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO, soweit die Anfrage auf den Abschluss oder die Durchführung eines Vertrags gerichtet ist. In anderen Fällen erfolgt die Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt in der sachgerechten Bearbeitung der Anfrage.":"The legal basis is Article 6(1)(b) GDPR where the enquiry relates to entering into or performing a contract. In other cases, processing is based on Article 6(1)(f) GDPR. The legitimate interest is the appropriate handling of the enquiry.","Für die E-Mail-Kommunikation wird Outlook von Microsoft genutzt. Anbieter im Europäischen Wirtschaftsraum ist Microsoft Ireland Operations Limited, One Microsoft Place, South County Business Park, Leopardstown, Dublin 18, Irland. Microsoft kann Daten auch in den USA und weiteren Ländern verarbeiten. Weitere Informationen enthält die":"Microsoft Outlook is used for email communication. The provider in the European Economic Area is Microsoft Ireland Operations Limited, One Microsoft Place, South County Business Park, Leopardstown, Dublin 18, Ireland. Microsoft may also process data in the United States and other countries. Further information is available in the","Datenschutzerklärung von Microsoft":"Microsoft Privacy Statement","Die Daten werden gelöscht, sobald die Anfrage abschließend bearbeitet ist und keine gesetzlichen Aufbewahrungspflichten oder berechtigten Interessen an einer weiteren Speicherung entgegenstehen.":"The data will be deleted once the enquiry has been fully resolved, unless statutory retention obligations or legitimate interests require further storage.","9. Cookies, Analyse und externe Schriftarten":"9. Cookies, analytics and external fonts","Diese Website setzt keine Cookies ein und verwendet keine Analyse-, Tracking- oder Werbedienste. Schriftarten werden nicht von externen Schriftanbietern geladen. Es findet keine automatische Profilbildung und keine personalisierte Werbung statt.":"This website does not use cookies, analytics, tracking or advertising services. Fonts are not loaded from external font providers. No automated profiling or personalized advertising takes place.","10. Empfänger und Auftragsverarbeitung":"10. Recipients and processing on behalf","Empfänger personenbezogener Daten können die genannten technischen Dienstleister GitHub und Microsoft sein, soweit dies für Hosting oder E-Mail-Kommunikation erforderlich ist. Darüber hinaus werden Daten nur weitergegeben, wenn eine gesetzliche Verpflichtung besteht oder dies zur Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen erforderlich ist.":"Recipients of personal data may include the technical service providers GitHub and Microsoft where necessary for hosting or email communication. Data is otherwise disclosed only where required by law or necessary to establish, exercise or defend legal claims.","11. Datenübermittlung in Drittländer":"11. International data transfers","Bei der Nutzung von GitHub und Microsoft kann eine Verarbeitung in Staaten außerhalb der Europäischen Union oder des Europäischen Wirtschaftsraums, insbesondere in den USA, nicht ausgeschlossen werden. Soweit kein Angemessenheitsbeschluss greift, stützen die Anbieter Übermittlungen nach eigenen Angaben insbesondere auf die Standardvertragsklauseln der Europäischen Kommission und zusätzliche Schutzmaßnahmen.":"When GitHub and Microsoft are used, processing in countries outside the European Union or European Economic Area, particularly the United States, cannot be ruled out. Where no adequacy decision applies, the providers state that transfers are based in particular on the European Commission's Standard Contractual Clauses and additional safeguards.","12. Speicherdauer":"12. Retention period","Personenbezogene Daten werden nur so lange gespeichert, wie es für den jeweiligen Zweck erforderlich ist. Anschließend werden sie gelöscht, sofern keine gesetzlichen Aufbewahrungspflichten, Beweissicherungsinteressen oder sonstigen zulässigen Gründe für eine weitere Speicherung bestehen. Für Daten, die eigenständig durch GitHub oder Microsoft verarbeitet werden, gelten ergänzend deren Speicherfristen.":"Personal data is retained only for as long as necessary for the relevant purpose. It is then deleted unless statutory retention obligations, interests in preserving evidence or other lawful reasons require continued storage. The providers' own retention periods also apply to data processed independently by GitHub or Microsoft.","13. Rechte betroffener Personen":"13. Data subject rights","Betroffene Personen haben im Rahmen der gesetzlichen Voraussetzungen insbesondere das Recht auf Auskunft nach Art. 15 DSGVO, Berichtigung nach Art. 16 DSGVO, Löschung nach Art. 17 DSGVO, Einschränkung der Verarbeitung nach Art. 18 DSGVO, Datenübertragbarkeit nach Art. 20 DSGVO und Widerspruch nach Art. 21 DSGVO.":"Subject to the statutory requirements, data subjects have in particular the right of access under Article 15 GDPR, rectification under Article 16 GDPR, erasure under Article 17 GDPR, restriction of processing under Article 18 GDPR, data portability under Article 20 GDPR and objection under Article 21 GDPR.","Eine erteilte Einwilligung kann jederzeit mit Wirkung für die Zukunft widerrufen werden. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Verarbeitung bleibt unberührt. Zur Ausübung der Rechte genügt eine Nachricht an":"Consent may be withdrawn at any time with effect for the future. The lawfulness of processing carried out before withdrawal remains unaffected. To exercise your rights, simply send a message to","14. Widerspruch gegen Verarbeitung auf Grundlage berechtigter Interessen":"14. Objection to processing based on legitimate interests","Werden personenbezogene Daten auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO verarbeitet, besteht nach Art. 21 DSGVO das Recht, aus Gründen, die sich aus der besonderen Situation der betroffenen Person ergeben, jederzeit Widerspruch gegen die Verarbeitung einzulegen.":"Where personal data is processed on the basis of Article 6(1)(f) GDPR, Article 21 GDPR provides the right to object to processing at any time on grounds relating to the data subject's particular situation.","15. Beschwerderecht":"15. Right to lodge a complaint","Betroffene Personen haben nach Art. 77 DSGVO das Recht, sich bei einer Datenschutzaufsichtsbehörde zu beschweren. Die für den Sitz des Verantwortlichen zuständige Behörde ist:":"Under Article 77 GDPR, data subjects have the right to lodge a complaint with a data protection supervisory authority. The authority responsible for the controller's registered location is:","Der Landesbeauftragte für den Datenschutz Niedersachsen":"The State Commissioner for Data Protection of Lower Saxony","16. Automatisierte Entscheidungen":"16. Automated decision-making","Es findet keine automatisierte Entscheidungsfindung im Sinne von Art. 22 DSGVO statt. Der PointerScore-Rechner liefert ausschließlich ein regelbasiertes, informatives Ergebnis und trifft keine Entscheidung mit rechtlicher oder vergleichbar erheblicher Wirkung.":"No automated decision-making within the meaning of Article 22 GDPR takes place. The PointerScore Calculator provides only a rule-based, informational result and does not make any decision producing legal or similarly significant effects.","17. Aktualisierung dieser Datenschutzerklärung":"17. Updates to this Privacy Policy","Diese Datenschutzerklärung wird angepasst, wenn sich Funktionen, eingesetzte Dienstleister oder rechtliche Anforderungen ändern.":"This Privacy Policy will be updated if the website's features, service providers or legal requirements change."});
-translations["6. PDF-Downloads"] = "6. PDF downloads";
-translations["7. Kontaktaufnahme per E-Mail"] = "7. Contact by email";
-translations["8. Cookies, Analyse und externe Schriftarten"] = "8. Cookies, analytics and external fonts";
-translations["9. Empfänger und Auftragsverarbeitung"] = "9. Recipients and processing on behalf";
-translations["10. Datenübermittlung in Drittländer"] = "10. International data transfers";
-translations["11. Speicherdauer"] = "11. Retention period";
-translations["12. Rechte betroffener Personen"] = "12. Data subject rights";
-translations["13. Widerspruch gegen Verarbeitung auf Grundlage berechtigter Interessen"] = "13. Objection to processing based on legitimate interests";
-translations["14. Beschwerderecht"] = "14. Right to lodge a complaint";
-translations["15. Aktualisierung dieser Datenschutzerklärung"] = "15. Updates to this Privacy Policy";
 const originalDocumentTitle = document.title;
+
+Object.assign(translations, {
+  "PointerScore 100 | Unternehmen strukturiert bewerten": "PointerScore 100 | Evaluate companies systematically",
+  "Produkt": "Product",
+  "Methode": "Method",
+  "Rechner starten": "Start calculator",
+  "Unternehmensanalyse mit System": "Company analysis with a system",
+  "Erkenne schneller, welches Unternehmen wirklich überzeugt.": "See faster which company truly stands out.",
+  "Du trägst die wichtigsten Kennzahlen ein. Der PointerScore Rechner bewertet fünf zentrale Unternehmensbereiche und berechnet daraus einen verständlichen Score von 0 bis 100.": "You enter the key metrics. The PointerScore calculator evaluates five essential business areas and calculates an easy-to-understand score from 0 to 100.",
+  "PointerScore Rechner starten": "Start PointerScore calculator",
+  "So funktioniert es": "How it works",
+  "Klare Bewertungsregeln": "Clear evaluation rules",
+  "In wenigen Minuten zum Score": "Get your score in minutes",
+  "Jederzeit kündbar": "Cancel anytime",
+  "PointerScore Analyse": "PointerScore analysis",
+  "BEISPIELANALYSE": "SAMPLE ANALYSIS",
+  "Nordlicht Systems AG": "Nordlicht Systems AG",
+  "Technologie": "Technology",
+  "Umsatzwachstum": "Revenue growth",
+  "Nettomarge": "Net margin",
+  "ROIC": "ROIC",
+  "KGV": "P/E ratio",
+  "Starkes Ergebnis": "Strong result",
+  "5 Bereiche bewertet": "5 areas evaluated",
+  "Gesamtscore": "Total score",
+  "+ Klar vergleichbar": "+ Clear comparison",
+  "Ein System": "One system",
+  "Fünf Kategorien": "Five categories",
+  "100 Punkte": "100 points",
+  "Eine klare Einordnung": "One clear assessment",
+  "Weniger Bauchgefühl. Mehr Struktur.": "Less gut feeling. More structure.",
+  "Eine gute Analyse braucht mehr als eine einzelne Kennzahl.": "A good analysis takes more than a single metric.",
+  "Wachstum allein macht noch kein starkes Unternehmen. Ein günstiges KGV ebenfalls nicht. PointerScore verbindet die entscheidenden Perspektiven zu einem nachvollziehbaren Gesamtbild.": "Growth alone does not make a strong company. Neither does a low P/E ratio. PointerScore combines the decisive perspectives into a traceable overall picture.",
+  "Kein Kennzahlen-Chaos": "No metric overload",
+  "Du folgst einem festen Ablauf und weißt jederzeit, welche Daten für die Bewertung relevant sind.": "You follow a fixed process and always know which data matters for the evaluation.",
+  "Weniger emotionale Fehler": "Fewer emotional mistakes",
+  "Feste Regeln helfen dir, Hype, Schlagzeilen und spontane Einschätzungen besser einzuordnen.": "Fixed rules help you put hype, headlines and spontaneous judgments into perspective.",
+  "Unternehmen fair vergleichen": "Compare companies fairly",
+  "Jede Analyse nutzt dieselbe Methode. Dadurch werden Stärken und Schwächen schneller sichtbar.": "Every analysis uses the same method, making strengths and weaknesses visible faster.",
+  "Das Herzstück": "The core product",
+  "Vom Geschäftsbericht zum klaren Gesamtscore.": "From annual report to a clear total score.",
+  "Der PointerScore Rechner führt dich durch die Eingabe, ordnet jede Kennzahl nach festen Regeln ein und zeigt dir sofort, wie sich das Ergebnis zusammensetzt.": "The PointerScore calculator guides you through the input, classifies each metric according to fixed rules and immediately shows how the result is composed.",
+  "Geführte Eingabe": "Guided input",
+  "Du siehst genau, welche Unternehmensdaten benötigt werden.": "You see exactly which company data is required.",
+  "Automatische Punkteberechnung": "Automatic point calculation",
+  "Der Rechner überträgt deine Eingaben in Teilpunkte und Kategorien.": "The calculator converts your inputs into sub-scores and categories.",
+  "Nachvollziehbares Ergebnis": "Traceable result",
+  "Der Gesamtscore zeigt nicht nur eine Zahl, sondern auch die Bewertung dahinter.": "The total score shows not only a number, but also the evaluation behind it.",
+  "Zugang zum Rechner ansehen": "View calculator access",
+  "POINTERSCORE ERGEBNIS": "POINTERSCORE RESULT",
+  "Beispiel": "Sample",
+  "Das Unternehmen überzeugt besonders bei Stabilität und Qualität. Beim Wachstum besteht noch Potenzial.": "The company stands out in stability and quality. Growth still has room for improvement.",
+  "So funktioniert PointerScore": "How PointerScore works",
+  "Drei Schritte. Ein belastbares Analysegerüst.": "Three steps. One reliable analysis framework.",
+  "Kennzahlen recherchieren": "Research metrics",
+  "Du übernimmst die Werte aus Geschäftsberichten, Investor-Relations-Seiten oder seriösen Finanzportalen.": "You obtain the values from annual reports, investor relations pages or reputable financial portals.",
+  "Daten in den Rechner eintragen": "Enter data into the calculator",
+  "Branche, Marktposition und Finanzkennzahlen werden strukturiert abgefragt. PointerScore lädt keine Daten automatisch aus dem Internet.": "Industry, market position and financial metrics are requested in a structured way. PointerScore does not automatically load data from the internet.",
+  "Score verstehen und vergleichen": "Understand and compare the score",
+  "Teilpunkte, Kategorien und Gesamtscore zeigen dir auf einen Blick, wo ein Unternehmen überzeugt und wo Fragen offenbleiben.": "Sub-scores, categories and the total score show at a glance where a company excels and where questions remain.",
+  "100 Punkte. Fünf Perspektiven.": "100 points. Five perspectives.",
+  "Damit aus Zahlen ein Gesamtbild wird.": "Turning numbers into an overall picture.",
+  "Jede Kategorie beantwortet eine andere wichtige Frage über das Unternehmen.": "Each category answers a different important question about the company.",
+  "25 Punkte": "25 points",
+  "20 Punkte": "20 points",
+  "10 Punkte": "10 points",
+  "Wie attraktiv sind Branche und Marktposition für die kommenden Jahre?": "How attractive are the industry and market position for the years ahead?",
+  "Wie entwickeln sich Umsatz und Gewinn über die letzten drei Geschäftsjahre?": "How have revenue and profit developed over the last three fiscal years?",
+  "Wie robust und profitabel ist das Unternehmen finanziell aufgestellt?": "How robust and profitable is the company's financial position?",
+  "Wie lässt sich die aktuelle Bewertung anhand des KGV einordnen?": "How can the current valuation be assessed using the P/E ratio?",
+  "Wie effizient setzt das Unternehmen sein Kapital zur Gewinnerzielung ein?": "How efficiently does the company use its capital to generate profits?",
+  "Für Anleger mit Anspruch": "For thoughtful investors",
+  "Für alle, die ihre Entscheidungen erklären können wollen.": "For everyone who wants to be able to explain their decisions.",
+  "PointerScore ist für dich, wenn du Unternehmen selbst verstehen, nach einem einheitlichen Maßstab bewerten und deine Einschätzung später nachvollziehen möchtest.": "PointerScore is for you if you want to understand companies yourself, evaluate them using one consistent standard and retrace your assessment later.",
+  "Einsteiger": "Beginners",
+  "Du erhältst eine verständliche Struktur, ohne dich in unzähligen Kennzahlen zu verlieren.": "You get a clear structure without getting lost in countless metrics.",
+  "Fortgeschrittene Anleger": "Experienced investors",
+  "Du bringst deine bestehende Analyse in ein konsistentes, wiederholbares System.": "You turn your existing analysis into a consistent, repeatable system.",
+  "Langfristige Investoren": "Long-term investors",
+  "Du vergleichst Unternehmen mit Blick auf Qualität, Stabilität und Zukunft.": "You compare companies with a focus on quality, stability and future potential.",
+  "Kostenlos kennenlernen": "Try it for free",
+  "Erst die Methode verstehen. Dann fundierter bewerten.": "Understand the method first. Then evaluate with greater confidence.",
+  "Das kostenlose Quick-Start-Handbuch zeigt dir in wenigen Minuten, welche Kennzahlen wichtig sind, wo du sie findest und wie PointerScore daraus eine strukturierte Bewertung macht.": "The free quick-start handbook shows you in minutes which metrics matter, where to find them and how PointerScore turns them into a structured evaluation.",
+  "Die komplette Methode kompakt erklärt": "The complete method explained concisely",
+  "Konkrete Datenquellen und Kennzahlen": "Specific data sources and metrics",
+  "Deutsch und Englisch verfügbar": "Available in German and English",
+  "Kostenloses Handbuch herunterladen": "Download the free handbook",
+  "Mach aus deiner nächsten Aktienidee eine nachvollziehbare Analyse.": "Turn your next stock idea into a traceable analysis.",
+  "Ein klarer Prozess, ein einheitlicher Maßstab und ein Ergebnis, das du auch Wochen später noch verstehen kannst.": "A clear process, a consistent standard and a result you can still understand weeks later.",
+  "maximale Punkte": "maximum points",
+  "Bewertungsbereiche": "evaluation areas",
+  "Sprachen": "languages",
+  "PointerScore Zugang": "PointerScore access",
+  "Dein System für strukturierte Unternehmensbewertungen": "Your system for structured company evaluations",
+  "pro Monat": "per month",
+  "Vollständiger PointerScore Rechner": "Full PointerScore calculator",
+  "Automatische Punkte- und Scoreberechnung": "Automatic point and score calculation",
+  "Alle fünf Bewertungsbereiche": "All five evaluation areas",
+  "Quick-Start-Handbuch inklusive": "Quick-start handbook included",
+  "Deutsch und Englisch": "German and English",
+  "Jetzt Zugang erhalten": "Get access now",
+  "Monatlich kündbar. Keine langfristige Bindung.": "Cancel monthly. No long-term commitment.",
+  "Keine Anlageberatung. PointerScore dient ausschließlich Bildungs- und Informationszwecken.": "No investment advice. PointerScore is for educational and informational purposes only.",
+  "Noch Fragen?": "Any questions?",
+  "Klarheit vor dem Start.": "Clarity before you start.",
+  "Die wichtigsten Antworten zum Rechner und zur Methode.": "The most important answers about the calculator and the method.",
+  "Was genau macht der PointerScore Rechner?": "What exactly does the PointerScore calculator do?",
+  "Du trägst die gefragten Unternehmensdaten selbst ein. Der Rechner bewertet sie nach festen Regeln, berechnet die Teilpunkte und führt sie zu einem Gesamtscore von maximal 100 Punkten zusammen.": "You enter the requested company data yourself. The calculator evaluates it using fixed rules, calculates the sub-scores and combines them into a total score of up to 100 points.",
+  "Werden Unternehmensdaten automatisch geladen?": "Is company data loaded automatically?",
+  "Nein. In dieser Version recherchierst und übernimmst du die Kennzahlen selbst. Dadurch behältst du die Kontrolle über Quelle, Zeitraum und Qualität der Daten.": "No. In this version, you research and enter the metrics yourself. This keeps you in control of the source, period and quality of the data.",
+  "Kann ich jederzeit kündigen?": "Can I cancel anytime?",
+  "Ja. Der Zugang kostet 7,99 € pro Monat und ist jederzeit kündbar.": "Yes. Access costs €7.99 per month and can be cancelled anytime.",
+  "Ist PointerScore ein Kauf- oder Verkaufssignal?": "Is PointerScore a buy or sell signal?",
+  "Nein. PointerScore ist ein Analysewerkzeug und keine Anlageberatung. Der Score unterstützt deine eigene Recherche, ersetzt aber weder persönliche Verantwortung noch eine individuelle Beratung.": "No. PointerScore is an analysis tool, not investment advice. The score supports your own research but does not replace personal responsibility or individual advice.",
+  "Das System eignet sich besonders für börsennotierte Unternehmen mit nachvollziehbaren Finanzdaten. Bei Banken, Versicherungen, REITs und Holdings sind einzelne Kennzahlen nur eingeschränkt vergleichbar.": "The system is particularly suitable for listed companies with traceable financial data. For banks, insurers, REITs and holding companies, individual metrics may only be comparable to a limited extent.",
+  "Bereit für mehr Struktur?": "Ready for more structure?",
+  "Bewerte deine nächste Aktienidee nicht nach Gefühl.": "Do not evaluate your next stock idea by gut feeling.",
+  "Nutze einen klaren Prozess und verstehe, wie dein Gesamtscore entsteht.": "Use a clear process and understand how your total score is created."
+});
+
+Object.assign(translations, {
+  "Warum PointerScore?": "Why PointerScore?",
+  "Vergleich": "Comparison",
+  "Investieren nach System. Nicht nach Gefühl.": "Invest with a system. Not by gut feeling.",
+  "Zu viele Meinungen, Hypes und Einzelkennzahlen machen Entscheidungen unnötig schwer. PointerScore bringt deine Unternehmensanalyse in ein klares 100-Punkte-System, damit du Chancen und Schwächen nachvollziehbar einordnen kannst.": "Too many opinions, hype and isolated metrics make decisions unnecessarily difficult. PointerScore turns your company analysis into a clear 100-point system so you can assess opportunities and weaknesses transparently.",
+  "Weil gute Entscheidungen einen klaren Maßstab brauchen.": "Because good decisions need a clear standard.",
+  "PointerScore wurde entwickelt, um aus widersprüchlichen Meinungen und isolierten Zahlen eine wiederholbare, nachvollziehbare Unternehmensbewertung zu machen.": "PointerScore was created to turn conflicting opinions and isolated numbers into a repeatable, transparent company evaluation.",
+  "Struktur statt Chaos": "Structure instead of chaos",
+  "Ein fester Bewertungsrahmen ersetzt das Springen zwischen unzähligen Meinungen und Kennzahlen.": "A fixed evaluation framework replaces jumping between countless opinions and metrics.",
+  "Wiederholbare Bewertung": "Repeatable evaluation",
+  "Jedes Unternehmen wird nach derselben Methode bewertet. Heute, morgen und bei jeder neuen Analyse.": "Every company is evaluated using the same method. Today, tomorrow and with every new analysis.",
+  "Bessere Vergleichbarkeit": "Better comparability",
+  "Ein einheitlicher Score macht unterschiedliche Unternehmen klarer gegenüberstellbar.": "A consistent score makes different companies easier to compare.",
+  "Weniger Emotionen": "Fewer emotions",
+  "Feste Kriterien helfen dir, Hype, Schlagzeilen und Bauchgefühl besser zu kontrollieren.": "Fixed criteria help you better control hype, headlines and gut feeling.",
+  "Klare Einschätzung": "Clear assessment",
+  "Statt einer Zahlenflut siehst du ein verständliches Gesamtbild mit Stärken und offenen Fragen.": "Instead of a flood of numbers, you see an understandable overall picture with strengths and open questions.",
+  "Der Unterschied": "The difference",
+  "Von einer vagen Meinung zu einer nachvollziehbaren Einschätzung.": "From a vague opinion to a transparent assessment.",
+  "PointerScore nimmt dir die Entscheidung nicht ab. Es gibt dir ein besseres System, um sie vorzubereiten.": "PointerScore does not make the decision for you. It gives you a better system to prepare it.",
+  "Ohne PointerScore": "Without PointerScore",
+  "Entscheidungen bleiben schwer greifbar.": "Decisions remain difficult to grasp.",
+  "Bauchgefühl statt fester Kriterien": "Gut feeling instead of fixed criteria",
+  "Social-Media-Hype und wechselnde Meinungen": "Social media hype and changing opinions",
+  "Einzelne Kennzahlen ohne Zusammenhang": "Isolated metrics without context",
+  "Schwer vergleichbare Unternehmen": "Companies that are difficult to compare",
+  "Unklare Grundlage für die Entscheidung": "An unclear basis for the decision",
+  "Mit PointerScore": "With PointerScore",
+  "Du analysierst nach einem klaren System.": "You analyse using a clear system.",
+  "Feste, wiederholbare Methode": "A fixed, repeatable method",
+  "Ein verständliches 100-Punkte-System": "An understandable 100-point system",
+  "Fünf ausgewogene Bewertungsbereiche": "Five balanced evaluation areas",
+  "Nachvollziehbarer Gesamtscore": "A transparent total score",
+  "Unternehmen klarer vergleichen": "Compare companies more clearly",
+  "Ein Premium-Werkzeug für klare Unternehmensbewertungen.": "A premium tool for clear company evaluations.",
+  "Der Rechner macht aus deiner Recherche eine strukturierte Bewertung. Du erkennst auf einen Blick, wo ein Unternehmen überzeugt, wo Risiken liegen und wie belastbar dein Gesamteindruck ist.": "The calculator turns your research into a structured evaluation. At a glance, you can see where a company stands out, where risks lie and how robust your overall impression is.",
+  "Klarer Bewertungsprozess": "A clear evaluation process",
+  "Du folgst bei jeder Analyse einem konsistenten, professionellen Rahmen.": "You follow a consistent, professional framework with every analysis.",
+  "Einheitlicher 100-Punkte-Score": "A consistent 100-point score",
+  "Fünf Perspektiven werden zu einer verständlichen Gesamteinschätzung verbunden.": "Five perspectives are combined into an understandable overall assessment.",
+  "Stärken und offene Fragen": "Strengths and open questions",
+  "Das Ergebnis zeigt nicht nur eine Zahl, sondern macht die Bewertung dahinter sichtbar.": "The result shows more than a number; it makes the evaluation behind it visible.",
+  "Bereit für eine klarere Entscheidung?": "Ready for a clearer decision?",
+  "Bereit, deine nächste Aktienidee nicht mehr nach Gefühl zu bewerten?": "Ready to stop evaluating your next stock idea by gut feeling?",
+  "Starte mit einem festen Bewertungsrahmen und vergleiche Unternehmen nachvollziehbarer.": "Start with a fixed evaluation framework and compare companies more transparently.",
+  "7,99 € / Monat": "€7.99 / month",
+  "Monatlich kündbar": "Cancel monthly",
+  "Handbuch inklusive": "Handbook included",
+  "Deutsch & Englisch": "German & English"
+});
+Object.assign(translations, {
+  "INTERAKTIVE DEMO": "INTERACTIVE DEMO",
+  "PointerScore Rechner Demo": "PointerScore Calculator Demo",
+  "Beispielunternehmen": "Sample companies",
+  "Beispielunternehmen bewerten": "Evaluate a sample company",
+  "V1.2 Methode": "V1.2 method",
+  "Unternehmen auswählen": "Select a company",
+  "Feste Beispieldaten, keine Live-Unternehmensdaten.": "Fixed sample data, not live company data.",
+  "Ergebnis wird berechnet": "Calculating result",
+  "Die fünf Bewertungsbereiche werden nach der PointerScore-Methode zusammengeführt.": "The five evaluation areas are combined using the PointerScore method.",
+  "Stärken": "Strengths",
+  "Offene Fragen": "Open questions",
+  "Illustrative Demo auf Basis fest hinterlegter Beispieldaten. Keine Anlageberatung.": "Illustrative demo based on fixed sample data. No investment advice."
+});
+
 const originalText = new WeakMap();
 const originalAttributes = new WeakMap();
 
@@ -69,9 +229,9 @@ function applyLanguage(language) {
   document.title = translatedValue(originalDocumentTitle, language);
 
   const handbookHref = language === "de"
-    ? "/pdfs/de/PointerScore-Handbook-DE.pdf"
-    : "/pdfs/en/PointerScore-Handbook-EN.pdf";
-  document.querySelectorAll("[data-handbook-download]").forEach((link) => {
+    ? "assets/PointerScore-Handbook.pdf"
+    : "assets/PointerScore-Handbook-EN.pdf";
+  document.querySelectorAll('a[href="assets/PointerScore-Handbook.pdf"], a[href="assets/PointerScore-Handbook-EN.pdf"]').forEach((link) => {
     link.setAttribute("href", handbookHref);
     link.setAttribute("download", language === "de" ? "PointerScore-Handbook-DE.pdf" : "PointerScore-Handbook-EN.pdf");
   });
@@ -80,16 +240,7 @@ function applyLanguage(language) {
     button.classList.toggle("is-active", active);
     button.setAttribute("aria-pressed", String(active));
   });
-  const description = document.querySelector('meta[name="description"]');
-  if (description) {
-    if (!description.dataset.descriptionDe) description.dataset.descriptionDe = description.getAttribute("content") || "";
-    description.setAttribute("content", language === "en" && description.dataset.descriptionEn
-      ? description.dataset.descriptionEn
-      : description.dataset.descriptionDe);
-  }
-
   localStorage.setItem("pointerscore-language", language);
-  window.dispatchEvent(new CustomEvent("pointerscore:languagechange", { detail: { language } }));
 }
 
 function createLanguageSwitch() {
