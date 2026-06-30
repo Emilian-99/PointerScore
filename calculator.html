@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PointerScore Rechner | Geschützter Bereich</title>
+  <meta name="description" content="Der vollständige PointerScore-Rechner für angemeldete Nutzer.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#eef8ff">
+  <link rel="icon" type="image/svg+xml" href="assets/logo-new.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=9">
+</head>
+<body class="protected-page calculator-app-page is-auth-loading">
+  <div class="auth-loading-screen" aria-live="polite"><img src="assets/logo-new.png" alt="" width="56" height="56"><span>Zugang wird geprüft …</span></div>
+  <div class="protected-content">
+    <header class="site-header is-scrolled">
+      <nav class="nav shell" aria-label="Hauptnavigation">
+        <a class="brand" href="dashboard.html"><img src="assets/logo-new.png" alt="" width="42" height="42"><span>PointerScore 100</span></a>
+        <div class="nav-menu"><a href="dashboard.html">Dashboard</a><button class="nav-session-button" type="button" data-logout>Abmelden</button></div>
+      </nav>
+    </header>
+
+    <main class="calculator-app-main">
+      <div class="shell">
+        <div class="calculator-app-heading">
+          <div><p class="eyebrow">PointerScore Rechner</p><h1>Unternehmen strukturiert bewerten.</h1><p>Trage die Kennzahlen ein. Die Berechnung erfolgt direkt nach der PointerScore-V1.2-Methode.</p></div>
+          <div class="calculator-user-badge"><span>Angemeldet</span><strong data-user-email>–</strong></div>
+        </div>
+
+        <div class="full-calculator-layout">
+          <form class="full-calculator-form" data-calculator-form>
+            <section class="calculator-input-card">
+              <div class="calculator-input-head"><span>01</span><div><h2>Zukunftspotenzial</h2><p>Branche und Marktposition</p></div></div>
+              <div class="calculator-field-grid">
+                <label><span>Branche</span><select name="industry" required data-industry></select></label>
+                <label><span>Marktposition</span><select name="marketPosition" required data-market-position></select></label>
+              </div>
+            </section>
+
+            <section class="calculator-input-card">
+              <div class="calculator-input-head"><span>02</span><div><h2>Wachstum</h2><p>Umsatz und Gewinn der letzten drei Geschäftsjahre</p></div></div>
+              <div class="calculator-field-grid three-columns">
+                <label><span>Umsatz Jahr 1</span><input type="number" name="revenue1" value="100" step="any" required></label>
+                <label><span>Umsatz Jahr 2</span><input type="number" name="revenue2" value="112" step="any" required></label>
+                <label><span>Umsatz Jahr 3</span><input type="number" name="revenue3" value="128" step="any" required></label>
+                <label><span>Gewinn Jahr 1</span><input type="number" name="profit1" value="12" step="any" required></label>
+                <label><span>Gewinn Jahr 2</span><input type="number" name="profit2" value="15" step="any" required></label>
+                <label><span>Gewinn Jahr 3</span><input type="number" name="profit3" value="19" step="any" required></label>
+              </div>
+            </section>
+
+            <section class="calculator-input-card">
+              <div class="calculator-input-head"><span>03</span><div><h2>Finanzielle Stabilität</h2><p>Bilanzstärke und Profitabilität</p></div></div>
+              <div class="calculator-field-grid">
+                <label><span>Gesamtschulden</span><input type="number" name="totalDebt" value="35" step="any" min="0" required></label>
+                <label><span>Gesamtvermögen</span><input type="number" name="totalAssets" value="150" step="any" min="0.01" required></label>
+                <label><span>Aktueller Gewinn</span><input type="number" name="currentProfit" value="19" step="any" required></label>
+                <label><span>Aktueller Umsatz</span><input type="number" name="currentRevenue" value="128" step="any" min="0.01" required></label>
+              </div>
+            </section>
+
+            <section class="calculator-input-card">
+              <div class="calculator-input-head"><span>04</span><div><h2>Bewertung und Qualität</h2><p>KGV und Kapitaleffizienz</p></div></div>
+              <div class="calculator-field-grid">
+                <label><span>Kurs-Gewinn-Verhältnis (KGV)</span><input type="number" name="peRatio" value="22" step="any" required></label>
+                <label><span>ROE / ROIC in %</span><input type="number" name="qualityMetric" value="18" step="any" required></label>
+              </div>
+            </section>
+
+            <div class="calculator-form-actions"><button class="button button-secondary" type="reset">Beispielwerte zurücksetzen</button><button class="button button-primary" type="submit">PointerScore berechnen <span>→</span></button></div>
+          </form>
+
+          <aside class="analysis-demo calculator-demo full-calculator-result" aria-live="polite">
+            <div class="analysis-demo-head calculator-demo-head"><div><small>DEIN ERGEBNIS</small><h2>PointerScore Analyse</h2></div><span>V1.2 Methode</span></div>
+            <div class="analysis-demo-summary">
+              <div class="analysis-score-ring" data-calculator-ring><div><strong data-calculator-score>0</strong><span>/ 100</span></div></div>
+              <div class="demo-signal-copy"><b data-calculator-signal>Bereit zur Berechnung</b><p data-calculator-summary>Ändere Werte oder starte die Berechnung.</p></div>
+            </div>
+            <div class="analysis-demo-rows" data-calculator-categories></div>
+            <div class="demo-metrics" data-calculator-metrics></div>
+            <div class="demo-analysis-grid">
+              <div class="demo-analysis-card demo-strengths"><h4><span>✓</span> Stärken</h4><ul data-calculator-strengths></ul></div>
+              <div class="demo-analysis-card demo-questions"><h4><span>!</span> Offene Fragen</h4><ul data-calculator-questions></ul></div>
+            </div>
+            <p class="demo-disclaimer">Keine Anlageberatung. Prüfe Daten und Annahmen vor jeder Entscheidung.</p>
+          </aside>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="runtime-config.js"></script>
+  <script src="i18n.js" defer></script>
+  <script type="module" src="calculator-app.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard | PointerScore 100</title>
+  <meta name="description" content="Dein persönliches PointerScore-Dashboard.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#eef8ff">
+  <link rel="icon" type="image/svg+xml" href="assets/logo-new.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=9">
+</head>
+<body class="protected-page dashboard-page is-auth-loading">
+  <div class="auth-loading-screen" aria-live="polite"><img src="assets/logo-new.png" alt="" width="56" height="56"><span>Zugang wird geprüft …</span></div>
+  <div class="protected-content">
+    <header class="site-header is-scrolled">
+      <nav class="nav shell" aria-label="Hauptnavigation">
+        <a class="brand" href="index.html"><img src="assets/logo-new.png" alt="" width="42" height="42"><span>PointerScore 100</span></a>
+        <div class="nav-menu"><a href="calculator.html">Rechner</a><button class="nav-session-button" type="button" data-logout>Abmelden</button></div>
+      </nav>
+    </header>
+
+    <main class="dashboard-main">
+      <div class="shell">
+        <section class="dashboard-welcome">
+          <div><p class="eyebrow">Dein PointerScore Bereich</p><h1>Willkommen im Dashboard.</h1><p>Starte eine strukturierte Unternehmensbewertung oder öffne das Handbuch.</p></div>
+          <div class="dashboard-user"><span>Angemeldet als</span><strong data-user-email>–</strong></div>
+        </section>
+
+        <section class="dashboard-grid" aria-label="Dashboard-Funktionen">
+          <article class="dashboard-primary-card">
+            <div class="dashboard-card-icon"><img src="assets/icons/process.svg" alt="" width="34" height="34"></div>
+            <p class="eyebrow">PointerScore Rechner</p>
+            <h2>Neue Analyse starten</h2>
+            <p>Bewerte ein Unternehmen anhand der fünf PointerScore-Kategorien und erhalte einen nachvollziehbaren Gesamtscore.</p>
+            <a class="button button-primary" href="calculator.html">Rechner öffnen <span aria-hidden="true">→</span></a>
+          </article>
+
+          <article class="dashboard-card">
+            <div class="dashboard-card-icon"><img src="assets/icons/research.svg" alt="" width="32" height="32"></div>
+            <h2>Quick-Start-Handbuch</h2>
+            <p>Die Methode, Kennzahlen und Bewertungsregeln kompakt erklärt.</p>
+            <a class="dashboard-link" href="assets/PointerScore-Handbook.pdf" download>Handbuch herunterladen <span>↓</span></a>
+          </article>
+
+          <article class="dashboard-card account-card">
+            <div class="dashboard-card-icon"><img src="assets/icons/private.svg" alt="" width="32" height="32"></div>
+            <h2>Dein Konto</h2>
+            <dl><div><dt>Status</dt><dd>Aktiv</dd></div><div><dt>Letzte Anmeldung</dt><dd data-last-sign-in>–</dd></div></dl>
+            <button class="dashboard-link button-reset" type="button" data-logout>Abmelden <span>→</span></button>
+          </article>
+        </section>
+
+        <p class="dashboard-notice">Keine Anlageberatung. PointerScore dient ausschließlich Bildungs- und Informationszwecken.</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="runtime-config.js"></script>
+  <script src="i18n.js" defer></script>
+  <script type="module" src="dashboard.js"></script>
+</body>
+</html>

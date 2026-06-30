@@ -20,7 +20,7 @@ async function walk(directory) {
 const files = await walk(dist);
 const relativeFiles = new Set(files.map((file) => path.relative(dist, file).split(path.sep).join("/")));
 
-for (const required of ["index.html", "404.html", "style.css", "script.js", "i18n.js", "pdfs/de/PointerScore-Handbook-DE.pdf", "pdfs/en/PointerScore-Handbook-EN.pdf"]) {
+for (const required of ["index.html", "auth.html", "dashboard.html", "calculator.html", "404.html", "style.css", "script.js", "i18n.js", "runtime-config.js", "auth-client.js", "auth-page.js", "dashboard.js", "calculator-app.js", "calculator-logic.js", "demo-calculator.js", "demo-company-data.js", "pdfs/de/PointerScore-Handbook-DE.pdf", "pdfs/en/PointerScore-Handbook-EN.pdf"]) {
   if (!relativeFiles.has(required)) errors.push(`Missing required build file: ${required}`);
 }
 
@@ -51,7 +51,12 @@ for (const file of files.filter((entry) => entry.endsWith(".html"))) {
 
 for (const file of files.filter((entry) => entry.endsWith(".js"))) {
   try {
-    new vm.Script(await readFile(file, "utf8"), { filename: file });
+    const source = await readFile(file, "utf8");
+    if (/^\s*(?:import|export)\s/m.test(source) && typeof vm.SourceTextModule === "function") {
+      new vm.SourceTextModule(source, { identifier: file });
+    } else if (!/^\s*(?:import|export)\s/m.test(source)) {
+      new vm.Script(source, { filename: file });
+    }
   } catch (error) {
     errors.push(`${path.relative(dist, file)}: ${error.message}`);
   }

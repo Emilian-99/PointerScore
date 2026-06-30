@@ -1,15 +1,27 @@
 import { mkdir, readFile, readdir, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import "./generate-config.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
 const sourceEntries = [
   "index.html",
+  "auth.html",
+  "dashboard.html",
+  "calculator.html",
   "404.html",
   "style.css",
   "script.js",
   "i18n.js",
+  "runtime-config.js",
+  "auth-client.js",
+  "auth-page.js",
+  "dashboard.js",
+  "calculator-app.js",
+  "calculator-logic.js",
+  "demo-calculator.js",
+  "demo-company-data.js",
   "assets",
   "pages",
   "CNAME"

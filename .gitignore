@@ -3,7 +3,4 @@ dist/
 *.zip
 .env
 .env.local
-calculator.html
-calculator.js
-dist/calculator.html
-dist/calculator.js
+runtime-config.js

@@ -1,28 +1,47 @@
 # PointerScore 100
 
-Produktionsreife statische Landingpage fuer PointerScore 100.
+PointerScore-Landingpage mit Supabase Auth, geschütztem Dashboard und Rechner.
 
 ## Struktur
 
-- index.html
-- style.css
-- script.js
-- assets/logo.svg
-- assets/favicon.svg
-- assets/icons/
-- pages/impressum.html
-- pages/kontakt.html
-- pages/datenschutz.html
+- `index.html` – Landingpage
+- `auth.html` – Registrierung, Login und Passwort-Reset
+- `dashboard.html` – geschütztes Nutzer-Dashboard
+- `calculator.html` – geschützter PointerScore-Rechner
+- `auth-client.js` – Supabase-Client und Zugriffsschutz
+- `calculator-logic.js` – Berechnungslogik
+- `assets/` und `pages/` – Medien und Rechtstexte
 
-## Nutzung
+## Konfiguration
 
-Die Website nutzt nur HTML, CSS und Vanilla JavaScript. Sie kann direkt ueber GitHub Pages veroeffentlicht werden.
+Kopiere `.env.example` nach `.env.local` und trage die Supabase Project URL sowie den Publishable Key ein. `.env.local` und die daraus erzeugte `runtime-config.js` werden nicht committed.
+
+In Supabase müssen unter Authentication > URL Configuration mindestens diese Redirect-URLs erlaubt werden:
+
+- `https://pointerscore.com/dashboard.html`
+- `https://pointerscore.com/auth.html?mode=recovery`
+- `http://127.0.0.1:4173/**` für lokale Tests
+
+## Lokal starten
+
+```powershell
+npm install
+npm run dev
+```
+
+## Produktions-Build prüfen
+
+```powershell
+npm run build
+npm run check
+```
 
 ## Hinweise
 
-- Rechtstexte sind Platzhalter und sollten vor Veröffentlichung geprüft werden.
-- Das Formular ist statisch und speichert keine Daten serverseitig.
-- Google Fonts ist die einzige externe Ressource.
+- Authentifizierung erfolgt über Supabase Auth.
+- Rechnerdaten werden nur im Browser verarbeitet und nicht gespeichert.
+- Secret- und Service-Role-Keys dürfen niemals im Frontend verwendet werden.
+- Die Datenschutzerklärung sollte vor der Veröffentlichung rechtlich geprüft werden.
 
 ## Verifizierte Rechner-Demo
 

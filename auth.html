@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anmelden | PointerScore 100</title>
+  <meta name="description" content="Bei PointerScore anmelden oder ein Konto erstellen.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#eef8ff">
+  <link rel="icon" type="image/svg+xml" href="assets/logo-new.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=9">
+</head>
+<body class="auth-page">
+  <header class="site-header is-scrolled">
+    <nav class="nav shell" aria-label="Hauptnavigation">
+      <a class="brand" href="index.html"><img src="assets/logo-new.png" alt="" width="42" height="42"><span>PointerScore 100</span></a>
+      <div class="nav-menu"><a href="index.html">Zur Startseite</a></div>
+    </nav>
+  </header>
+
+  <main class="auth-main">
+    <div class="shell auth-layout">
+      <section class="auth-intro">
+        <p class="eyebrow">PointerScore Zugang</p>
+        <h1>Analysiere Unternehmen nach einem klaren System.</h1>
+        <p>Melde dich an, um dein Dashboard und den vollständigen PointerScore-Rechner zu öffnen.</p>
+        <ul>
+          <li><span>✓</span>Geschützter persönlicher Zugang</li>
+          <li><span>✓</span>Vollständiger 100-Punkte-Rechner</li>
+          <li><span>✓</span>Jederzeit abmelden</li>
+        </ul>
+      </section>
+
+      <section class="auth-card" aria-labelledby="auth-title">
+        <div class="auth-tabs" role="tablist" aria-label="Zugang auswählen">
+          <button class="is-active" type="button" role="tab" aria-selected="true" data-auth-view-button="login">Anmelden</button>
+          <button type="button" role="tab" aria-selected="false" data-auth-view-button="register">Registrieren</button>
+        </div>
+
+        <div class="auth-heading">
+          <img src="assets/logo-new.png" alt="" width="54" height="54">
+          <div><p class="eyebrow">PointerScore 100</p><h2 id="auth-title" data-auth-title>Willkommen zurück</h2></div>
+        </div>
+
+        <form class="auth-form" data-auth-form="login">
+          <label><span>E-Mail-Adresse</span><input type="email" name="email" autocomplete="email" required></label>
+          <label><span>Passwort</span><input type="password" name="password" autocomplete="current-password" minlength="8" required></label>
+          <button class="button button-primary" type="submit">Anmelden</button>
+          <button class="auth-text-button" type="button" data-auth-view-button="reset">Passwort vergessen?</button>
+        </form>
+
+        <form class="auth-form" data-auth-form="register" hidden>
+          <label><span>E-Mail-Adresse</span><input type="email" name="email" autocomplete="email" required></label>
+          <label><span>Passwort</span><input type="password" name="password" autocomplete="new-password" minlength="8" required><small>Mindestens 8 Zeichen</small></label>
+          <label class="auth-checkbox"><input type="checkbox" required><span>Ich akzeptiere die <a href="pages/datenschutz.html">Datenschutzerklärung</a>.</span></label>
+          <button class="button button-primary" type="submit">Konto erstellen</button>
+        </form>
+
+        <form class="auth-form" data-auth-form="reset" hidden>
+          <p class="auth-explanation">Wir senden dir einen Link, mit dem du ein neues Passwort festlegen kannst.</p>
+          <label><span>E-Mail-Adresse</span><input type="email" name="email" autocomplete="email" required></label>
+          <button class="button button-primary" type="submit">Reset-Link senden</button>
+          <button class="auth-text-button" type="button" data-auth-view-button="login">Zurück zur Anmeldung</button>
+        </form>
+
+        <form class="auth-form" data-auth-form="recovery" hidden>
+          <p class="auth-explanation">Lege jetzt dein neues Passwort fest.</p>
+          <label><span>Neues Passwort</span><input type="password" name="password" autocomplete="new-password" minlength="8" required></label>
+          <label><span>Passwort wiederholen</span><input type="password" name="passwordConfirm" autocomplete="new-password" minlength="8" required></label>
+          <button class="button button-primary" type="submit">Passwort aktualisieren</button>
+        </form>
+
+        <p class="auth-message" data-auth-message role="status" aria-live="polite"></p>
+      </section>
+    </div>
+  </main>
+
+  <script src="runtime-config.js"></script>
+  <script src="i18n.js" defer></script>
+  <script type="module" src="auth-page.js"></script>
+</body>
+</html>
