@@ -43,8 +43,6 @@ function setBusy(form, busy) {
   form.setAttribute("aria-busy", String(busy));
 }
 
-viewButtons.forEach((button) => button.addEventListener("click", () => showView(button.dataset.authViewButton)));
-
 document.querySelector('[data-auth-form="login"]').addEventListener("submit", async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
