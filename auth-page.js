@@ -16,17 +16,25 @@ function setMessage(text = "", type = "") {
   message.dataset.type = type;
 }
 
-function showView(view) {
-  forms.forEach((form) => { form.hidden = form.dataset.authForm !== view; });
+function showView(view, { updateUrl = true } = {}) {
+  const nextView = ["login", "register", "reset", "recovery"].includes(view) ? view : "login";
   viewButtons.forEach((button) => {
-    const active = button.dataset.authViewButton === view;
+    const active = button.dataset.authViewButton === nextView;
     if (button.getAttribute("role") === "tab") {
       button.classList.toggle("is-active", active);
       button.setAttribute("aria-selected", String(active));
     }
   });
-  title.textContent = titles[view] || titles.login;
+  forms.forEach((form) => { form.hidden = form.dataset.authForm !== nextView; });
+  title.textContent = titles[nextView];
+  document.title = `${titles[nextView]} | PointerScore 100`;
   setMessage();
+
+  if (updateUrl) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("mode", nextView);
+    window.history.pushState({ authView: nextView }, "", url);
+  }
 }
 
 function setBusy(form, busy) {
@@ -104,7 +112,12 @@ supabase.auth.onAuthStateChange((event) => {
 });
 
 const requestedMode = new URLSearchParams(window.location.search).get("mode");
-if (["register", "reset", "recovery"].includes(requestedMode)) showView(requestedMode);
+showView(requestedMode || "login", { updateUrl: false });
+
+window.addEventListener("popstate", () => {
+  const mode = new URLSearchParams(window.location.search).get("mode");
+  showView(mode || "login", { updateUrl: false });
+});
 
 if (requestedMode !== "recovery" && await getVerifiedUser()) {
   window.location.replace(safeRedirect("dashboard.html"));
