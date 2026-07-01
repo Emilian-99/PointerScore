@@ -1686,6 +1686,8 @@ html { scroll-padding-top: 84px; }
   letter-spacing: 0;
 }
 
+.hero-title-together { white-space: nowrap; }
+
 .conversion-hero-copy .hero-subtitle {
   max-width: 660px;
   color: var(--conversion-text);
@@ -1887,13 +1889,45 @@ html { scroll-padding-top: 84px; }
 .pricing-copy .eyebrow { color: #68b5f1; }
 .pricing-copy h2 { color: #fff; }
 .pricing-copy > p { max-width: 590px; color: #a9bfd2; line-height: 1.72; }
-.pricing-proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 37px; border-top: 1px solid rgba(255,255,255,.15); border-bottom: 1px solid rgba(255,255,255,.15); }
-.pricing-proof div { padding: 22px 12px 22px 0; border-right: 1px solid rgba(255,255,255,.15); }
-.pricing-proof div:last-child { padding-left: 20px; border-right: 0; }
-.pricing-proof div:nth-child(2) { padding-left: 20px; }
-.pricing-proof strong, .pricing-proof span { display: block; }
-.pricing-proof strong { color: #fff; font-size: 1.75rem; }
-.pricing-proof span { margin-top: 4px; color: #9eb5c9; font-size: .68rem; }
+.pricing-market-animation { position: relative; max-width: 620px; margin-top: 37px; padding: 10px 0 14px; border-top: 1px solid rgba(255,255,255,.15); border-bottom: 1px solid rgba(255,255,255,.15); overflow: hidden; }
+.pricing-market-animation svg { display: block; width: 100%; height: auto; }
+.pricing-market-animation > span { display: block; margin-top: -3px; color: #9eb5c9; font-size: .72rem; font-weight: 650; letter-spacing: .02em; }
+.pricing-chart-grid path { fill: none; stroke: rgba(146,190,225,.13); stroke-width: 1; }
+.pricing-chart-cycle { opacity: 0; animation: pricing-chart-cycle 36s linear infinite; }
+.pricing-chart-cycle-b { animation-delay: -24s; }
+.pricing-chart-cycle-c { animation-delay: -12s; }
+.pricing-chart-glow { fill: none; stroke: rgba(56,157,245,.25); stroke-width: 13; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; filter: blur(7px); animation: pricing-chart-draw 12s linear infinite; }
+.pricing-chart-line { fill: none; stroke: url(#pricing-chart-gradient); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: pricing-chart-draw 12s linear infinite; }
+.pricing-chart-arrow { fill: #75c3ff; }
+.pricing-chart-arrow-shape { transform-box: fill-box; transform-origin: center; filter: drop-shadow(0 0 7px rgba(80,174,255,.8)); animation: pricing-arrow-fade 12s linear infinite; }
+
+@keyframes pricing-chart-draw {
+  0% { stroke-dashoffset: 1; opacity: 0; }
+  5% { opacity: 1; }
+  78%, 94% { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+@keyframes pricing-arrow-fade {
+  0% { opacity: 0; }
+  6%, 78% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 7px rgba(80,174,255,.8)); }
+  83% { opacity: .72; transform: scale(.96); filter: drop-shadow(0 0 4px rgba(80,174,255,.45)); }
+  88% { opacity: 1; transform: scale(1.12); filter: drop-shadow(0 0 14px rgba(117,195,255,1)); }
+  94% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 8px rgba(80,174,255,.8)); }
+  100% { opacity: 0; }
+}
+
+@keyframes pricing-chart-cycle {
+  0%, 32.5% { opacity: 1; }
+  33.333%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pricing-chart-cycle { animation: none; opacity: 0; }
+  .pricing-chart-cycle-a { opacity: 1; }
+  .pricing-chart-line,.pricing-chart-glow { animation: none; stroke-dashoffset: 0; opacity: 1; }
+  .pricing-chart-arrow { display: none; }
+}
 
 .premium-plan { position: relative; padding: 31px; border: 1px solid rgba(134,190,235,.4); background: #fff; box-shadow: 0 30px 80px rgba(0,0,0,.26); }
 .premium-plan-label { display: inline-block; margin-bottom: 22px; padding: 6px 9px; border-radius: 5px; background: #eaf5ff; color: #237dca; font-size: .64rem; font-weight: 800; text-transform: uppercase; }
@@ -1954,7 +1988,7 @@ html { scroll-padding-top: 84px; }
   .handbook-lead-layout { grid-template-columns: 1fr; gap: 45px; }
   .handbook-lead-copy .button { width: 100%; justify-content: center; }
   .conversion-pricing-layout { grid-template-columns: 1fr; }
-  .pricing-proof { grid-template-columns: repeat(3, 1fr); }
+  .pricing-market-animation { max-width: 100%; }
   .premium-plan { padding: 25px 20px; }
   .final-cta-section { padding: 72px 0; }
 }

@@ -9,10 +9,10 @@
   <meta property="og:title" content="PointerScore 100 | Unternehmensanalyse mit System">
   <meta property="og:description" content="Kennzahlen selbst eingeben und nach der PointerScore-Methode V1.2 strukturiert bewerten.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="assets/logo-new.png">
+  <meta property="og:image" content="assets/logo-new-v2.png">
   <meta property="og:locale" content="de_DE">
   <link rel="canonical" href="https://example.com/">
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" href="assets/logo-new-v2.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@
   <header class="site-header" data-header>
     <nav class="nav shell" aria-label="Hauptnavigation">
       <a class="brand" href="#top" aria-label="PointerScore 100 Startseite">
-        <img src="assets/logo-new.png" alt="" width="42" height="42">
+        <img src="assets/logo-new-v2.png" alt="" width="42" height="42">
         <span>PointerScore 100</span>
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Navigation öffnen"><span></span><span></span></button>
@@ -43,7 +43,7 @@
       <div class="shell conversion-hero-layout">
         <div class="conversion-hero-copy">
           <p class="eyebrow reveal">Unternehmensanalyse mit System</p>
-          <h1 id="hero-title" class="reveal">Investieren nach System. Nicht nach Gefühl.</h1>
+          <h1 id="hero-title" class="reveal"><span class="hero-title-together">Investieren nach</span> System. Nicht nach Gefühl.</h1>
           <p class="hero-subtitle reveal">Zu viele Meinungen, Hypes und Einzelkennzahlen machen Entscheidungen unnötig schwer. PointerScore bringt deine Unternehmensanalyse in ein klares 100-Punkte-System, damit du Chancen und Schwächen nachvollziehbar einordnen kannst.</p>
           <div class="hero-actions reveal">
             <a class="button button-primary" href="rechner/">PointerScore Rechner starten</a>
@@ -247,21 +247,46 @@
           <p class="eyebrow">PointerScore Rechner</p>
           <h2 id="buy-title">Mach aus deiner nächsten Aktienidee eine nachvollziehbare Analyse.</h2>
           <p>Ein klarer Prozess, ein einheitlicher Maßstab und ein Ergebnis, das du auch Wochen später noch verstehen kannst.</p>
-          <div class="pricing-proof">
-            <div><strong>100</strong><span>maximale Punkte</span></div>
-            <div><strong>5</strong><span>Bewertungsbereiche</span></div>
-            <div><strong>2</strong><span>Sprachen</span></div>
+          <div class="pricing-market-animation" aria-label="Animierte PointerScore Marktanalyse">
+            <svg viewBox="0 0 620 180" role="img" aria-hidden="true">
+              <defs>
+                <linearGradient id="pricing-chart-gradient" x1="0" y1="1" x2="1" y2="0">
+                  <stop offset="0" stop-color="#2586e8"/>
+                  <stop offset="1" stop-color="#75c3ff"/>
+                </linearGradient>
+              </defs>
+              <g class="pricing-chart-grid">
+                <path d="M20 45H600M20 90H600M20 135H600"/>
+                <path d="M120 20V160M240 20V160M360 20V160M480 20V160"/>
+              </g>
+              <g class="pricing-chart-cycle pricing-chart-cycle-a">
+                <path class="pricing-chart-glow" pathLength="1" d="M24 144L108 118L184 130L264 82L342 100L430 54L510 70L590 22"/>
+                <path class="pricing-chart-line" pathLength="1" d="M24 144L108 118L184 130L264 82L342 100L430 54L510 70L590 22"/>
+                <g class="pricing-chart-arrow"><path class="pricing-chart-arrow-shape" d="M18 0L0-8L4 0L0 8Z"/><animateMotion dur="12s" repeatCount="indefinite" rotate="auto" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.78;1" path="M24 144L108 118L184 130L264 82L342 100L430 54L510 70L590 22"/></g>
+              </g>
+              <g class="pricing-chart-cycle pricing-chart-cycle-b">
+                <path class="pricing-chart-glow" pathLength="1" d="M24 146L100 132L178 98L255 115L340 72L425 88L510 45L590 28"/>
+                <path class="pricing-chart-line" pathLength="1" d="M24 146L100 132L178 98L255 115L340 72L425 88L510 45L590 28"/>
+                <g class="pricing-chart-arrow"><path class="pricing-chart-arrow-shape" d="M18 0L0-8L4 0L0 8Z"/><animateMotion dur="12s" repeatCount="indefinite" rotate="auto" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.78;1" path="M24 146L100 132L178 98L255 115L340 72L425 88L510 45L590 28"/></g>
+              </g>
+              <g class="pricing-chart-cycle pricing-chart-cycle-c">
+                <path class="pricing-chart-glow" pathLength="1" d="M24 138L112 105L190 124L270 92L348 66L430 82L512 52L590 18"/>
+                <path class="pricing-chart-line" pathLength="1" d="M24 138L112 105L190 124L270 92L348 66L430 82L512 52L590 18"/>
+                <g class="pricing-chart-arrow"><path class="pricing-chart-arrow-shape" d="M18 0L0-8L4 0L0 8Z"/><animateMotion dur="12s" repeatCount="indefinite" rotate="auto" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.78;1" path="M24 138L112 105L190 124L270 92L348 66L430 82L512 52L590 18"/></g>
+              </g>
+            </svg>
+            <span>Strukturiert analysieren. Chancen klarer erkennen.</span>
           </div>
         </div>
         <article class="calculator-plan premium-plan reveal">
           <div class="premium-plan-label">PointerScore Zugang</div>
-          <div class="calculator-plan-head"><img src="assets/logo-new.png" alt="" width="72" height="72"><div><h3>PointerScore Rechner</h3><p>Dein System für strukturierte Unternehmensbewertungen</p></div></div>
+          <div class="calculator-plan-head"><img src="assets/logo-new-v2.png" alt="" width="72" height="72"><div><h3>PointerScore Rechner</h3><p>Dein System für strukturierte Unternehmensbewertungen</p></div></div>
           <div class="price calculator-price"><span class="price-amount">7,99 €</span><div><strong>pro Monat</strong><small>Jederzeit kündbar</small></div></div>
           <ul class="calculator-plan-features">
             <li><span aria-hidden="true">✓</span>Vollständiger PointerScore Rechner</li>
             <li><span aria-hidden="true">✓</span>Automatische Punkte- und Scoreberechnung</li>
-            <li><span aria-hidden="true">✓</span>Alle fünf Bewertungsbereiche</li>
-            <li><span aria-hidden="true">✓</span>Quick-Start-Handbuch inklusive</li>
+            <li><span aria-hidden="true">✓</span>Analysen speichern &amp; bearbeiten</li>
+            <li><span aria-hidden="true">✓</span>Persönliches Dashboard</li>
             <li><span aria-hidden="true">✓</span>Deutsch und Englisch</li>
           </ul>
           <a class="button button-primary calculator-access" href="auth.html?mode=register&amp;redirect=%2Frechner%2F">Jetzt Zugang erhalten</a>
@@ -286,7 +311,7 @@
 
     <section class="final-cta-section">
       <div class="shell final-cta reveal">
-        <img src="assets/logo-new.png" alt="" width="62" height="62">
+        <img src="assets/logo-new-v2.png" alt="" width="62" height="62">
         <p class="eyebrow">Bereit für eine klarere Entscheidung?</p>
         <h2>Bereit, deine nächste Aktienidee nicht mehr nach Gefühl zu bewerten?</h2>
         <p>Starte mit einem festen Bewertungsrahmen und vergleiche Unternehmen nachvollziehbarer.</p>
@@ -298,7 +323,7 @@
 
   <footer class="site-footer">
     <div class="shell footer-inner">
-      <div><a class="brand footer-brand" href="#top"><img src="assets/logo-new.png" alt="" width="34" height="34"><span>PointerScore 100</span></a><p>Keine Anlageberatung. PointerScore dient ausschließlich Bildungs- und Informationszwecken. Die Nutzung des Scores ersetzt keine persönliche Beratung und keine eigene Recherche. Investitionen können zu Verlusten führen.</p></div>
+      <div><a class="brand footer-brand" href="#top"><img src="assets/logo-new-v2.png" alt="" width="34" height="34"><span>PointerScore 100</span></a><p>Keine Anlageberatung. PointerScore dient ausschließlich Bildungs- und Informationszwecken. Die Nutzung des Scores ersetzt keine persönliche Beratung und keine eigene Recherche. Investitionen können zu Verlusten führen.</p></div>
       <div class="footer-links"><a href="pages/impressum.html">Impressum</a><a href="pages/datenschutz.html">Datenschutz</a><a href="pages/kontakt.html">Kontakt</a></div>
     </div>
   </footer>

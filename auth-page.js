@@ -54,6 +54,9 @@ document.querySelector('[data-auth-form="login"]').addEventListener("submit", as
     password: String(values.get("password") || "")
   });
   setBusy(form, false);
+  if (error?.code === "email_not_confirmed") {
+    return setMessage("Bitte bestätige zuerst deine E-Mail-Adresse. Prüfe auch deinen Spam-Ordner.", "error");
+  }
   if (error) return setMessage("Anmeldung fehlgeschlagen. Bitte prüfe E-Mail und Passwort.", "error");
   window.location.replace(safeRedirect("dashboard.html"));
 });
@@ -64,15 +67,16 @@ document.querySelector('[data-auth-form="register"]').addEventListener("submit",
   const values = new FormData(form);
   setBusy(form, true);
   setMessage("Konto wird erstellt …");
+  const email = String(values.get("email") || "").trim();
   const { data, error } = await supabase.auth.signUp({
-    email: String(values.get("email") || "").trim(),
+    email,
     password: String(values.get("password") || ""),
     options: { emailRedirectTo: new URL("dashboard.html", window.location.href).href }
   });
   setBusy(form, false);
   if (error) return setMessage(error.message, "error");
   if (data.session) window.location.replace(safeRedirect("dashboard.html"));
-  else setMessage("Fast geschafft: Bitte bestätige deine E-Mail-Adresse.", "success");
+  else setMessage(`Fast geschafft: Wir haben eine Bestätigungs-E-Mail an ${email} gesendet. Bitte klicke auf den Link in der E-Mail.`, "success");
 });
 
 document.querySelector('[data-auth-form="reset"]').addEventListener("submit", async (event) => {
@@ -86,7 +90,7 @@ document.querySelector('[data-auth-form="reset"]').addEventListener("submit", as
   });
   setBusy(form, false);
   if (error) return setMessage(error.message, "error");
-  setMessage("Wenn ein Konto existiert, wurde ein Reset-Link gesendet.", "success");
+  setMessage("Wenn ein Konto existiert, wurde eine PointerScore-E-Mail zum Zurücksetzen des Passworts gesendet. Bitte prüfe auch deinen Spam-Ordner.", "success");
 });
 
 document.querySelector('[data-auth-form="recovery"]').addEventListener("submit", async (event) => {

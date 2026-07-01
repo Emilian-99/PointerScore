@@ -22,6 +22,8 @@ In Supabase müssen unter Authentication > URL Configuration mindestens diese Re
 - `https://pointerscore.com/auth.html?mode=recovery`
 - `http://127.0.0.1:4173/**` für lokale Tests
 
+Die fertigen PointerScore-E-Mail-Vorlagen und die einmaligen Einstellungen für verpflichtende E-Mail-Bestätigungen liegen unter `supabase/email-templates/README.md`.
+
 ## Lokal starten
 
 ```powershell
