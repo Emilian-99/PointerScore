@@ -52,4 +52,31 @@ document.querySelectorAll('.pricing-chart-beam-line animate[attributeName="d"]')
     return frame.slice(0,tip.start)+replacement+frame.slice(tip.end);
   }).join(";");
   animation.setAttribute("values",aligned);
+  animation.setAttribute("begin","indefinite");
+  animation.setAttribute("repeatCount","1");
+  if(typeof animation.endElement==='function')animation.endElement();
 });
+
+// Use one shared clock for all three patterns so the path, arrow and fade
+// cannot drift apart. After pattern three, the first pattern starts again
+// while everything is invisible, making the full reset unnoticeable.
+const pricingChart=document.querySelector('.pricing-market-animation');
+if(pricingChart&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const cycles=[...pricingChart.querySelectorAll('.pricing-chart-cycle')];
+  let cycleTimer;
+  const startPricingCycle=index=>{
+    window.clearTimeout(cycleTimer);
+    cycles.forEach(cycle=>cycle.classList.remove('is-active'));
+    const activeCycle=cycles[index];
+    if(!activeCycle)return;
+    void activeCycle.getBoundingClientRect();
+    activeCycle.classList.add('is-active');
+    const pathAnimation=activeCycle.querySelector('animate[attributeName="d"]');
+    if(pathAnimation&&typeof pathAnimation.beginElement==='function')pathAnimation.beginElement();
+    cycleTimer=window.setTimeout(()=>startPricingCycle((index+1)%cycles.length),12000);
+  };
+  startPricingCycle(0);
+  document.addEventListener('visibilitychange',()=>{
+    if(!document.hidden)startPricingCycle(0);
+  });
+}

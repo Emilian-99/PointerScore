@@ -1889,14 +1889,14 @@ html { scroll-padding-top: 84px; }
 .pricing-copy .eyebrow { color: #68b5f1; }
 .pricing-copy h2 { color: #fff; }
 .pricing-copy > p { max-width: 590px; color: #a9bfd2; line-height: 1.72; }
-.pricing-market-animation { position: relative; max-width: 620px; margin-top: 37px; padding: 10px 0 14px; border-top: 1px solid rgba(255,255,255,.15); border-bottom: 1px solid rgba(255,255,255,.15); overflow: hidden; }
-.pricing-market-animation svg { display: block; width: 100%; height: auto; }
+.pricing-market-animation { position: relative; max-width: 620px; margin-top: 37px; padding: 10px 0 14px; border-top: 1px solid rgba(255,255,255,.15); border-bottom: 1px solid rgba(255,255,255,.15); overflow: visible; }
+.pricing-market-animation svg { display: block; width: 100%; height: auto; overflow: visible; }
 .pricing-market-animation > span { display: block; margin-top: -3px; color: #9eb5c9; font-size: .72rem; font-weight: 650; letter-spacing: .02em; }
 .pricing-chart-grid path { fill: none; stroke: rgba(146,190,225,.13); stroke-width: 1; }
-.pricing-chart-cycle { opacity: 0; animation: pricing-chart-cycle 36s linear infinite; }
-.pricing-chart-cycle-b { animation-delay: -24s; }
-.pricing-chart-cycle-c { animation-delay: -12s; }
-.pricing-chart-beam-line { fill: none; stroke: url(#pricing-chart-gradient); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 7px rgba(80,174,255,.45)); animation: pricing-beam-finish 12s linear infinite; }
+.pricing-chart-cycle { opacity: 0; }
+.pricing-chart-cycle.is-active { opacity: 1; }
+.pricing-chart-beam-line { fill: none; stroke: url(#pricing-chart-gradient); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 7px rgba(80,174,255,.45)); }
+.pricing-chart-cycle.is-active .pricing-chart-beam-line { animation: pricing-beam-finish 12s linear 1 both; }
 
 @keyframes pricing-beam-finish {
   0%, 7% { opacity: 0; stroke-width: 6; filter: drop-shadow(0 0 3px rgba(80,174,255,.18)); }
@@ -1904,11 +1904,6 @@ html { scroll-padding-top: 84px; }
   80% { opacity: 1; stroke-width: 7.7; filter: drop-shadow(0 0 15px rgba(105,192,255,.9)); }
   84% { opacity: .95; stroke-width: 7.2; filter: drop-shadow(0 0 18px rgba(105,192,255,.82)); }
   92%, 100% { opacity: 0; stroke-width: 6; filter: drop-shadow(0 0 5px rgba(80,174,255,.2)); }
-}
-
-@keyframes pricing-chart-cycle {
-  0%, 32.5% { opacity: 1; }
-  33.333%, 100% { opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
