@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hilfe und Anleitung | PointerScore 100</title>
+  <meta name="description" content="Schritt-für-Schritt-Anleitung für den PointerScore-Rechner.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#eef8ff">
+  <link rel="icon" type="image/png" href="assets/logo-new-v2.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=10">
+</head>
+<body class="help-page">
+  <header class="site-header is-scrolled">
+    <nav class="nav shell" aria-label="Hauptnavigation">
+      <a class="brand" href="dashboard.html"><img src="assets/logo-new-v2.png" alt="" width="42" height="42"><span>PointerScore 100</span></a>
+      <div class="nav-menu"><a href="dashboard.html">Dashboard</a><a href="rechner/">Rechner</a></div>
+    </nav>
+  </header>
+
+  <main class="help-main">
+    <div class="shell help-shell">
+      <section class="help-hero">
+        <a class="help-back-link" href="dashboard.html">Zurück zum Dashboard</a>
+        <p class="eyebrow">PointerScore Hilfe</p>
+        <h1>So funktioniert deine Analyse.</h1>
+        <p>Von der ersten Eingabe bis zur gespeicherten Bewertung: Hier findest du alle Schritte übersichtlich erklärt.</p>
+        <label class="help-search">
+          <span>In der Anleitung suchen</span>
+          <input type="search" data-help-search placeholder="Zum Beispiel: KGV, Cashflow oder Speichern" autocomplete="off">
+        </label>
+      </section>
+
+      <div class="help-toolbar">
+        <span data-help-result>7 Themen</span>
+        <div><button type="button" data-help-expand>Alle öffnen</button><button type="button" data-help-collapse>Alle schließen</button></div>
+      </div>
+
+      <section class="help-accordion" aria-label="Anleitung" data-help-list>
+        <details class="help-topic" open>
+          <summary><span>01</span><strong>Start</strong></summary>
+          <div class="help-topic-content">
+            <ol>
+              <li>Klicke im Dashboard auf „Neue Analyse erstellen“.</li>
+              <li>Gib anschließend den Unternehmensnamen ein.</li>
+              <li>Falls die entsprechenden Felder verfügbar sind, kannst du optional Branche, Land und Ticker oder Symbol ergänzen.</li>
+            </ol>
+          </div>
+        </details>
+
+        <details class="help-topic">
+          <summary><span>02</span><strong>Kennzahlen eintragen</strong></summary>
+          <div class="help-topic-content help-metric-grid">
+            <article><h3>Umsatzwachstum</h3><p>Wachstum des Umsatzes im Vergleich zum Vorjahr.</p></article>
+            <article><h3>Gewinnwachstum</h3><p>Wachstum des Gewinns im Vergleich zum Vorjahr.</p></article>
+            <article><h3>Nettomarge</h3><p>Gewinn im Verhältnis zum Umsatz.</p></article>
+            <article><h3>Eigenkapitalquote</h3><p>Anteil des Eigenkapitals am Gesamtkapital.</p></article>
+            <article><h3>Verschuldung</h3><p>Verhältnis von Schulden zu Eigenkapital oder Gesamtvermögen.</p></article>
+            <article><h3>Cashflow</h3><p>Freier Cashflow oder operativer Cashflow.</p></article>
+            <article><h3>KGV</h3><p>Aktienkurs geteilt durch Gewinn je Aktie.</p></article>
+            <article><h3>Dividende</h3><p>Falls vorhanden, Dividendenrendite oder Ausschüttung.</p></article>
+            <article><h3>Risiko</h3><p>Subjektive Einschätzung von Markt, Branche, Konkurrenz und Stabilität.</p></article>
+          </div>
+        </details>
+
+        <details class="help-topic">
+          <summary><span>03</span><strong>Wo findet man die Daten?</strong></summary>
+          <div class="help-topic-content">
+            <ul class="help-source-list">
+              <li>Geschäftsbericht des Unternehmens</li><li>Investor-Relations-Seite</li><li>Quartalsberichte</li>
+              <li>Finanzseiten wie Yahoo Finance, Marketscreener, Aktienfinder oder TradingView</li>
+            </ul>
+            <p class="help-tip"><strong>Wichtig:</strong> Verwende möglichst aktuelle Daten und bleibe bei einer Analyse möglichst bei derselben Quelle.</p>
+          </div>
+        </details>
+
+        <details class="help-topic">
+          <summary><span>04</span><strong>Wie bewertet PointerScore?</strong></summary>
+          <div class="help-topic-content">
+            <ol><li>Du trägst die Werte in den Rechner ein.</li><li>PointerScore vergibt automatisch Punkte.</li><li>Am Ende entsteht ein Gesamtscore von 0 bis 100.</li><li>Je höher der Score, desto stärker wirkt das Unternehmen nach dem System.</li></ol>
+            <p class="help-tip"><strong>Wichtig:</strong> Der Score ist keine Kaufempfehlung.</p>
+          </div>
+        </details>
+
+        <details class="help-topic">
+          <summary><span>05</span><strong>Analyse speichern</strong></summary>
+          <div class="help-topic-content">
+            <ol><li>Klicke nach dem Ausfüllen auf „Analyse speichern“.</li><li>Die Analyse erscheint anschließend in deinem Dashboard.</li><li>Gespeicherte Analysen kannst du später öffnen, bearbeiten oder löschen.</li></ol>
+          </div>
+        </details>
+
+        <details class="help-topic">
+          <summary><span>06</span><strong>Häufige Probleme</strong></summary>
+          <div class="help-topic-content help-problems">
+            <article><h3>Ich finde eine Kennzahl nicht</h3><p>Lasse das Feld leer oder ergänze den Wert später, sofern der Rechner dies zulässt.</p></article>
+            <article><h3>Ich bin mir unsicher bei einem Wert</h3><p>Prüfe die Quelle und schätze im Zweifel konservativ.</p></article>
+            <article><h3>Das Unternehmen macht Verlust</h3><p>Trage die Gewinnfelder entsprechend negativ oder mit 0 ein.</p></article>
+            <article><h3>Ein Unternehmen zahlt keine Dividende</h3><p>Setze das Dividendenfeld auf 0, falls es angezeigt wird.</p></article>
+            <article><h3>Der Score wirkt komisch</h3><p>Prüfe deine Eingaben, insbesondere Prozentwerte und Vorzeichen.</p></article>
+          </div>
+        </details>
+
+        <details class="help-topic help-disclaimer-topic" open>
+          <summary><span>07</span><strong>Wichtiger Hinweis</strong></summary>
+          <div class="help-topic-content"><p>PointerScore ist keine Finanzberatung und kein Kauf- oder Verkaufssignal. Das System dient nur dazu, Unternehmen strukturierter zu analysieren.</p></div>
+        </details>
+      </section>
+
+      <div class="help-no-results" data-help-empty hidden><h2>Kein passendes Thema gefunden.</h2><p>Versuche einen allgemeineren Suchbegriff.</p></div>
+      <div class="help-footer-actions"><a class="button button-primary" href="rechner/">Neue Analyse erstellen</a><a class="button button-secondary" href="dashboard.html">Zum Dashboard</a></div>
+    </div>
+  </main>
+
+  <script src="i18n.js" defer></script>
+  <script src="help.js" defer></script>
+</body>
+</html>
