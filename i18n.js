@@ -134,6 +134,8 @@ Object.assign(translations, {
 Object.assign(translations, {
   "Warum PointerScore?": "Why PointerScore?",
   "Vergleich": "Comparison",
+  "Investieren nach": "Invest with",
+  "System. Nicht nach Gefühl.": "a system. Not by gut feeling.",
   "Investieren nach System. Nicht nach Gefühl.": "Invest with a system. Not by gut feeling.",
   "Zu viele Meinungen, Hypes und Einzelkennzahlen machen Entscheidungen unnötig schwer. PointerScore bringt deine Unternehmensanalyse in ein klares 100-Punkte-System, damit du Chancen und Schwächen nachvollziehbar einordnen kannst.": "Too many opinions, hype and isolated metrics make decisions unnecessarily difficult. PointerScore turns your company analysis into a clear 100-point system so you can assess opportunities and weaknesses transparently.",
   "Weil gute Entscheidungen einen klaren Maßstab brauchen.": "Because good decisions need a clear standard.",
@@ -180,6 +182,11 @@ Object.assign(translations, {
   "Monatlich kündbar": "Cancel monthly",
   "Handbuch inklusive": "Handbook included",
   "Deutsch & Englisch": "German & English"
+});
+Object.assign(translations, {
+  "Analysen speichern & bearbeiten": "Save & edit analyses",
+  "Persönliches Dashboard": "Personal dashboard",
+  "Strukturiert analysieren. Chancen klarer erkennen.": "Analyze systematically. See opportunities more clearly."
 });
 Object.assign(translations, {
   "INTERAKTIVE DEMO": "INTERACTIVE DEMO",

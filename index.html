@@ -254,25 +254,28 @@
                   <stop offset="0" stop-color="#2586e8"/>
                   <stop offset="1" stop-color="#75c3ff"/>
                 </linearGradient>
+                <marker id="pricing-chart-arrowhead" viewBox="0 -8 16 16" refX="4" refY="0" markerWidth="18" markerHeight="18" orient="auto" markerUnits="userSpaceOnUse">
+                  <path d="M0-8L16 0L0 8L4 0Z" fill="#75c3ff"/>
+                </marker>
               </defs>
               <g class="pricing-chart-grid">
                 <path d="M20 45H600M20 90H600M20 135H600"/>
                 <path d="M120 20V160M240 20V160M360 20V160M480 20V160"/>
               </g>
               <g class="pricing-chart-cycle pricing-chart-cycle-a">
-                <path class="pricing-chart-glow" pathLength="1" d="M24 144L108 118L184 130L264 82L342 100L430 54L510 70L590 22"/>
-                <path class="pricing-chart-line" pathLength="1" d="M24 144L108 118L184 130L264 82L342 100L430 54L510 70L590 22"/>
-                <g class="pricing-chart-arrow"><path class="pricing-chart-arrow-shape" d="M18 0L0-8L4 0L0 8Z"/><animateMotion dur="12s" repeatCount="indefinite" rotate="auto" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.78;1" path="M24 144L108 118L184 130L264 82L342 100L430 54L510 70L590 22"/></g>
+                <path class="pricing-chart-beam-line" marker-end="url(#pricing-chart-arrowhead)" d="M24 144L24 144L24 144L24 144L24 144L24 144L24 144L24 144">
+                  <animate attributeName="d" dur="12s" repeatCount="indefinite" calcMode="linear" keyTimes="0;.109;.11;.219;.22;.329;.33;.439;.44;.549;.55;.659;.66;.78;1" values="M24 144L24 144L24 144L24 144L24 144L24 144L24 144L26 143;M24 144L108 118L108 118L108 118L108 118L108 118L108 118L110 117;M24 144L108 118L108 118L108 118L108 118L108 118L108 118L110 118;M24 144L108 118L184 130L184 130L184 130L184 130L184 130L186 130;M24 144L108 118L184 130L184 130L184 130L184 130L184 130L186 129;M24 144L108 118L184 130L264 82L264 82L264 82L264 82L266 81;M24 144L108 118L184 130L264 82L264 82L264 82L264 82L266 82;M24 144L108 118L184 130L264 82L342 100L342 100L342 100L344 100;M24 144L108 118L184 130L264 82L342 100L342 100L342 100L344 99;M24 144L108 118L184 130L264 82L342 100L430 54L430 54L432 53;M24 144L108 118L184 130L264 82L342 100L430 54L430 54L432 54;M24 144L108 118L184 130L264 82L342 100L430 54L510 70L512 70;M24 144L108 118L184 130L264 82L342 100L430 54L510 70L512 69;M24 144L108 118L184 130L264 82L342 100L430 54L510 70L590 22;M24 144L108 118L184 130L264 82L342 100L430 54L510 70L590 22"/>
+                </path>
               </g>
               <g class="pricing-chart-cycle pricing-chart-cycle-b">
-                <path class="pricing-chart-glow" pathLength="1" d="M24 146L100 132L178 98L255 115L340 72L425 88L510 45L590 28"/>
-                <path class="pricing-chart-line" pathLength="1" d="M24 146L100 132L178 98L255 115L340 72L425 88L510 45L590 28"/>
-                <g class="pricing-chart-arrow"><path class="pricing-chart-arrow-shape" d="M18 0L0-8L4 0L0 8Z"/><animateMotion dur="12s" repeatCount="indefinite" rotate="auto" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.78;1" path="M24 146L100 132L178 98L255 115L340 72L425 88L510 45L590 28"/></g>
+                <path class="pricing-chart-beam-line" marker-end="url(#pricing-chart-arrowhead)" d="M24 146L24 146L24 146L24 146L24 146L24 146L24 146L24 146">
+                  <animate attributeName="d" dur="12s" repeatCount="indefinite" calcMode="linear" keyTimes="0;.109;.11;.219;.22;.329;.33;.439;.44;.549;.55;.659;.66;.78;1" values="M24 146L24 146L24 146L24 146L24 146L24 146L24 146L26 146;M24 146L100 132L100 132L100 132L100 132L100 132L100 132L102 132;M24 146L100 132L100 132L100 132L100 132L100 132L100 132L102 131;M24 146L100 132L178 98L178 98L178 98L178 98L178 98L180 97;M24 146L100 132L178 98L178 98L178 98L178 98L178 98L180 98;M24 146L100 132L178 98L255 115L255 115L255 115L255 115L257 115;M24 146L100 132L178 98L255 115L255 115L255 115L255 115L257 114;M24 146L100 132L178 98L255 115L340 72L340 72L340 72L342 71;M24 146L100 132L178 98L255 115L340 72L340 72L340 72L342 72;M24 146L100 132L178 98L255 115L340 72L425 88L425 88L427 88;M24 146L100 132L178 98L255 115L340 72L425 88L425 88L427 87;M24 146L100 132L178 98L255 115L340 72L425 88L510 45L512 44;M24 146L100 132L178 98L255 115L340 72L425 88L510 45L512 45;M24 146L100 132L178 98L255 115L340 72L425 88L510 45L590 28;M24 146L100 132L178 98L255 115L340 72L425 88L510 45L590 28"/>
+                </path>
               </g>
               <g class="pricing-chart-cycle pricing-chart-cycle-c">
-                <path class="pricing-chart-glow" pathLength="1" d="M24 138L112 105L190 124L270 92L348 66L430 82L512 52L590 18"/>
-                <path class="pricing-chart-line" pathLength="1" d="M24 138L112 105L190 124L270 92L348 66L430 82L512 52L590 18"/>
-                <g class="pricing-chart-arrow"><path class="pricing-chart-arrow-shape" d="M18 0L0-8L4 0L0 8Z"/><animateMotion dur="12s" repeatCount="indefinite" rotate="auto" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.78;1" path="M24 138L112 105L190 124L270 92L348 66L430 82L512 52L590 18"/></g>
+                <path class="pricing-chart-beam-line" marker-end="url(#pricing-chart-arrowhead)" d="M24 138L24 138L24 138L24 138L24 138L24 138L24 138L24 138">
+                  <animate attributeName="d" dur="12s" repeatCount="indefinite" calcMode="linear" keyTimes="0;.109;.11;.219;.22;.329;.33;.439;.44;.549;.55;.659;.66;.78;1" values="M24 138L24 138L24 138L24 138L24 138L24 138L24 138L26 137;M24 138L112 105L112 105L112 105L112 105L112 105L112 105L114 104;M24 138L112 105L112 105L112 105L112 105L112 105L112 105L114 105;M24 138L112 105L190 124L190 124L190 124L190 124L190 124L192 124;M24 138L112 105L190 124L190 124L190 124L190 124L190 124L192 123;M24 138L112 105L190 124L270 92L270 92L270 92L270 92L272 91;M24 138L112 105L190 124L270 92L270 92L270 92L270 92L272 91;M24 138L112 105L190 124L270 92L348 66L348 66L348 66L350 65;M24 138L112 105L190 124L270 92L348 66L348 66L348 66L350 66;M24 138L112 105L190 124L270 92L348 66L430 82L430 82L432 82;M24 138L112 105L190 124L270 92L348 66L430 82L430 82L432 81;M24 138L112 105L190 124L270 92L348 66L430 82L512 52L514 51;M24 138L112 105L190 124L270 92L348 66L430 82L512 52L514 51;M24 138L112 105L190 124L270 92L348 66L430 82L512 52L590 18;M24 138L112 105L190 124L270 92L348 66L430 82L512 52L590 18"/>
+                </path>
               </g>
             </svg>
             <span>Strukturiert analysieren. Chancen klarer erkennen.</span>

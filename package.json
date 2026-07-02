@@ -2,6 +2,7 @@
   "name": "pointerscore-website",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "PointerScore 100 website with Supabase authentication and protected calculator",
   "scripts": {
     "dev": "node scripts/dev.mjs",
