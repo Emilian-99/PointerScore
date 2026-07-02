@@ -24,6 +24,10 @@ In Supabase müssen unter Authentication > URL Configuration mindestens diese Re
 
 Die fertigen PointerScore-E-Mail-Vorlagen und die einmaligen Einstellungen für verpflichtende E-Mail-Bestätigungen liegen unter `supabase/email-templates/README.md`.
 
+Die serverseitige Resend-Willkommensmail und ihre Einrichtung sind unter
+`supabase/RESEND_SETUP.md` dokumentiert. Der Resend API-Key darf nur als
+Supabase Edge-Function-Secret gespeichert werden.
+
 ## Lokal starten
 
 ```powershell
