@@ -490,7 +490,20 @@ Object.assign(translations, {
   "Kennzahlen": "Metrics",
   "Finanzwerte im Vergleich": "Financial metrics compared",
   "PointerScore ist keine Finanzberatung und kein Kauf- oder Verkaufssignal. Der Vergleich dient ausschließlich Bildungs- und Informationszwecken.": "PointerScore is not financial advice or a buy or sell signal. The comparison is provided solely for educational and informational purposes.",
-  "ROE / ROIC": "ROE / ROIC"
+  "ROE / ROIC": "ROE / ROIC",
+  "Zu Analyse speichern scrollen": "Scroll to save analysis",
+  "Analyse ansehen und speichern": "View and save analysis",
+  "Notiz hinzufügen": "Add note",
+  "Notiz bearbeiten": "Edit note",
+  "Persönliche Notiz": "Personal note",
+  "Gedanken, offene Fragen oder wichtige Hinweise zur Analyse …": "Thoughts, open questions or important notes about the analysis …",
+  "Die Notiz wird beim Speichern der Analyse übernommen.": "The note is included when you save the analysis.",
+  "Notiz anzeigen / bearbeiten": "View / edit note",
+  "Notiz speichern": "Save note",
+  "Notiz gespeichert.": "Note saved.",
+  "Persönliche Notizen": "Personal notes",
+  "Gedanken zu den Analysen": "Thoughts about the analyses",
+  "Keine Notiz gespeichert.": "No note saved."
 });
 
 const originalText = new WeakMap();

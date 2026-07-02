@@ -60,10 +60,23 @@ function renderAnalyses() {
         <div class="dashboard-analysis-actions">
           <a class="button button-secondary" href="rechner/">${t("Öffnen")}</a>
           <button class="dashboard-delete-button" type="button">${t("Löschen")}</button>
-        </div>`;
+        </div>
+        <details class="dashboard-analysis-note">
+          <summary>${t(analysis.notes ? "Notiz anzeigen / bearbeiten" : "Notiz hinzufügen")}</summary>
+          <label><span>${t("Persönliche Notiz")}</span><textarea maxlength="600" rows="4"></textarea></label>
+          <div><button type="button">${t("Notiz speichern")}</button><small role="status"></small></div>
+        </details>`;
       card.querySelector(".dashboard-analysis-company strong").textContent = analysis.company || t("Unbenannte Analyse");
       card.querySelector(".dashboard-analysis-score strong").textContent = String(Math.max(0, Math.min(100, Math.round(Number(analysis.score) || 0))));
       card.querySelector(".dashboard-analysis-date strong").textContent = formatDate(analysis.createdAt);
+      const noteInput = card.querySelector(".dashboard-analysis-note textarea");
+      noteInput.value = String(analysis.notes || "");
+      card.querySelector(".dashboard-analysis-note button").addEventListener("click", () => {
+        const updated = readAnalyses().map((item) => item.id === analysis.id ? { ...item, notes: noteInput.value.trim(), updatedAt: new Date().toISOString() } : item);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+        card.querySelector(".dashboard-analysis-note summary").textContent = t(noteInput.value.trim() ? "Notiz anzeigen / bearbeiten" : "Notiz hinzufügen");
+        card.querySelector(".dashboard-analysis-note small").textContent = t("Notiz gespeichert.");
+      });
       card.querySelector(".dashboard-analysis-actions a").href = `rechner/?analysis=${encodeURIComponent(analysis.id)}${isLocalPreview ? "&preview=1" : ""}`;
       card.querySelector(".dashboard-delete-button").addEventListener("click", () => {
         const remaining = readAnalyses().filter((item) => item.id !== analysis.id);

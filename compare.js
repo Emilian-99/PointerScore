@@ -7,7 +7,7 @@ const t = (value) => window.PointerScoreI18n?.translate(value) ?? value;
 
 const demoAnalyses = [
   {
-    id: "preview-a", company: "Nordlicht Systems AG", score: 82,
+    id: "preview-a", company: "Nordlicht Systems AG", score: 82, notes: "Starke Qualität und gute Margen. Bewertung beim nächsten Quartalsbericht erneut prüfen.",
     input: { peRatio: 22, qualityMetricType: "ROIC", qualityMetric: 19 },
     result: {
       total: 82,
@@ -22,7 +22,7 @@ const demoAnalyses = [
     }
   },
   {
-    id: "preview-b", company: "Atlas Consumer SE", score: 68,
+    id: "preview-b", company: "Atlas Consumer SE", score: 68, notes: "Solide Bewertung, aber das Gewinnwachstum bleibt der wichtigste Beobachtungspunkt.",
     input: { peRatio: 17, qualityMetricType: "ROE", qualityMetric: 14 },
     result: {
       total: 68,
@@ -145,6 +145,19 @@ function renderComparison() {
       row.append(cell);
     });
     metricBody.append(row);
+  });
+
+  const noteGrid = document.querySelector("[data-note-comparison]");
+  noteGrid.replaceChildren();
+  [left, right].forEach((analysis) => {
+    const note = document.createElement("article");
+    note.className = "compare-note-card";
+    const heading = document.createElement("h3");
+    heading.textContent = analysis.company || t("Unbenannte Analyse");
+    const copy = document.createElement("p");
+    copy.textContent = String(analysis.notes || "").trim() || t("Keine Notiz gespeichert.");
+    note.append(heading, copy);
+    noteGrid.append(note);
   });
 }
 

@@ -5,6 +5,7 @@ const isLocalPreview=["localhost","127.0.0.1"].includes(window.location.hostname
 const user=isLocalPreview?{id:"preview",email:"demo@pointerscore.com"}:await requireUser();
 if(!user)throw new Error("Authentication required.");
 revealProtectedPage();
+if(isLocalPreview)document.querySelectorAll('a[href="../dashboard.html"]').forEach(link=>{link.href="../dashboard.html?preview=1"});
 const STORAGE_KEY="pointerscore-analyses";
 const t=value=>{
  const text=String(value??"");
@@ -31,11 +32,16 @@ const submitDefaultHtml=submitButton.innerHTML;
 const qualityLabelText=document.querySelector("#quality-label-text");
 const exportNote=document.querySelector("#export-note");
 const saveButton=document.querySelector("#save-button");
+const scrollSaveButton=document.querySelector("#result-scroll-save");
+const noteToggle=document.querySelector("#analysis-note-toggle");
+const noteEditor=document.querySelector("#analysis-note-editor");
+const noteInput=document.querySelector("#analysis-note");
 const saveNote=document.querySelector("#save-note");
 const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
 let qualityMetricType="ROE";
 let scoreAnimationFrame=0;
 let lastResult=null;
+let currentNotes="";
 let calculationTimer=0;
 
 function appendOptions(select,options){options.forEach(item=>select.add(new Option(t(item.label),item.value)))}
@@ -166,7 +172,8 @@ function saveAnalysis(){
  const analyses=readSavedAnalyses();
  const existing=analyses.find(item=>item.id===currentAnalysisId);
  const now=new Date().toISOString();
- const analysis={id:existing?.id||crypto.randomUUID(),company:lastResult.companyName,score:lastResult.total,createdAt:existing?.createdAt||now,updatedAt:now,input:collectInput(),result:lastResult};
+ currentNotes=noteInput.value.trim();
+ const analysis={id:existing?.id||crypto.randomUUID(),company:lastResult.companyName,score:lastResult.total,notes:currentNotes,createdAt:existing?.createdAt||now,updatedAt:now,input:collectInput(),result:lastResult};
  const next=existing?analyses.map(item=>item.id===analysis.id?analysis:item):[...analyses,analysis];
  localStorage.setItem(STORAGE_KEY,JSON.stringify(next));
  currentAnalysisId=analysis.id;
@@ -178,6 +185,9 @@ function openSavedAnalysis(){
  if(!currentAnalysisId)return;
  const analysis=readSavedAnalyses().find(item=>item.id===currentAnalysisId);
  if(!analysis?.input)return;
+ currentNotes=String(analysis.notes||"");
+ noteInput.value=currentNotes;
+ noteToggle.textContent=t(currentNotes?"Notiz bearbeiten":"Notiz hinzufügen");
  Object.entries(analysis.input).forEach(([name,value])=>{const field=form.elements[name];if(field&&name!=="qualityMetricType")field.value=value??""});
  if(analysis.input.qualityMetricType){
   qualityMetricType=analysis.input.qualityMetricType;
@@ -196,7 +206,8 @@ form.addEventListener("focusout",event=>{if(event.target.matches("input,select")
 async function exportAnalysisPdf(){
  if(!lastResult)return;
  exportNote.textContent=t("Der hochwertige PDF-Bericht wird vorbereitet …");exportNote.hidden=false;
- const opened=await createAnalysisReport(lastResult);
+ currentNotes=noteInput.value.trim();
+ const opened=await createAnalysisReport({...lastResult,notes:currentNotes});
  exportNote.textContent=opened?t("PDF-Bericht geöffnet. Wähle im Druckdialog „Als PDF speichern“."):t("Bitte erlaube Pop-ups, um den PDF-Bericht zu öffnen.");
 }
 function printAnalysis(){
@@ -208,6 +219,20 @@ function printAnalysis(){
 document.querySelector("#pdf-button").addEventListener("click",exportAnalysisPdf);
 document.querySelector("#print-button").addEventListener("click",printAnalysis);
 saveButton.addEventListener("click",saveAnalysis);
+noteToggle.addEventListener("click",()=>{
+ const open=noteEditor.hidden;
+ noteEditor.hidden=!open;
+ noteToggle.setAttribute("aria-expanded",String(open));
+ if(open)noteInput.focus();
+});
+noteInput.addEventListener("input",()=>{
+ currentNotes=noteInput.value;
+ noteToggle.textContent=t(currentNotes.trim()?"Notiz bearbeiten":"Notiz hinzufügen");
+});
+scrollSaveButton.addEventListener("click",()=>{
+ saveButton.scrollIntoView({behavior:reduceMotion.matches?"auto":"smooth",block:"center"});
+ window.setTimeout(()=>saveButton.focus({preventScroll:true}),reduceMotion.matches?0:650);
+});
 document.querySelectorAll("[data-logout]").forEach(button=>button.addEventListener("click",async()=>{button.disabled=true;await supabase.auth.signOut({scope:"local"});window.location.replace("../index.html")}));
 
 window.addEventListener("pointerscore:languagechange",()=>{
