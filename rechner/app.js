@@ -6,6 +6,14 @@ const user=isLocalPreview?{id:"preview",email:"demo@pointerscore.com"}:await req
 if(!user)throw new Error("Authentication required.");
 revealProtectedPage();
 const STORAGE_KEY="pointerscore-analyses";
+const t=value=>{
+ const text=String(value??"");
+ const translated=window.PointerScoreI18n?.translate(text)??text;
+ if(translated!==text)return translated;
+ if(document.documentElement.lang==="en"&&text.endsWith(" ist die stärkste Kategorie"))return t(text.replace(/ ist die stärkste Kategorie$/,""))+" is the strongest category";
+ return text;
+};
+const currentLocale=()=>document.documentElement.lang==="en"?"en-GB":"de-DE";
 let currentAnalysisId=new URLSearchParams(window.location.search).get("analysis");
 const form=document.querySelector("#score-form");
 const industry=document.querySelector("#industry");
@@ -30,8 +38,9 @@ let scoreAnimationFrame=0;
 let lastResult=null;
 let calculationTimer=0;
 
-function appendOptions(select,options){options.forEach(item=>select.add(new Option(item.label,item.value)))}
+function appendOptions(select,options){options.forEach(item=>select.add(new Option(t(item.label),item.value)))}
 appendOptions(industry,INDUSTRIES);appendOptions(marketPosition,MARKET_POSITIONS);
+function refreshSelectOptions(select,options){const value=select.value;while(select.options.length>1)select.remove(1);appendOptions(select,options);select.value=value}
 
 document.querySelectorAll(".toggle-button").forEach(button=>button.addEventListener("click",()=>{
  qualityMetricType=button.dataset.metric;
@@ -54,14 +63,14 @@ function updateCompletion(){
   finite("qualityMetric")
  ];
  const completed=sections.filter(Boolean).length;
- completionText.textContent=completed+" von 5 abgeschlossen";
+ completionText.textContent=completed+" "+t("von 5 abgeschlossen");
  completionFill.style.width=(completed/5*100)+"%";
  completionCard.classList.toggle("is-complete",completed===5);
 }
 function setCalculating(active){
  form.classList.toggle("is-calculating",active);
  Array.from(form.elements).forEach(control=>control.disabled=active);
- submitButton.innerHTML=active?'Score wird berechnet <span class="button-loading-dots">•••</span>':submitDefaultHtml;
+ submitButton.innerHTML=active?t("Score wird berechnet")+' <span class="button-loading-dots">•••</span>':t("PointerScore berechnen");
 }
 function showCalculationLoading(){
  emptyResult.hidden=true;resultContent.hidden=true;loadingResult.hidden=false;setCalculating(true);
@@ -88,7 +97,7 @@ function clearFieldError(field){
 function showFieldError(field,text){
  const wrapper=field?.closest(".field");if(!wrapper)return;
  clearFieldError(field);wrapper.classList.remove("is-valid");wrapper.classList.add("invalid");field.classList.add("invalid");field.setAttribute("aria-invalid","true");
- const error=document.createElement("span");error.className="field-error";error.id=field.name+"-error";error.textContent=text||"Bitte eine gültige Eingabe machen.";wrapper.appendChild(error);field.setAttribute("aria-describedby",error.id);
+ const error=document.createElement("span");error.className="field-error";error.id=field.name+"-error";error.textContent=t(text||"Bitte eine gültige Eingabe machen.");wrapper.appendChild(error);field.setAttribute("aria-describedby",error.id);
 }
 function updateFieldVisual(field,revealError=false,errorText=""){
  if(!field?.name)return;const wrapper=field.closest(".field");if(!wrapper)return;
@@ -102,12 +111,12 @@ function clearErrors(){
  form.querySelectorAll("[aria-invalid]").forEach(element=>{element.removeAttribute("aria-invalid");element.removeAttribute("aria-describedby")});
 }
 function showErrors(errors){
- message.innerHTML="<strong>Bitte alle benötigten Felder ausfüllen.</strong><span> Prüfe die dezent markierten Eingaben.</span>";
+ message.innerHTML="<strong>"+t("Bitte alle benötigten Felder ausfüllen.")+"</strong><span> "+t("Prüfe die dezent markierten Eingaben.")+"</span>";
  message.hidden=false;
  Object.keys(errors).forEach(name=>{const field=form.elements[name];if(field)updateFieldVisual(field,true,errors[name])});
  message.scrollIntoView({behavior:reduceMotion.matches?"auto":"smooth",block:"center"});
 }
-function formatPercent(value){return value===null?"nicht sinnvoll":new Intl.NumberFormat("de-DE",{minimumFractionDigits:1,maximumFractionDigits:1}).format(value)+" %"}
+function formatPercent(value){return value===null?t("nicht sinnvoll"):new Intl.NumberFormat(currentLocale(),{minimumFractionDigits:1,maximumFractionDigits:1}).format(value)+" %"}
 
 function animateScore(target){
  cancelAnimationFrame(scoreAnimationFrame);
@@ -125,17 +134,17 @@ function animateScore(target){
 }
 function renderAnalysis(analysis){
  const item=(text,type)=>'<li><span class="analysis-icon '+type+'" aria-hidden="true">'+(type==="positive"?"✓":"!")+"</span><span>"+text+"</span></li>";
- document.querySelector("#analysis-strengths").innerHTML=analysis.strengths.map(text=>item(text,"positive")).join("");
- document.querySelector("#analysis-potential").innerHTML=analysis.potential.map(text=>item(text,"warning")).join("");
+ document.querySelector("#analysis-strengths").innerHTML=analysis.strengths.map(text=>item(t(text),"positive")).join("");
+ document.querySelector("#analysis-potential").innerHTML=analysis.potential.map(text=>item(t(text),"warning")).join("");
 }
 function renderResult(result){
  lastResult=result;loadingResult.hidden=true;emptyResult.hidden=true;resultContent.hidden=false;exportNote.hidden=true;setCalculating(false);resultCompany.textContent=result.companyName;
  const ring=document.querySelector("#score-ring");
  ring.style.setProperty("--ring-color",result.signal.key==="strong"?"#0ea875":result.signal.key==="watch"?"#df9311":"#d95757");
- const badge=document.querySelector("#signal-badge");badge.className="signal-badge "+result.signal.key;badge.textContent=result.signal.label;
- document.querySelector("#signal-copy").textContent=result.signal.copy;
+ const badge=document.querySelector("#signal-badge");badge.className="signal-badge "+result.signal.key;badge.textContent=t(result.signal.label);
+ document.querySelector("#signal-copy").textContent=t(result.signal.copy);
  document.querySelector("#category-results").innerHTML=result.categories.map(category=>
-  '<div class="category-result"><div class="category-result-head"><span>'+category.label+'</span><span>'+category.score+" / "+category.max+'</span></div><div class="bar"><span data-width="'+((category.score/category.max)*100)+'%"></span></div></div>'
+  '<div class="category-result"><div class="category-result-head"><span>'+t(category.label)+'</span><span>'+category.score+" / "+category.max+'</span></div><div class="bar"><span data-width="'+((category.score/category.max)*100)+'%"></span></div></div>'
  ).join("");
  renderAnalysis(result.analysis);
  const metrics=[
@@ -144,7 +153,7 @@ function renderResult(result){
   ["Gewinnwachstum J2 → J3",formatPercent(result.metrics.profitGrowth23)],["Ø Gewinnwachstum",formatPercent(result.metrics.averageProfitGrowth)],
   ["Schuldenquote",formatPercent(result.metrics.debtRatio)],["Nettomarge",formatPercent(result.metrics.netMargin)]
  ];
- document.querySelector("#calculated-metrics").innerHTML=metrics.map(item=>"<dt>"+item[0]+"</dt><dd>"+item[1]+"</dd>").join("");
+ document.querySelector("#calculated-metrics").innerHTML=metrics.map(item=>"<dt>"+t(item[0])+"</dt><dd>"+item[1]+"</dd>").join("");
  animateScore(result.total);
  requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll(".bar span").forEach(bar=>bar.style.width=bar.dataset.width)));
  if(window.matchMedia("(max-width: 900px)").matches)resultContent.scrollIntoView({behavior:reduceMotion.matches?"auto":"smooth",block:"start"});
@@ -162,7 +171,7 @@ function saveAnalysis(){
  localStorage.setItem(STORAGE_KEY,JSON.stringify(next));
  currentAnalysisId=analysis.id;
  const url=new URL(window.location.href);url.searchParams.set("analysis",analysis.id);history.replaceState({},"",url);
- saveNote.textContent="Analyse gespeichert.";
+ saveNote.textContent=t("Analyse gespeichert.");
  window.setTimeout(()=>{saveNote.textContent=""},2400);
 }
 function openSavedAnalysis(){
@@ -186,9 +195,9 @@ form.addEventListener("focusout",event=>{if(event.target.matches("input,select")
 
 async function exportAnalysisPdf(){
  if(!lastResult)return;
- exportNote.textContent="Der hochwertige PDF-Bericht wird vorbereitet …";exportNote.hidden=false;
+ exportNote.textContent=t("Der hochwertige PDF-Bericht wird vorbereitet …");exportNote.hidden=false;
  const opened=await createAnalysisReport(lastResult);
- exportNote.textContent=opened?"PDF-Bericht geöffnet. Wähle im Druckdialog „Als PDF speichern“.":"Bitte erlaube Pop-ups, um den PDF-Bericht zu öffnen.";
+ exportNote.textContent=opened?t("PDF-Bericht geöffnet. Wähle im Druckdialog „Als PDF speichern“."):t("Bitte erlaube Pop-ups, um den PDF-Bericht zu öffnen.");
 }
 function printAnalysis(){
  if(!lastResult)return;
@@ -200,6 +209,12 @@ document.querySelector("#pdf-button").addEventListener("click",exportAnalysisPdf
 document.querySelector("#print-button").addEventListener("click",printAnalysis);
 saveButton.addEventListener("click",saveAnalysis);
 document.querySelectorAll("[data-logout]").forEach(button=>button.addEventListener("click",async()=>{button.disabled=true;await supabase.auth.signOut({scope:"local"});window.location.replace("../index.html")}));
+
+window.addEventListener("pointerscore:languagechange",()=>{
+ refreshSelectOptions(industry,INDUSTRIES);refreshSelectOptions(marketPosition,MARKET_POSITIONS);
+ updateCompletion();
+ if(lastResult)renderResult(lastResult);
+});
 
 updateCompletion();
 openSavedAnalysis();

@@ -1,6 +1,7 @@
 import { requireUser, revealProtectedPage, supabase } from "./auth-client.js";
 
 const STORAGE_KEY = "pointerscore-analyses";
+const t = (value) => window.PointerScoreI18n?.translate(value) ?? value;
 
 function readAnalyses() {
   try {
@@ -38,7 +39,7 @@ function renderAnalyses() {
   document.querySelector("[data-stat-count]").textContent = String(analyses.length);
   document.querySelector("[data-stat-average]").textContent = scores.length ? String(Math.round(scores.reduce((sum, score) => sum + score, 0) / scores.length)) : "–";
   document.querySelector("[data-stat-best]").textContent = best?.company || "–";
-  document.querySelector("[data-stat-best-score]").textContent = best ? `${Math.round(Number(best.score))} Punkte` : "Noch keine Daten";
+  document.querySelector("[data-stat-best-score]").textContent = best ? `${Math.round(Number(best.score))} ${t("Punkte")}` : t("Noch keine Daten");
 
   const list = document.querySelector("[data-analysis-list]");
   const emptyState = document.querySelector("[data-empty-state]");
@@ -53,14 +54,14 @@ function renderAnalyses() {
       const card = document.createElement("article");
       card.className = "dashboard-analysis-card";
       card.innerHTML = `
-        <div class="dashboard-analysis-company"><span>Unternehmen</span><strong></strong></div>
+        <div class="dashboard-analysis-company"><span>${t("Unternehmen")}</span><strong></strong></div>
         <div class="dashboard-analysis-score"><span>PointerScore</span><strong></strong><small>/ 100</small></div>
-        <div class="dashboard-analysis-date"><span>Erstellt am</span><strong></strong></div>
+        <div class="dashboard-analysis-date"><span>${t("Erstellt am")}</span><strong></strong></div>
         <div class="dashboard-analysis-actions">
-          <a class="button button-secondary" href="rechner/">Öffnen</a>
-          <button class="dashboard-delete-button" type="button">Löschen</button>
+          <a class="button button-secondary" href="rechner/">${t("Öffnen")}</a>
+          <button class="dashboard-delete-button" type="button">${t("Löschen")}</button>
         </div>`;
-      card.querySelector(".dashboard-analysis-company strong").textContent = analysis.company || "Unbenannte Analyse";
+      card.querySelector(".dashboard-analysis-company strong").textContent = analysis.company || t("Unbenannte Analyse");
       card.querySelector(".dashboard-analysis-score strong").textContent = String(Math.max(0, Math.min(100, Math.round(Number(analysis.score) || 0))));
       card.querySelector(".dashboard-analysis-date strong").textContent = formatDate(analysis.createdAt);
       card.querySelector(".dashboard-analysis-actions a").href = `rechner/?analysis=${encodeURIComponent(analysis.id)}${isLocalPreview ? "&preview=1" : ""}`;
@@ -89,6 +90,10 @@ if (user) {
   renderAnalyses();
   revealProtectedPage();
 }
+
+window.addEventListener("pointerscore:languagechange", () => {
+  if (user) renderAnalyses();
+});
 
 document.querySelectorAll("[data-logout]").forEach((button) => button.addEventListener("click", async () => {
   button.disabled = true;

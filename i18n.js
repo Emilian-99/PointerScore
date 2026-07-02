@@ -270,7 +270,138 @@ Object.assign(translations, {
   "PointerScore Analyse": "PointerScore analysis",
   "Bereit zur Berechnung": "Ready to calculate",
   "Ändere Werte oder starte die Berechnung.": "Change values or start the calculation.",
-  "Keine Anlageberatung. Prüfe Daten und Annahmen vor jeder Entscheidung.": "Not investment advice. Verify data and assumptions before every decision."
+  "Keine Anlageberatung. Prüfe Daten und Annahmen vor jeder Entscheidung.": "Not investment advice. Verify data and assumptions before every decision.",
+  "Behalte deine Unternehmensanalysen und wichtigsten Kennzahlen im Blick.": "Keep track of your company analyses and key metrics.",
+  "Willkommen,": "Welcome,",
+  "Neue Analyse erstellen": "Create new analysis",
+  "Schnellaktionen": "Quick actions",
+  "Analyse-Statistiken": "Analysis statistics",
+  "Anzahl Analysen": "Number of analyses",
+  "Gespeicherte Bewertungen": "Saved evaluations",
+  "Durchschnittlicher Score": "Average score",
+  "Über alle Analysen": "Across all analyses",
+  "Beste Analyse": "Best analysis",
+  "Noch keine Daten": "No data yet",
+  "Übersicht": "Overview",
+  "Meine Analysen": "My analyses",
+  "Lokal gespeichert": "Saved locally",
+  "Du hast noch keine Analyse erstellt.": "You have not created an analysis yet.",
+  "Starte deine erste Unternehmensbewertung und erhalte einen PointerScore von 0 bis 100.": "Start your first company evaluation and receive a PointerScore from 0 to 100.",
+  "Erste Analyse erstellen": "Create first analysis",
+  "Unternehmen": "Company",
+  "Erstellt am": "Created on",
+  "Öffnen": "Open",
+  "Löschen": "Delete",
+  "Unbenannte Analyse": "Untitled analysis",
+  "Punkte": "points",
+  "PointerScore Rechner V1.2": "PointerScore Calculator V1.2",
+  "Zurück zum PointerScore Dashboard": "Back to the PointerScore dashboard",
+  "PointerScore Rechner": "PointerScore Calculator",
+  "Strukturierte Unternehmensanalyse": "Structured company analysis",
+  "Unternehmenskennzahlen eintragen, Teilbereiche auswerten und einen nachvollziehbaren Gesamtscore von 0 bis 100 erhalten.": "Enter company metrics, evaluate each area and receive a transparent total score from 0 to 100.",
+  "Fünf Kategorien · 100 Punkte": "Five categories · 100 points",
+  "Fortschritt": "Progress",
+  "Unternehmen einordnen": "Classify the company",
+  "Branche und Stellung im Markt": "Industry and market position",
+  "Unternehmensname": "Company name",
+  "Bitte auswählen": "Please select",
+  "Drei abgeschlossene Geschäftsjahre, in derselben Einheit": "Three completed financial years, using the same unit",
+  "Umsatz": "Revenue",
+  "Gewinn": "Profit",
+  "Jahr 1": "Year 1",
+  "Jahr 2": "Year 2",
+  "Jahr 3": "Year 3",
+  "Stabilität & Profitabilität": "Stability & profitability",
+  "Bilanzstärke und aktuelles Ergebnis": "Balance-sheet strength and current earnings",
+  "Kurs-Gewinn-Verhältnis": "Price-to-earnings ratio",
+  "Unternehmensqualität": "Company quality",
+  "Nutze ROIC, wenn ROE wegen negativem Eigenkapital verzerrt oder nicht sinnvoll ist.": "Use ROIC when ROE is distorted or not meaningful because of negative equity.",
+  "Score wird berechnet": "Calculating score",
+  "Die fünf Bewertungsbereiche werden ausgewertet.": "The five evaluation areas are being calculated.",
+  "Dein Ergebnis erscheint hier": "Your result will appear here",
+  "Fülle alle Felder aus, um den Gesamtscore und die fünf Teilbewertungen zu sehen.": "Complete all fields to see the total score and all five category scores.",
+  "PointerScore Ergebnis": "PointerScore result",
+  "Gesamtscore": "Total score",
+  "Automatische Analyse": "Automatic analysis",
+  "Stärken": "Strengths",
+  "Verbesserungspotenzial": "Areas for improvement",
+  "Berechnete Kennzahlen": "Calculated metrics",
+  "Analyse speichern": "Save analysis",
+  "Analyse als PDF herunterladen": "Download analysis as PDF",
+  "Analyse drucken": "Print analysis",
+  "Investieren nach System, nicht nach Gefühl.": "Invest systematically, not emotionally.",
+  "von 5 abgeschlossen": "of 5 completed",
+  "nicht sinnvoll": "not meaningful",
+  "Analyse gespeichert.": "Analysis saved.",
+  "Bitte eine gültige Eingabe machen.": "Please enter a valid value.",
+  "Bitte mindestens 2 Zeichen eingeben.": "Please enter at least 2 characters.",
+  "Bitte eine Auswahl treffen.": "Please make a selection.",
+  "Bitte eine gültige Zahl eingeben.": "Please enter a valid number.",
+  "Bitte gib den Unternehmensnamen ein.": "Please enter the company name.",
+  "Bitte wähle eine Branche aus.": "Please select an industry.",
+  "Bitte wähle die Marktposition aus.": "Please select the market position.",
+  "Bitte gib eine gültige Zahl ein.": "Please enter a valid number.",
+  "Der Wert muss größer als 0 sein.": "The value must be greater than 0.",
+  "Schulden können hier nicht negativ sein.": "Debt cannot be negative here.",
+  "Bitte alle benötigten Felder ausfüllen.": "Please complete all required fields.",
+  "Prüfe die dezent markierten Eingaben.": "Check the highlighted entries.",
+  "Umsatzwachstum J1 → J2": "Revenue growth Y1 → Y2",
+  "Umsatzwachstum J2 → J3": "Revenue growth Y2 → Y3",
+  "Ø Umsatzwachstum": "Average revenue growth",
+  "Gewinnwachstum J1 → J2": "Profit growth Y1 → Y2",
+  "Gewinnwachstum J2 → J3": "Profit growth Y2 → Y3",
+  "Ø Gewinnwachstum": "Average profit growth",
+  "Schuldenquote": "Debt ratio",
+  "Nettomarge": "Net margin",
+  "Starkes PointerScore-Signal": "Strong PointerScore signal",
+  "Beobachten": "Watch",
+  "Schwächeres Signal": "Weaker signal",
+  "Das Unternehmen wirkt nach den gewählten PointerScore-Kriterien stark.": "The company appears strong based on the selected PointerScore criteria.",
+  "Das Unternehmen zeigt Stärken, sollte aber genauer geprüft werden.": "The company shows strengths but should be examined more closely.",
+  "Nach PointerScore bestehen Schwächen oder offene Fragen.": "PointerScore indicates weaknesses or unresolved questions.",
+  "Zukunftspotenzial": "Future potential",
+  "Finanzielle Stabilität": "Financial stability",
+  "Starkes Umsatzwachstum": "Strong revenue growth",
+  "Solides Umsatzwachstum": "Solid revenue growth",
+  "Rückläufige Umsatzentwicklung": "Declining revenue trend",
+  "Umsatzwachstum ausbaufähig": "Revenue growth can be improved",
+  "Dynamisches Gewinnwachstum": "Dynamic profit growth",
+  "Gewinnwachstum derzeit nicht sinnvoll bewertbar": "Profit growth is not currently meaningful",
+  "Gewinnentwicklung mit Verbesserungspotenzial": "Profit development has room for improvement",
+  "Hohe Profitabilität": "High profitability",
+  "Solide Profitabilität": "Solid profitability",
+  "Aktuell negative Nettomarge": "Currently negative net margin",
+  "Nettomarge unter 10 %": "Net margin below 10%",
+  "Solide Bilanz": "Solid balance sheet",
+  "Erhöhte Schuldenquote": "Elevated debt ratio",
+  "Moderate Bewertung nach KGV": "Moderate P/E valuation",
+  "Bewertung relativ hoch": "Relatively high valuation",
+  "KGV nicht sinnvoll interpretierbar": "P/E ratio is not meaningful",
+  "Hohe Kapitaleffizienz": "High capital efficiency",
+  "Kapitaleffizienz ausbaufähig": "Capital efficiency can be improved",
+  "Starke Marktposition": "Strong market position",
+  "Marktposition mit Ausbaupotenzial": "Market position has room for improvement",
+  "Keine deutliche Schwäche im gewählten Datenbild": "No clear weakness in the selected data",
+  "Der hochwertige PDF-Bericht wird vorbereitet …": "The high-quality PDF report is being prepared …",
+  "PDF-Bericht geöffnet. Wähle im Druckdialog „Als PDF speichern“.": "PDF report opened. Choose “Save as PDF” in the print dialog.",
+  "Bitte erlaube Pop-ups, um den PDF-Bericht zu öffnen.": "Please allow pop-ups to open the PDF report.",
+  "Künstliche Intelligenz": "Artificial intelligence",
+  "Halbleiter": "Semiconductors",
+  "Zahlungsdienstleister": "Payment services",
+  "Medizintechnik": "Medical technology",
+  "Pharma / Gesundheit": "Pharma / healthcare",
+  "Erneuerbare Energien": "Renewable energy",
+  "Luxus / starke Marken": "Luxury / strong brands",
+  "Vermögensverwaltung / Finanzplattformen": "Asset management / financial platforms",
+  "Industrie": "Industrials",
+  "Konsumgüter / Lebensmittel / Getränke": "Consumer goods / food / beverages",
+  "Versorger": "Utilities",
+  "Tabak": "Tobacco",
+  "Klarer Marktführer": "Clear market leader",
+  "Einer der größten Anbieter": "One of the largest providers",
+  "Etabliertes Unternehmen": "Established company",
+  "Kleiner Wettbewerber": "Smaller competitor",
+  "Neuer oder sehr kleiner Anbieter": "New or very small provider"
 });
 
 const originalText = new WeakMap();
@@ -279,6 +410,12 @@ const originalAttributes = new WeakMap();
 function translatedValue(original, language) {
   return language === "en" ? (translations[original] ?? original) : original;
 }
+
+window.PointerScoreI18n = {
+  translate(value, language = document.documentElement.lang) { return translatedValue(String(value ?? ""), language); },
+  get language() { return document.documentElement.lang === "en" ? "en" : "de"; },
+  setLanguage: applyLanguage
+};
 
 function applyLanguage(language) {
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
@@ -294,8 +431,8 @@ function applyLanguage(language) {
     node.nodeValue = original.replace(trimmed, translated);
   });
 
-  document.querySelectorAll("[placeholder], [aria-label], [title]").forEach((element) => {
-    ["placeholder", "aria-label", "title"].forEach((attribute) => {
+  document.querySelectorAll("[placeholder], [aria-label], [title], [data-tooltip]").forEach((element) => {
+    ["placeholder", "aria-label", "title", "data-tooltip"].forEach((attribute) => {
       if (!element.hasAttribute(attribute)) return;
       let values = originalAttributes.get(element);
       if (!values) { values = {}; originalAttributes.set(element, values); }
@@ -320,6 +457,7 @@ function applyLanguage(language) {
     button.setAttribute("aria-pressed", String(active));
   });
   localStorage.setItem("pointerscore-language", language);
+  window.dispatchEvent(new CustomEvent("pointerscore:languagechange", { detail: { language } }));
 }
 
 function createLanguageSwitch() {
@@ -333,11 +471,15 @@ function createLanguageSwitch() {
   const toggle = nav.querySelector(".nav-toggle");
   const menu = nav.querySelector(".nav-menu");
   nav.insertBefore(control, toggle || menu);
-  control.querySelectorAll("button").forEach((button) => button.addEventListener("click", () => applyLanguage(button.dataset.language)));
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   createLanguageSwitch();
+  document.querySelectorAll("[data-language]").forEach((button) => {
+    if (button.dataset.languageBound === "true") return;
+    button.dataset.languageBound = "true";
+    button.addEventListener("click", () => applyLanguage(button.dataset.language));
+  });
   const saved = localStorage.getItem("pointerscore-language");
   const detected = navigator.language.toLowerCase().startsWith("de") ? "de" : "en";
   applyLanguage(saved === "de" || saved === "en" ? saved : detected);

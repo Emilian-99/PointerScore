@@ -22,3 +22,34 @@ scoreValueElements.forEach(scoreValueElement=>{
     requestAnimationFrame(updateScore);
   }
 });
+
+// Keep the animated arrowhead exactly tangent to the final visible beam segment.
+document.querySelectorAll('.pricing-chart-beam-line animate[attributeName="d"]').forEach(animation=>{
+  const values=animation.getAttribute("values");
+  if(!values)return;
+  const frames=values.split(";").map(frame=>({
+    frame,
+    points:[...frame.matchAll(/(-?\d+(?:\.\d+)?)\s+(-?\d+(?:\.\d+)?)/g)].map(match=>({x:Number(match[1]),y:Number(match[2]),start:match.index,end:match.index+match[0].length}))
+  }));
+  const aligned=frames.map((entry,frameIndex)=>{
+    const {frame,points}=entry;
+    if(points.length<3)return frame;
+    const end=points.at(-2);
+    const originalTip=points.at(-1);
+    if(Math.hypot(originalTip.x-end.x,originalTip.y-end.y)>4)return frame;
+    const nextEnd=frames[frameIndex+1]?.points.at(-2);
+    const previousEnd=frames[frameIndex-1]?.points.at(-2);
+    let dx=0,dy=0;
+    if(nextEnd&&(nextEnd.x!==end.x||nextEnd.y!==end.y)){dx=nextEnd.x-end.x;dy=nextEnd.y-end.y}
+    else if(previousEnd&&(previousEnd.x!==end.x||previousEnd.y!==end.y)){dx=end.x-previousEnd.x;dy=end.y-previousEnd.y}
+    else{
+      dx=originalTip.x-end.x;dy=originalTip.y-end.y;
+    }
+    const length=Math.hypot(dx,dy);
+    if(!length)return frame;
+    const tip=points.at(-1);
+    const replacement=`${(end.x+dx/length*2).toFixed(2)} ${(end.y+dy/length*2).toFixed(2)}`;
+    return frame.slice(0,tip.start)+replacement+frame.slice(tip.end);
+  }).join(";");
+  animation.setAttribute("values",aligned);
+});
