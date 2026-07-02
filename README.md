@@ -14,7 +14,7 @@ PointerScore-Landingpage mit Supabase Auth, geschütztem Dashboard und Rechner.
 
 ## Konfiguration
 
-Kopiere `.env.example` nach `.env.local` und trage die Supabase Project URL sowie den Publishable Key ein. `.env.local` und die daraus erzeugte `runtime-config.js` werden nicht committed.
+Kopiere `.env.example` nach `.env.local` und trage die Supabase Project URL sowie den Publishable Key ein. `.env.local` wird nicht committed. Die daraus erzeugte `runtime-config.js` enthält ausschließlich die für Browser vorgesehenen öffentlichen Supabase-Angaben und wird für GitHub Pages mit veröffentlicht.
 
 In Supabase müssen unter Authentication > URL Configuration mindestens diese Redirect-URLs erlaubt werden:
 
