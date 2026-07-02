@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unternehmen vergleichen | PointerScore 100</title>
+  <meta name="description" content="Zwei gespeicherte PointerScore-Unternehmensanalysen direkt vergleichen.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#eef8ff">
+  <link rel="icon" type="image/png" href="assets/logo-new-v2.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=11">
+</head>
+<body class="protected-page compare-page is-auth-loading">
+  <div class="auth-loading-screen" aria-live="polite"><img src="assets/logo-new-v2.png" alt="" width="56" height="56"><span>Zugang wird geprüft …</span></div>
+  <div class="protected-content">
+    <header class="site-header is-scrolled">
+      <nav class="nav shell" aria-label="Hauptnavigation">
+        <a class="brand" href="index.html"><img src="assets/logo-new-v2.png" alt="" width="42" height="42"><span>PointerScore 100</span></a>
+        <div class="nav-menu"><a href="dashboard.html" data-dashboard-link>Dashboard</a><a href="rechner/" data-calculator-link>Rechner</a><button class="nav-session-button" type="button" data-logout>Abmelden</button></div>
+      </nav>
+    </header>
+
+    <main class="compare-main">
+      <div class="shell compare-shell">
+        <a class="compare-back-link" href="dashboard.html" data-dashboard-link>Zurück zum Dashboard</a>
+        <section class="compare-hero">
+          <p class="eyebrow">Direkter Vergleich</p>
+          <h1>Welche Analyse überzeugt mehr?</h1>
+          <p>Wähle zwei gespeicherte Unternehmen aus und vergleiche Gesamtscore, Bewertungsbereiche und Kennzahlen direkt nebeneinander.</p>
+        </section>
+
+        <section class="compare-picker" aria-label="Unternehmen auswählen">
+          <label><span>Unternehmen 1</span><select data-compare-select="left" aria-label="Erstes Unternehmen"></select></label>
+          <div class="compare-versus" aria-hidden="true">VS</div>
+          <label><span>Unternehmen 2</span><select data-compare-select="right" aria-label="Zweites Unternehmen"></select></label>
+        </section>
+
+        <section class="compare-empty" data-compare-empty hidden>
+          <img src="assets/icons/research.svg" alt="" width="42" height="42">
+          <h2>Für einen Vergleich brauchst du zwei gespeicherte Analysen.</h2>
+          <p>Berechne und speichere zunächst mindestens zwei Unternehmen im PointerScore-Rechner.</p>
+          <a class="button button-primary" href="rechner/" data-calculator-link>Neue Analyse erstellen</a>
+        </section>
+
+        <section class="compare-results" data-compare-results hidden aria-live="polite">
+          <div class="compare-score-grid" data-score-comparison></div>
+          <section class="compare-panel">
+            <div class="compare-panel-heading"><p class="eyebrow">100-Punkte-System</p><h2>Bewertungsbereiche</h2></div>
+            <div class="compare-detail-list" data-category-comparison></div>
+          </section>
+          <section class="compare-panel">
+            <div class="compare-panel-heading"><p class="eyebrow">Kennzahlen</p><h2>Finanzwerte im Vergleich</h2></div>
+            <div class="compare-table-wrap"><table class="compare-table"><thead><tr><th>Kennzahl</th><th data-left-name>Unternehmen 1</th><th data-right-name>Unternehmen 2</th></tr></thead><tbody data-metric-comparison></tbody></table></div>
+          </section>
+          <p class="compare-disclaimer">PointerScore ist keine Finanzberatung und kein Kauf- oder Verkaufssignal. Der Vergleich dient ausschließlich Bildungs- und Informationszwecken.</p>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="runtime-config.js?v=2"></script>
+  <script src="i18n.js" defer></script>
+  <script type="module" src="compare.js"></script>
+</body>
+</html>

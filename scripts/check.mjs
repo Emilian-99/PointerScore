@@ -20,7 +20,7 @@ async function walk(directory) {
 const files = await walk(dist);
 const relativeFiles = new Set(files.map((file) => path.relative(dist, file).split(path.sep).join("/")));
 
-for (const required of ["index.html", "auth.html", "dashboard.html", "help.html", "calculator.html", "404.html", "style.css", "script.js", "i18n.js", "runtime-config.js", "auth-client.js", "auth-view.js", "auth-page.js", "dashboard.js", "help.js", "calculator-app.js", "calculator-logic.js", "demo-calculator.js", "demo-company-data.js", "pdfs/de/PointerScore-Handbook-DE.pdf", "pdfs/en/PointerScore-Handbook-EN.pdf"]) {
+for (const required of ["index.html", "auth.html", "dashboard.html", "compare.html", "help.html", "calculator.html", "404.html", "style.css", "script.js", "i18n.js", "runtime-config.js", "auth-client.js", "auth-view.js", "auth-page.js", "dashboard.js", "compare.js", "help.js", "calculator-app.js", "calculator-logic.js", "demo-calculator.js", "demo-company-data.js", "pdfs/de/PointerScore-Handbook-DE.pdf", "pdfs/en/PointerScore-Handbook-EN.pdf"]) {
   if (!relativeFiles.has(required)) errors.push(`Missing required build file: ${required}`);
 }
 

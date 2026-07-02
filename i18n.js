@@ -469,6 +469,30 @@ Object.assign(translations, {
   "Neuer oder sehr kleiner Anbieter": "New or very small provider"
 });
 
+Object.assign(translations, {
+  "Unternehmen vergleichen": "Compare companies",
+  "Unternehmen vergleichen | PointerScore 100": "Compare companies | PointerScore 100",
+  "Dashboard": "Dashboard",
+  "Zurück zum Dashboard": "Back to dashboard",
+  "Direkter Vergleich": "Direct comparison",
+  "Welche Analyse überzeugt mehr?": "Which analysis stands out?",
+  "Wähle zwei gespeicherte Unternehmen aus und vergleiche Gesamtscore, Bewertungsbereiche und Kennzahlen direkt nebeneinander.": "Select two saved companies and compare their total score, categories and metrics side by side.",
+  "Unternehmen auswählen": "Select companies",
+  "Unternehmen 1": "Company 1",
+  "Unternehmen 2": "Company 2",
+  "Erstes Unternehmen": "First company",
+  "Zweites Unternehmen": "Second company",
+  "Für einen Vergleich brauchst du zwei gespeicherte Analysen.": "You need two saved analyses for a comparison.",
+  "Berechne und speichere zunächst mindestens zwei Unternehmen im PointerScore-Rechner.": "First calculate and save at least two companies in the PointerScore calculator.",
+  "Höherer Score": "Higher score",
+  "Analyse öffnen": "Open analysis",
+  "100-Punkte-System": "100-point system",
+  "Kennzahlen": "Metrics",
+  "Finanzwerte im Vergleich": "Financial metrics compared",
+  "PointerScore ist keine Finanzberatung und kein Kauf- oder Verkaufssignal. Der Vergleich dient ausschließlich Bildungs- und Informationszwecken.": "PointerScore is not financial advice or a buy or sell signal. The comparison is provided solely for educational and informational purposes.",
+  "ROE / ROIC": "ROE / ROIC"
+});
+
 const originalText = new WeakMap();
 const originalAttributes = new WeakMap();
 

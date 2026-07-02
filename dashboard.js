@@ -82,6 +82,7 @@ const user = isLocalPreview
 
 if (isLocalPreview) {
   document.querySelectorAll("[data-calculator-link]").forEach((link) => { link.href = "rechner/?preview=1"; });
+  document.querySelectorAll("[data-compare-link]").forEach((link) => { link.href = "compare.html?preview=1"; });
 }
 
 if (user) {
