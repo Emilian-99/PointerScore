@@ -1899,12 +1899,11 @@ html { scroll-padding-top: 84px; }
 .pricing-chart-beam-line { fill: none; stroke: url(#pricing-chart-gradient); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 7px rgba(80,174,255,.45)); animation: pricing-beam-finish 12s linear infinite; }
 
 @keyframes pricing-beam-finish {
-  0% { opacity: 0; stroke-width: 6; }
-  3%,78% { opacity: 1; stroke-width: 6; }
-  84% { opacity: .6; }
-  90% { opacity: 1; stroke-width: 7.5; }
-  95% { opacity: 1; stroke-width: 6; }
-  100% { opacity: 0; }
+  0%, 7% { opacity: 0; stroke-width: 6; filter: drop-shadow(0 0 3px rgba(80,174,255,.18)); }
+  12%, 74% { opacity: 1; stroke-width: 6; filter: drop-shadow(0 0 7px rgba(80,174,255,.45)); }
+  80% { opacity: 1; stroke-width: 7.7; filter: drop-shadow(0 0 15px rgba(105,192,255,.9)); }
+  84% { opacity: .95; stroke-width: 7.2; filter: drop-shadow(0 0 18px rgba(105,192,255,.82)); }
+  92%, 100% { opacity: 0; stroke-width: 6; filter: drop-shadow(0 0 5px rgba(80,174,255,.2)); }
 }
 
 @keyframes pricing-chart-cycle {
