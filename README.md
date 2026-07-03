@@ -68,3 +68,5 @@ Aktuell berechnete Ergebnisse:
 | NVIDIA | 96 | GJ 2024-2026 |
 
 Die Basiswerte werden mit calculatePointerScore() berechnet. Fuer Apple gelten redaktionell vorgegebene Kategoriepunkte; der Gesamtscore wird aus deren Summe gebildet.
+
+<!-- GitHub Pages deployment restart: 2026-07-03 -->
