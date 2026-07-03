@@ -18,6 +18,7 @@ const sourceEntries = [
   "i18n.js",
   "runtime-config.js",
   "auth-client.js",
+  "analysis-store.js",
   "auth-view.js",
   "auth-page.js",
   "dashboard.js",

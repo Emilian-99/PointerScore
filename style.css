@@ -3276,6 +3276,9 @@ main {
 
 
 /* Verified demo data presentation */
+.dashboard-analysis-status{margin:0 0 18px;padding:12px 14px;border:1px solid #cfe1ee;border-radius:10px;background:#f3f9fd;color:#4d6579;font-size:.82rem;font-weight:650}
+.dashboard-analysis-status[data-type="error"]{border-color:#eccaca;background:#fff7f7;color:#9b4f4f}.dashboard-analysis-status[data-type="success"]{border-color:#bfe3d6;background:#f2fbf7;color:#28765d}
+.dashboard-analysis-status[hidden]{display:none}
 .demo-company-meta > small {
   text-align: right;
 }

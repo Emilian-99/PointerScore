@@ -503,7 +503,21 @@ Object.assign(translations, {
   "Notiz gespeichert.": "Note saved.",
   "Persönliche Notizen": "Personal notes",
   "Gedanken zu den Analysen": "Thoughts about the analyses",
-  "Keine Notiz gespeichert.": "No note saved."
+  "Keine Notiz gespeichert.": "No note saved.",
+  "Analysen werden aus der Cloud geladen …": "Loading analyses from the cloud …",
+  "Sicher in der Cloud gespeichert": "Securely stored in the cloud",
+  "Cloud-Daten konnten nicht geladen werden. Es wird der letzte lokale Stand angezeigt.": "Cloud data could not be loaded. The latest local copy is shown.",
+  "Analyse gelöscht.": "Analysis deleted.",
+  "Analyse konnte nicht gelöscht werden.": "The analysis could not be deleted.",
+  "Wird gespeichert …": "Saving …",
+  "Notiz konnte nicht gespeichert werden.": "The note could not be saved.",
+  "Analyse wird in der Cloud gespeichert …": "Saving analysis to the cloud …",
+  "Analyse sicher in der Cloud gespeichert.": "Analysis securely saved to the cloud.",
+  "Analyse konnte nicht gespeichert werden. Bitte versuche es erneut.": "The analysis could not be saved. Please try again.",
+  "Analyse wird geladen …": "Loading analysis …",
+  "Cloud-Analyse konnte nicht geladen werden.": "The cloud analysis could not be loaded.",
+  "Analyse wurde nicht gefunden oder du hast keinen Zugriff.": "The analysis was not found or you do not have access.",
+  "Cloud-Daten konnten nicht geladen werden.": "Cloud data could not be loaded."
 });
 
 const originalText = new WeakMap();

@@ -119,4 +119,6 @@ input,select{transition:border-color .2s ease,box-shadow .2s ease,background-col
 
 
 /* Align sticky progress and result panels */
+#save-note{color:#526b80;font-size:11px;font-weight:650;line-height:1.45}
+#save-note:not(:empty){display:inline-block;padding:8px 10px;border-radius:8px;background:#f2f7fb}
 @media(min-width:821px){.completion-card,.result-column{top:88px}}

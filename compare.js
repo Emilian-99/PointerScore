@@ -1,6 +1,6 @@
 import { requireUser, revealProtectedPage, supabase } from "./auth-client.js";
+import { friendlyAnalysisError, listAnalyses, readAnalysisCache } from "./analysis-store.js";
 
-const STORAGE_KEY = "pointerscore-analyses";
 const isLocalPreview = ["localhost", "127.0.0.1"].includes(window.location.hostname)
   && new URLSearchParams(window.location.search).get("preview") === "1";
 const t = (value) => window.PointerScoreI18n?.translate(value) ?? value;
@@ -38,20 +38,10 @@ const demoAnalyses = [
   }
 ];
 
-function readAnalyses() {
-  try {
-    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    const analyses = Array.isArray(stored) ? stored.filter((item) => item?.result?.categories && item?.result?.metrics) : [];
-    return isLocalPreview && analyses.length < 2 ? demoAnalyses : analyses;
-  } catch {
-    return isLocalPreview ? demoAnalyses : [];
-  }
-}
-
 const selects = [...document.querySelectorAll("[data-compare-select]")];
 const empty = document.querySelector("[data-compare-empty]");
 const results = document.querySelector("[data-compare-results]");
-let analyses = readAnalyses();
+let analyses = isLocalPreview ? demoAnalyses : [];
 
 function percent(value) {
   const number = Number(value);
@@ -168,6 +158,15 @@ if (isLocalPreview) {
 }
 
 if (user) {
+  if (!isLocalPreview) {
+    try {
+      analyses = (await listAnalyses(user.id)).filter((item) => item?.result?.categories && item?.result?.metrics);
+    } catch (error) {
+      analyses = readAnalysisCache(user.id).filter((item) => item?.result?.categories && item?.result?.metrics);
+      const heading = empty.querySelector("h2");
+      if (heading) heading.textContent = friendlyAnalysisError(error, t("Cloud-Daten konnten nicht geladen werden."));
+    }
+  }
   fillSelects();
   renderComparison();
   revealProtectedPage();

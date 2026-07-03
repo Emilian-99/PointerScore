@@ -1,12 +1,12 @@
 import {INDUSTRIES,MARKET_POSITIONS,calculatePointerScore,parseGermanNumber} from "./logic.js";
 import {createAnalysisReport} from "./report.js";
 import{requireUser,revealProtectedPage,supabase}from"../auth-client.js";
+import{friendlyAnalysisError,getAnalysis,readAnalysisCache,saveAnalysis as saveCloudAnalysis,saveAnalysisCache}from"../analysis-store.js";
 const isLocalPreview=["localhost","127.0.0.1"].includes(window.location.hostname)&&new URLSearchParams(window.location.search).get("preview")==="1";
 const user=isLocalPreview?{id:"preview",email:"demo@pointerscore.com"}:await requireUser();
 if(!user)throw new Error("Authentication required.");
 revealProtectedPage();
 if(isLocalPreview)document.querySelectorAll('a[href="../dashboard.html"]').forEach(link=>{link.href="../dashboard.html?preview=1"});
-const STORAGE_KEY="pointerscore-analyses";
 const t=value=>{
  const text=String(value??"");
  const translated=window.PointerScoreI18n?.translate(text)??text;
@@ -42,6 +42,7 @@ let qualityMetricType="ROE";
 let scoreAnimationFrame=0;
 let lastResult=null;
 let currentNotes="";
+let currentCreatedAt=null;
 let calculationTimer=0;
 
 function appendOptions(select,options){options.forEach(item=>select.add(new Option(t(item.label),item.value)))}
@@ -164,28 +165,35 @@ function renderResult(result){
  requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll(".bar span").forEach(bar=>bar.style.width=bar.dataset.width)));
  if(window.matchMedia("(max-width: 900px)").matches)resultContent.scrollIntoView({behavior:reduceMotion.matches?"auto":"smooth",block:"start"});
 }
-function readSavedAnalyses(){
- try{const value=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");return Array.isArray(value)?value:[]}catch{return[]}
-}
-function saveAnalysis(){
+async function saveAnalysis(){
  if(!lastResult)return;
- const analyses=readSavedAnalyses();
- const existing=analyses.find(item=>item.id===currentAnalysisId);
- const now=new Date().toISOString();
+ saveButton.disabled=true;saveNote.textContent=t("Analyse wird in der Cloud gespeichert …");
  currentNotes=noteInput.value.trim();
- const analysis={id:existing?.id||crypto.randomUUID(),company:lastResult.companyName,score:lastResult.total,notes:currentNotes,createdAt:existing?.createdAt||now,updatedAt:now,input:collectInput(),result:lastResult};
- const next=existing?analyses.map(item=>item.id===analysis.id?analysis:item):[...analyses,analysis];
- localStorage.setItem(STORAGE_KEY,JSON.stringify(next));
- currentAnalysisId=analysis.id;
- const url=new URL(window.location.href);url.searchParams.set("analysis",analysis.id);history.replaceState({},"",url);
- saveNote.textContent=t("Analyse gespeichert.");
- window.setTimeout(()=>{saveNote.textContent=""},2400);
+ const analysis={id:currentAnalysisId||crypto.randomUUID(),company:lastResult.companyName,score:lastResult.total,notes:currentNotes,createdAt:currentCreatedAt,input:collectInput(),result:lastResult};
+ try{
+  const saved=isLocalPreview?saveAnalysisCache(user.id,analysis):await saveCloudAnalysis(user.id,analysis);
+  currentAnalysisId=saved.id;
+  currentCreatedAt=saved.createdAt||currentCreatedAt;
+  const url=new URL(window.location.href);url.searchParams.set("analysis",saved.id);history.replaceState({},"",url);
+  saveNote.textContent=t("Analyse sicher in der Cloud gespeichert.");
+  window.setTimeout(()=>{saveNote.textContent=""},2400);
+ }catch(error){saveNote.textContent=friendlyAnalysisError(error,t("Analyse konnte nicht gespeichert werden. Bitte versuche es erneut."))}
+ finally{saveButton.disabled=false}
 }
-function openSavedAnalysis(){
+async function openSavedAnalysis(){
  if(!currentAnalysisId)return;
- const analysis=readSavedAnalyses().find(item=>item.id===currentAnalysisId);
+ saveNote.textContent=t("Analyse wird geladen …");
+ let analysis;
+ try{
+  analysis=isLocalPreview?readAnalysisCache(user.id).find(item=>item.id===currentAnalysisId):await getAnalysis(user.id,currentAnalysisId);
+ }catch(error){
+  analysis=readAnalysisCache(user.id).find(item=>item.id===currentAnalysisId);
+  saveNote.textContent=friendlyAnalysisError(error,t("Cloud-Analyse konnte nicht geladen werden."));
+ }
+ if(!analysis){saveNote.textContent=t("Analyse wurde nicht gefunden oder du hast keinen Zugriff.");return}
  if(!analysis?.input)return;
  currentNotes=String(analysis.notes||"");
+ currentCreatedAt=analysis.createdAt||null;
  noteInput.value=currentNotes;
  noteToggle.textContent=t(currentNotes?"Notiz bearbeiten":"Notiz hinzufügen");
  Object.entries(analysis.input).forEach(([name,value])=>{const field=form.elements[name];if(field&&name!=="qualityMetricType")field.value=value??""});
@@ -197,6 +205,7 @@ function openSavedAnalysis(){
  updateCompletion();
  const result=calculatePointerScore(analysis.input);
  if(result.ok)renderResult(result);
+ saveNote.textContent="";
 }
 form.addEventListener("submit",event=>{event.preventDefault();clearTimeout(calculationTimer);clearErrors();const result=calculatePointerScore(collectInput());if(!result.ok)return showErrors(result.errors);showCalculationLoading();calculationTimer=setTimeout(()=>renderResult(result),1500)});
 form.addEventListener("input",event=>{clearFieldError(event.target);updateFieldVisual(event.target);updateCompletion()});
@@ -218,7 +227,7 @@ function printAnalysis(){
 }
 document.querySelector("#pdf-button").addEventListener("click",exportAnalysisPdf);
 document.querySelector("#print-button").addEventListener("click",printAnalysis);
-saveButton.addEventListener("click",saveAnalysis);
+saveButton.addEventListener("click",()=>{void saveAnalysis()});
 noteToggle.addEventListener("click",()=>{
  const open=noteEditor.hidden;
  noteEditor.hidden=!open;
@@ -242,4 +251,4 @@ window.addEventListener("pointerscore:languagechange",()=>{
 });
 
 updateCompletion();
-openSavedAnalysis();
+await openSavedAnalysis();

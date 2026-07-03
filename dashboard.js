@@ -1,16 +1,8 @@
 import { requireUser, revealProtectedPage, supabase } from "./auth-client.js";
+import { deleteAnalysis, friendlyAnalysisError, listAnalyses, readAnalysisCache, saveAnalysis } from "./analysis-store.js";
 
-const STORAGE_KEY = "pointerscore-analyses";
 const t = (value) => window.PointerScoreI18n?.translate(value) ?? value;
-
-function readAnalyses() {
-  try {
-    const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    return Array.isArray(value) ? value : [];
-  } catch {
-    return [];
-  }
-}
+let analyses = [];
 
 function formatDate(value) {
   const date = new Date(value);
@@ -21,21 +13,20 @@ function formatDate(value) {
 function getUserDisplayName(user) {
   const savedName = user?.user_metadata?.full_name || user?.user_metadata?.name;
   if (savedName) return String(savedName).trim();
-
   const emailName = String(user?.email || "").split("@")[0];
-  const inferredName = emailName
-    .split(/[._-]+/)
-    .filter(Boolean)
-    .map((part) => part.charAt(0).toLocaleUpperCase("de-DE") + part.slice(1).toLocaleLowerCase("de-DE"))
-    .join(" ");
-  return inferredName || "zurück";
+  return emailName.split(/[._-]+/).filter(Boolean).map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()).join(" ") || "zurück";
+}
+
+function setStatus(text = "", type = "") {
+  const status = document.querySelector("[data-analysis-status]");
+  status.textContent = text;
+  status.dataset.type = type;
+  status.hidden = !text;
 }
 
 function renderAnalyses() {
-  const analyses = readAnalyses();
   const scores = analyses.map((analysis) => Number(analysis.score)).filter(Number.isFinite);
   const best = analyses.reduce((current, analysis) => !current || Number(analysis.score) > Number(current.score) ? analysis : current, null);
-
   document.querySelector("[data-stat-count]").textContent = String(analyses.length);
   document.querySelector("[data-stat-average]").textContent = scores.length ? String(Math.round(scores.reduce((sum, score) => sum + score, 0) / scores.length)) : "–";
   document.querySelector("[data-stat-best]").textContent = best?.company || "–";
@@ -47,51 +38,58 @@ function renderAnalyses() {
   emptyState.hidden = analyses.length > 0;
   list.hidden = analyses.length === 0;
 
-  analyses
-    .slice()
-    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-    .forEach((analysis) => {
-      const card = document.createElement("article");
-      card.className = "dashboard-analysis-card";
-      card.innerHTML = `
-        <div class="dashboard-analysis-company"><span>${t("Unternehmen")}</span><strong></strong></div>
-        <div class="dashboard-analysis-score"><span>PointerScore</span><strong></strong><small>/ 100</small></div>
-        <div class="dashboard-analysis-date"><span>${t("Erstellt am")}</span><strong></strong></div>
-        <div class="dashboard-analysis-actions">
-          <a class="button button-secondary" href="rechner/">${t("Öffnen")}</a>
-          <button class="dashboard-delete-button" type="button">${t("Löschen")}</button>
-        </div>
-        <details class="dashboard-analysis-note">
-          <summary>${t(analysis.notes ? "Notiz anzeigen / bearbeiten" : "Notiz hinzufügen")}</summary>
-          <label><span>${t("Persönliche Notiz")}</span><textarea maxlength="600" rows="4"></textarea></label>
-          <div><button type="button">${t("Notiz speichern")}</button><small role="status"></small></div>
-        </details>`;
-      card.querySelector(".dashboard-analysis-company strong").textContent = analysis.company || t("Unbenannte Analyse");
-      card.querySelector(".dashboard-analysis-score strong").textContent = String(Math.max(0, Math.min(100, Math.round(Number(analysis.score) || 0))));
-      card.querySelector(".dashboard-analysis-date strong").textContent = formatDate(analysis.createdAt);
-      const noteInput = card.querySelector(".dashboard-analysis-note textarea");
-      noteInput.value = String(analysis.notes || "");
-      card.querySelector(".dashboard-analysis-note button").addEventListener("click", () => {
-        const updated = readAnalyses().map((item) => item.id === analysis.id ? { ...item, notes: noteInput.value.trim(), updatedAt: new Date().toISOString() } : item);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-        card.querySelector(".dashboard-analysis-note summary").textContent = t(noteInput.value.trim() ? "Notiz anzeigen / bearbeiten" : "Notiz hinzufügen");
-        card.querySelector(".dashboard-analysis-note small").textContent = t("Notiz gespeichert.");
-      });
-      card.querySelector(".dashboard-analysis-actions a").href = `rechner/?analysis=${encodeURIComponent(analysis.id)}${isLocalPreview ? "&preview=1" : ""}`;
-      card.querySelector(".dashboard-delete-button").addEventListener("click", () => {
-        const remaining = readAnalyses().filter((item) => item.id !== analysis.id);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(remaining));
-        renderAnalyses();
-      });
-      list.append(card);
+  analyses.forEach((analysis) => {
+    const card = document.createElement("article");
+    card.className = "dashboard-analysis-card";
+    card.innerHTML = `
+      <div class="dashboard-analysis-company"><span>${t("Unternehmen")}</span><strong></strong></div>
+      <div class="dashboard-analysis-score"><span>PointerScore</span><strong></strong><small>/ 100</small></div>
+      <div class="dashboard-analysis-date"><span>${t("Erstellt am")}</span><strong></strong></div>
+      <div class="dashboard-analysis-actions"><a class="button button-secondary" href="rechner/">${t("Öffnen")}</a><button class="dashboard-delete-button" type="button">${t("Löschen")}</button></div>
+      <details class="dashboard-analysis-note"><summary>${t(analysis.notes ? "Notiz anzeigen / bearbeiten" : "Notiz hinzufügen")}</summary><label><span>${t("Persönliche Notiz")}</span><textarea maxlength="600" rows="4"></textarea></label><div><button type="button">${t("Notiz speichern")}</button><small role="status"></small></div></details>`;
+    card.querySelector(".dashboard-analysis-company strong").textContent = analysis.company || t("Unbenannte Analyse");
+    card.querySelector(".dashboard-analysis-score strong").textContent = String(Math.max(0, Math.min(100, Math.round(Number(analysis.score) || 0))));
+    card.querySelector(".dashboard-analysis-date strong").textContent = formatDate(analysis.createdAt);
+    card.querySelector(".dashboard-analysis-actions a").href = `rechner/?analysis=${encodeURIComponent(analysis.id)}${isLocalPreview ? "&preview=1" : ""}`;
+
+    const noteInput = card.querySelector("textarea");
+    const noteButton = card.querySelector(".dashboard-analysis-note button");
+    const noteStatus = card.querySelector(".dashboard-analysis-note small");
+    noteInput.value = String(analysis.notes || "");
+    noteButton.addEventListener("click", async () => {
+      noteButton.disabled = true;
+      noteStatus.textContent = t("Wird gespeichert …");
+      try {
+        const saved = isLocalPreview ? { ...analysis, notes: noteInput.value.trim() } : await saveAnalysis(user.id, { ...analysis, notes: noteInput.value.trim() });
+        analyses = analyses.map((item) => item.id === saved.id ? saved : item);
+        card.querySelector("summary").textContent = t(saved.notes ? "Notiz anzeigen / bearbeiten" : "Notiz hinzufügen");
+        noteStatus.textContent = t("Notiz gespeichert.");
+      } catch (error) {
+        noteStatus.textContent = friendlyAnalysisError(error, t("Notiz konnte nicht gespeichert werden."));
+      } finally {
+        noteButton.disabled = false;
+      }
     });
+
+    const deleteButton = card.querySelector(".dashboard-delete-button");
+    deleteButton.addEventListener("click", async () => {
+      deleteButton.disabled = true;
+      try {
+        if (!isLocalPreview) await deleteAnalysis(user.id, analysis.id);
+        analyses = analyses.filter((item) => item.id !== analysis.id);
+        renderAnalyses();
+        setStatus(t("Analyse gelöscht."), "success");
+      } catch (error) {
+        deleteButton.disabled = false;
+        setStatus(friendlyAnalysisError(error, t("Analyse konnte nicht gelöscht werden.")), "error");
+      }
+    });
+    list.append(card);
+  });
 }
 
-const isLocalPreview = ["localhost", "127.0.0.1"].includes(window.location.hostname)
-  && new URLSearchParams(window.location.search).get("preview") === "1";
-const user = isLocalPreview
-  ? { email: "demo@pointerscore.com" }
-  : await requireUser();
+const isLocalPreview = ["localhost", "127.0.0.1"].includes(window.location.hostname) && new URLSearchParams(window.location.search).get("preview") === "1";
+const user = isLocalPreview ? { id: "preview", email: "demo@pointerscore.com" } : await requireUser();
 
 if (isLocalPreview) {
   document.querySelectorAll("[data-calculator-link]").forEach((link) => { link.href = "rechner/?preview=1"; });
@@ -101,16 +99,17 @@ if (isLocalPreview) {
 if (user) {
   document.querySelectorAll("[data-user-email]").forEach((element) => { element.textContent = user.email || "–"; });
   document.querySelectorAll("[data-user-name]").forEach((element) => { element.textContent = getUserDisplayName(user); });
-  renderAnalyses();
   revealProtectedPage();
+  setStatus(t("Analysen werden aus der Cloud geladen …"), "loading");
+  try {
+    analyses = isLocalPreview ? readAnalysisCache(user.id) : await listAnalyses(user.id);
+    setStatus();
+  } catch (error) {
+    analyses = readAnalysisCache(user.id);
+    setStatus(friendlyAnalysisError(error, t("Cloud-Daten konnten nicht geladen werden. Es wird der letzte lokale Stand angezeigt.")), "error");
+  }
+  renderAnalyses();
 }
 
-window.addEventListener("pointerscore:languagechange", () => {
-  if (user) renderAnalyses();
-});
-
-document.querySelectorAll("[data-logout]").forEach((button) => button.addEventListener("click", async () => {
-  button.disabled = true;
-  await supabase.auth.signOut({ scope: "local" });
-  window.location.replace("index.html");
-}));
+window.addEventListener("pointerscore:languagechange", () => { if (user) renderAnalyses(); });
+document.querySelectorAll("[data-logout]").forEach((button) => button.addEventListener("click", async () => { button.disabled = true; await supabase.auth.signOut({ scope: "local" }); window.location.replace("index.html"); }));
