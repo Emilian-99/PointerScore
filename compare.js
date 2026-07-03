@@ -155,6 +155,7 @@ const user = isLocalPreview ? { email: "demo@pointerscore.com" } : await require
 if (isLocalPreview) {
   document.querySelectorAll("[data-dashboard-link]").forEach((link) => { link.href = "dashboard.html?preview=1"; });
   document.querySelectorAll("[data-calculator-link]").forEach((link) => { link.href = "rechner/?preview=1"; });
+  document.querySelectorAll("[data-profile-link]").forEach((link) => { link.href = "profile.html?preview=1"; });
 }
 
 if (user) {

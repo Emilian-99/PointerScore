@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profil | PointerScore 100</title>
+  <meta name="description" content="Verwalte dein PointerScore-Profil, deine Sicherheit und dein Abonnement.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#eef8ff">
+  <link rel="icon" type="image/png" href="assets/logo-new-v2.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=12">
+</head>
+<body class="protected-page profile-page is-auth-loading">
+  <div class="auth-loading-screen" aria-live="polite"><img src="assets/logo-new-v2.png" alt="" width="56" height="56"><span>Profil wird geladen …</span></div>
+  <div class="protected-content">
+    <header class="site-header is-scrolled">
+      <nav class="nav shell" aria-label="Hauptnavigation">
+        <a class="brand" href="dashboard.html"><img src="assets/logo-new-v2.png" alt="" width="42" height="42"><span>PointerScore 100</span></a>
+        <div class="nav-menu"><a href="dashboard.html" data-dashboard-link>Dashboard</a><a href="rechner/" data-calculator-link>Rechner</a><button class="nav-session-button" type="button" data-logout>Abmelden</button></div>
+      </nav>
+    </header>
+
+    <main class="profile-main">
+      <div class="shell profile-shell">
+        <section class="profile-hero">
+          <div><p class="eyebrow">Dein Konto</p><h1>Profil & Einstellungen</h1><p>Verwalte deine persönlichen Angaben, Sicherheit und PointerScore-Nutzung.</p></div>
+          <a class="button button-secondary" href="dashboard.html" data-dashboard-link>Zurück zum Dashboard</a>
+        </section>
+
+        <p class="profile-global-status" data-profile-status role="status" hidden></p>
+
+        <div class="profile-layout">
+          <section class="profile-card profile-identity-card" aria-labelledby="profile-heading">
+            <div class="profile-card-heading"><div><p class="eyebrow">Persönliche Angaben</p><h2 id="profile-heading">Profil</h2></div><span class="profile-card-badge">PointerScore</span></div>
+            <div class="profile-avatar-row">
+              <div class="profile-avatar" data-avatar><span data-avatar-initials>PS</span><img data-avatar-image alt="Profilbild" hidden></div>
+              <div><strong>Profilbild</strong><p>PNG, JPG oder WebP · maximal 2 MB</p><label class="profile-upload-button"><input type="file" accept="image/png,image/jpeg,image/webp" data-avatar-input><span>Bild auswählen</span></label></div>
+            </div>
+            <form class="profile-form" data-profile-form>
+              <label><span>Anzeigename</span><input name="displayName" maxlength="80" autocomplete="name" placeholder="Dein Name"></label>
+              <label><span>Benutzername <small>optional</small></span><input name="username" maxlength="32" autocomplete="username" placeholder="z. B. emilian99"></label>
+              <label class="profile-email-field"><span>E-Mail-Adresse</span><input name="email" type="email" readonly aria-readonly="true"></label>
+              <div class="profile-form-action"><button class="button button-primary" type="submit">Profil speichern</button><small data-profile-form-status role="status"></small></div>
+            </form>
+          </section>
+
+          <section class="profile-card" aria-labelledby="account-heading">
+            <div class="profile-card-heading"><div><p class="eyebrow">Übersicht</p><h2 id="account-heading">Kontoinformationen</h2></div></div>
+            <dl class="profile-info-list">
+              <div><dt>Mitglied seit</dt><dd data-member-since>–</dd></div>
+              <div><dt>Letzte Anmeldung</dt><dd data-last-sign-in>–</dd></div>
+              <div><dt>Konto-ID</dt><dd class="profile-account-id" data-account-id>–</dd></div>
+            </dl>
+          </section>
+
+          <section class="profile-card profile-subscription-card" aria-labelledby="subscription-heading">
+            <div class="profile-card-heading"><div><p class="eyebrow">Abonnement</p><h2 id="subscription-heading">Dein Zugang</h2></div><span class="subscription-status" data-subscription-status>Wird geprüft …</span></div>
+            <div data-subscription-active hidden><p>Dein PointerScore-Abonnement ist aktiv.</p><dl class="profile-info-list"><div><dt>Nächstes Abrechnungsdatum</dt><dd data-next-billing>–</dd></div></dl><a class="button button-secondary" data-manage-subscription href="#">Abo verwalten</a></div>
+            <div data-subscription-inactive hidden><p>Du hast derzeit kein aktives Abonnement.</p><a class="button button-primary" href="index.html#kaufen">Jetzt abonnieren</a></div>
+          </section>
+
+          <section class="profile-card profile-statistics-card" aria-labelledby="statistics-heading">
+            <div class="profile-card-heading"><div><p class="eyebrow">Deine Aktivität</p><h2 id="statistics-heading">Statistiken</h2></div></div>
+            <div class="profile-stat-grid">
+              <article><span>Gespeicherte Analysen</span><strong data-profile-count>0</strong></article>
+              <article><span>Durchschnittlicher Score</span><strong data-profile-average>–</strong></article>
+              <article><span>Höchster PointerScore</span><strong data-profile-highest>–</strong></article>
+              <article><span>Zuletzt bearbeitet</span><strong class="profile-latest-analysis" data-profile-latest>–</strong></article>
+            </div>
+          </section>
+
+          <section class="profile-card profile-security-card" aria-labelledby="security-heading">
+            <div class="profile-card-heading"><div><p class="eyebrow">Kontoschutz</p><h2 id="security-heading">Sicherheit</h2></div></div>
+            <form class="profile-password-form" data-password-form>
+              <label><span>Neues Passwort</span><input name="password" type="password" minlength="8" autocomplete="new-password" required></label>
+              <label><span>Passwort bestätigen</span><input name="passwordConfirm" type="password" minlength="8" autocomplete="new-password" required></label>
+              <div class="profile-form-action"><button class="button button-secondary" type="submit">Passwort ändern</button><small data-password-status role="status"></small></div>
+            </form>
+            <div class="profile-danger-zone"><div><strong>Konto löschen</strong><p>Dein Konto und alle gespeicherten Analysen werden dauerhaft entfernt.</p></div><button class="profile-danger-button" type="button" data-delete-open>Konto löschen</button></div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <dialog class="profile-delete-dialog" data-delete-dialog>
+    <form method="dialog" data-delete-form>
+      <button class="profile-dialog-close" value="cancel" aria-label="Schließen">×</button>
+      <p class="eyebrow">Sicherheitsabfrage</p><h2>Konto wirklich löschen?</h2>
+      <p>Diese Aktion kann nicht rückgängig gemacht werden. Gib <strong>LÖSCHEN</strong> ein, um fortzufahren.</p>
+      <label><span>Bestätigung</span><input name="confirmation" autocomplete="off" required></label>
+      <small data-delete-status role="status"></small>
+      <div><button class="button button-secondary" value="cancel">Abbrechen</button><button class="profile-danger-button" type="submit" value="confirm">Endgültig löschen</button></div>
+    </form>
+  </dialog>
+
+  <script src="runtime-config.js?v=2"></script>
+  <script src="i18n.js" defer></script>
+  <script type="module" src="profile.js"></script>
+</body>
+</html>

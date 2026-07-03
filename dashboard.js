@@ -94,6 +94,7 @@ const user = isLocalPreview ? { id: "preview", email: "demo@pointerscore.com" } 
 if (isLocalPreview) {
   document.querySelectorAll("[data-calculator-link]").forEach((link) => { link.href = "rechner/?preview=1"; });
   document.querySelectorAll("[data-compare-link]").forEach((link) => { link.href = "compare.html?preview=1"; });
+  document.querySelectorAll("[data-profile-link]").forEach((link) => { link.href = "profile.html?preview=1"; });
 }
 
 if (user) {
