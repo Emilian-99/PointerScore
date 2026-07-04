@@ -3341,3 +3341,9 @@ main {
     border-bottom: 0;
   }
 }
+
+/* Final profile spacing alignment (keep after all profile rules) */
+.profile-layout{column-gap:18px;row-gap:28px}
+.profile-identity-card{padding-block:24px}.profile-identity-card .profile-card-heading{margin-bottom:18px}
+.profile-avatar-row{margin-bottom:14px;padding-bottom:14px}
+.profile-form,.profile-password-form{column-gap:24px;row-gap:20px}
