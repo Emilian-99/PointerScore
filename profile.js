@@ -176,6 +176,18 @@ document.querySelector("[data-delete-form]").addEventListener("submit", async (e
   } catch (error) { submitter.disabled = false; setStatus("[data-delete-status]", t("Konto konnte nicht gelöscht werden."), "error"); }
 });
 
+const supportDialog = document.querySelector("[data-support-dialog]");
+document.querySelector("[data-support-open]").addEventListener("click", () => supportDialog.showModal());
+document.querySelectorAll("[data-support-close]").forEach((button) => button.addEventListener("click", () => supportDialog.close()));
+document.querySelector("[data-support-form]").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const values = new FormData(event.currentTarget);
+  const subject = `[PointerScore Support] ${String(values.get("topic") || "Support")}: ${String(values.get("subject") || "")}`;
+  const body = `${String(values.get("message") || "")}\n\n---\nPointerScore-Konto: ${user.email || "nicht angegeben"}\nSeite: ${window.location.href}`;
+  window.location.href = `mailto:pointerscore@outlook.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  supportDialog.close();
+});
+
 if (isLocalPreview) {
   document.querySelectorAll("[data-dashboard-link]").forEach((link) => { link.href = "dashboard.html?preview=1"; });
   document.querySelectorAll("[data-calculator-link]").forEach((link) => { link.href = "rechner/?preview=1"; });

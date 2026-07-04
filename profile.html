@@ -47,6 +47,7 @@
             </form>
           </section>
 
+          <aside class="profile-side-column">
           <section class="profile-card" aria-labelledby="account-heading">
             <div class="profile-card-heading"><div><p class="eyebrow">Übersicht</p><h2 id="account-heading">Kontoinformationen</h2></div></div>
             <dl class="profile-info-list">
@@ -61,6 +62,13 @@
             <div data-subscription-active hidden><p>Dein PointerScore-Abonnement ist aktiv.</p><dl class="profile-info-list"><div><dt>Nächstes Abrechnungsdatum</dt><dd data-next-billing>–</dd></div></dl><a class="button button-secondary" data-manage-subscription href="#">Abo verwalten</a></div>
             <div data-subscription-inactive hidden><p>Du hast derzeit kein aktives Abonnement.</p><a class="button button-primary" href="index.html#kaufen">Jetzt abonnieren</a></div>
           </section>
+
+          <section class="profile-card profile-support-card" aria-labelledby="support-heading">
+            <div class="profile-card-heading"><div><p class="eyebrow">Direkter Kontakt</p><h2 id="support-heading">Support</h2></div></div>
+            <p>Du hast eine Frage oder möchtest ein Problem melden? Schreibe direkt an den PointerScore-Support.</p>
+            <button class="button button-secondary" type="button" data-support-open>Support / Problem melden</button>
+          </section>
+          </aside>
 
           <section class="profile-card profile-statistics-card" aria-labelledby="statistics-heading">
             <div class="profile-card-heading"><div><p class="eyebrow">Deine Aktivität</p><h2 id="statistics-heading">Statistiken</h2></div></div>
@@ -94,6 +102,19 @@
       <label><span>Bestätigung</span><input name="confirmation" autocomplete="off" required></label>
       <small data-delete-status role="status"></small>
       <div><button class="button button-secondary" value="cancel">Abbrechen</button><button class="profile-danger-button" type="submit" value="confirm">Endgültig löschen</button></div>
+    </form>
+  </dialog>
+
+  <dialog class="support-dialog" data-support-dialog>
+    <form data-support-form>
+      <button class="support-dialog-close" type="button" data-support-close aria-label="Schließen">×</button>
+      <p class="eyebrow">PointerScore Support</p>
+      <h2>Wie können wir helfen?</h2>
+      <p>Beschreibe deine Frage oder das Problem. Anschließend öffnet sich dein E-Mail-Programm mit einer vorbereiteten Nachricht an PointerScore.</p>
+      <label><span>Thema</span><select name="topic"><option>Technisches Problem</option><option>Frage zum Rechner</option><option>Konto und Anmeldung</option><option>Abonnement</option><option>Sonstiges</option></select></label>
+      <label><span>Betreff</span><input name="subject" maxlength="100" required placeholder="Kurze Zusammenfassung"></label>
+      <label><span>Nachricht</span><textarea name="message" maxlength="2000" rows="7" required placeholder="Was ist passiert?"></textarea></label>
+      <div class="support-dialog-actions"><button class="button button-secondary" type="button" data-support-close>Abbrechen</button><button class="button button-primary" type="submit">E-Mail vorbereiten</button></div>
     </form>
   </dialog>
 

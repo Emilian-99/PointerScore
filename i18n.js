@@ -577,6 +577,33 @@ Object.assign(translations, {
   "Konto wird gelöscht …": "Deleting account …",
   "Konto konnte nicht gelöscht werden.": "The account could not be deleted.",
   "Profildaten konnten nicht geladen werden. Bitte versuche es später erneut.": "Profile data could not be loaded. Please try again later."
+  ,"Support / Problem melden": "Support / report a problem"
+  ,"Sortieren": "Sort"
+  ,"Analysen sortieren": "Sort analyses"
+  ,"Erstellungsdatum": "Creation date"
+  ,"Name": "Name"
+  ,"Duplizieren": "Duplicate"
+  ,"Kopie": "Copy"
+  ,"Analyse wird dupliziert …": "Duplicating analysis …"
+  ,"Analyse wurde dupliziert.": "Analysis duplicated."
+  ,"Analyse konnte nicht dupliziert werden.": "The analysis could not be duplicated."
+  ,"PointerScore Support": "PointerScore support"
+  ,"Wie können wir helfen?": "How can we help?"
+  ,"Beschreibe deine Frage oder das Problem. Anschließend öffnet sich dein E-Mail-Programm mit einer vorbereiteten Nachricht an PointerScore.": "Describe your question or problem. Your email app will then open with a prepared message to PointerScore."
+  ,"Thema": "Topic"
+  ,"Technisches Problem": "Technical problem"
+  ,"Frage zum Rechner": "Question about the calculator"
+  ,"Konto und Anmeldung": "Account and login"
+  ,"Abonnement": "Subscription"
+  ,"Sonstiges": "Other"
+  ,"Betreff": "Subject"
+  ,"Kurze Zusammenfassung": "Short summary"
+  ,"Nachricht": "Message"
+  ,"Was ist passiert?": "What happened?"
+  ,"E-Mail vorbereiten": "Prepare email"
+  ,"Direkter Kontakt": "Direct contact"
+  ,"Support": "Support"
+  ,"Du hast eine Frage oder möchtest ein Problem melden? Schreibe direkt an den PointerScore-Support.": "Do you have a question or want to report a problem? Contact PointerScore support directly."
 });
 
 const originalText = new WeakMap();

@@ -45,7 +45,10 @@
         <section class="dashboard-analyses" aria-labelledby="analyses-heading">
           <div class="dashboard-section-heading">
             <div><p class="eyebrow">Übersicht</p><h2 id="analyses-heading">Meine Analysen</h2></div>
-            <span class="dashboard-storage-note">Sicher in der Cloud gespeichert</span>
+            <div class="dashboard-analysis-tools">
+              <label><span>Sortieren</span><select data-analysis-sort aria-label="Analysen sortieren"><option value="date">Erstellungsdatum</option><option value="name">Name</option><option value="score">PointerScore</option></select></label>
+              <span class="dashboard-storage-note">Sicher in der Cloud gespeichert</span>
+            </div>
           </div>
           <p class="dashboard-analysis-status" data-analysis-status role="status" hidden></p>
           <div class="dashboard-analysis-list" data-analysis-list></div>

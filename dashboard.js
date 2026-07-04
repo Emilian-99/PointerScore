@@ -1,8 +1,9 @@
 import { requireUser, revealProtectedPage, supabase } from "./auth-client.js";
-import { deleteAnalysis, friendlyAnalysisError, listAnalyses, readAnalysisCache, saveAnalysis } from "./analysis-store.js";
+import { deleteAnalysis, friendlyAnalysisError, listAnalyses, readAnalysisCache, saveAnalysis, saveAnalysisCache } from "./analysis-store.js";
 
 const t = (value) => window.PointerScoreI18n?.translate(value) ?? value;
 let analyses = [];
+let sortMode = "date";
 
 function formatDate(value) {
   const date = new Date(value);
@@ -38,14 +39,20 @@ function renderAnalyses() {
   emptyState.hidden = analyses.length > 0;
   list.hidden = analyses.length === 0;
 
-  analyses.forEach((analysis) => {
+  const sortedAnalyses = analyses.slice().sort((a, b) => {
+    if (sortMode === "name") return String(a.company || "").localeCompare(String(b.company || ""), document.documentElement.lang, { sensitivity: "base" });
+    if (sortMode === "score") return Number(b.score || 0) - Number(a.score || 0);
+    return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+  });
+
+  sortedAnalyses.forEach((analysis) => {
     const card = document.createElement("article");
     card.className = "dashboard-analysis-card";
     card.innerHTML = `
       <div class="dashboard-analysis-company"><span>${t("Unternehmen")}</span><strong></strong></div>
       <div class="dashboard-analysis-score"><span>PointerScore</span><strong></strong><small>/ 100</small></div>
       <div class="dashboard-analysis-date"><span>${t("Erstellt am")}</span><strong></strong></div>
-      <div class="dashboard-analysis-actions"><a class="button button-secondary" href="rechner/">${t("Öffnen")}</a><button class="dashboard-delete-button" type="button">${t("Löschen")}</button></div>
+      <div class="dashboard-analysis-actions"><a class="button button-secondary" href="rechner/">${t("Öffnen")}</a><button class="dashboard-duplicate-button" type="button">${t("Duplizieren")}</button><button class="dashboard-delete-button" type="button">${t("Löschen")}</button></div>
       <details class="dashboard-analysis-note"><summary>${t(analysis.notes ? "Notiz anzeigen / bearbeiten" : "Notiz hinzufügen")}</summary><label><span>${t("Persönliche Notiz")}</span><textarea maxlength="600" rows="4"></textarea></label><div><button type="button">${t("Notiz speichern")}</button><small role="status"></small></div></details>`;
     card.querySelector(".dashboard-analysis-company strong").textContent = analysis.company || t("Unbenannte Analyse");
     card.querySelector(".dashboard-analysis-score strong").textContent = String(Math.max(0, Math.min(100, Math.round(Number(analysis.score) || 0))));
@@ -68,6 +75,22 @@ function renderAnalyses() {
         noteStatus.textContent = friendlyAnalysisError(error, t("Notiz konnte nicht gespeichert werden."));
       } finally {
         noteButton.disabled = false;
+      }
+    });
+
+    const duplicateButton = card.querySelector(".dashboard-duplicate-button");
+    duplicateButton.addEventListener("click", async () => {
+      duplicateButton.disabled = true;
+      setStatus(t("Analyse wird dupliziert …"), "loading");
+      try {
+        const copy = { ...analysis, id: crypto.randomUUID(), company: `${analysis.company || t("Unbenannte Analyse")} (${t("Kopie")})`, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+        const saved = isLocalPreview ? saveAnalysisCache(user.id, copy) : await saveAnalysis(user.id, copy);
+        analyses = [saved, ...analyses];
+        renderAnalyses();
+        setStatus(t("Analyse wurde dupliziert."), "success");
+      } catch (error) {
+        duplicateButton.disabled = false;
+        setStatus(friendlyAnalysisError(error, t("Analyse konnte nicht dupliziert werden.")), "error");
       }
     });
 
@@ -113,4 +136,6 @@ if (user) {
 }
 
 window.addEventListener("pointerscore:languagechange", () => { if (user) renderAnalyses(); });
+document.querySelector("[data-analysis-sort]").addEventListener("change", (event) => { sortMode = event.target.value; renderAnalyses(); });
+
 document.querySelectorAll("[data-logout]").forEach((button) => button.addEventListener("click", async () => { button.disabled = true; await supabase.auth.signOut({ scope: "local" }); window.location.replace("index.html"); }));
