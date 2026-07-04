@@ -15,6 +15,7 @@ const sourceEntries = [
   "calculator.html",
   "404.html",
   "favicon.ico",
+  "site.webmanifest",
   "style.css",
   "script.js",
   "i18n.js",
