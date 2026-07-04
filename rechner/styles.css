@@ -134,3 +134,24 @@ input,select{transition:border-color .2s ease,box-shadow .2s ease,background-col
 
 /* Stable fade-only transitions between tour steps */
 .onboarding-tour{opacity:1;transition:opacity .24s ease}.onboarding-tour.onboarding-tour-is-fading{opacity:0;pointer-events:none}.onboarding-tour-spotlight{transition:opacity .24s ease}.onboarding-tour-card{transition:opacity .24s ease;animation:none}.onboarding-tour-card.onboarding-tour-step-in{animation:none}
+
+/* Match the calculator header to the main PointerScore navigation */
+@media(min-width:681px){
+  .site-header{height:76px;background:rgba(255,255,255,.9);border-bottom:1px solid rgba(74,119,156,.18);box-shadow:0 8px 24px rgba(15,72,115,.07);backdrop-filter:blur(18px)}
+  .header-inner{width:min(1120px,calc(100% - 40px));gap:24px}
+  .brand{gap:12px;font-size:16px;font-weight:760;letter-spacing:0}
+  .brand-logo{width:42px;height:42px;border-radius:8px;box-shadow:none}
+  .app-header-actions{gap:6px}
+  .app-header-actions>a{padding:10px 13px;border-radius:8px;color:#5f7186;font-size:.95rem;font-weight:600;transition:color .18s ease,background .18s ease}
+  .app-header-actions>a:hover{color:#175a9e;background:rgba(47,130,232,.09)}
+  .app-header-actions>a{position:relative}
+  .app-header-actions>a::after{content:"";position:absolute;right:13px;bottom:7px;left:13px;height:2px;border-radius:999px;background:#2f82e8;transform:scaleX(0);transform-origin:left;transition:transform 220ms ease}
+  .app-header-actions>a:hover::after,.app-header-actions>a:focus-visible::after{transform:scaleX(1)}
+  .app-header-actions>a:focus-visible{outline:2px solid rgba(47,130,232,.28);outline-offset:2px}
+  .language-toggle{margin:0 5px;padding:3px;border-color:rgba(74,119,156,.18);border-radius:8px;background:rgba(238,246,255,.88)}
+  .language-toggle button{min-width:34px;height:30px;padding:0 8px;border-radius:6px;font-size:.72rem}
+  .header-meta{margin:0 5px;gap:9px}
+  .header-meta strong{font-size:.82rem}
+  .app-header-actions>button[data-logout]{min-height:40px;padding:0 14px;border:1px solid #d6e3ef;border-radius:8px;color:#175a9e;background:#fff;font-size:.88rem;font-weight:750}
+  .app-header-actions>button[data-logout]:hover{color:#0f4f87;background:#f7fbff}
+}
