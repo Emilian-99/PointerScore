@@ -121,6 +121,7 @@ if (isLocalPreview) {
 }
 
 if (user) {
+  document.body.dataset.tourUserId = user.id || "user";
   document.querySelectorAll("[data-user-email]").forEach((element) => { element.textContent = user.email || "–"; });
   document.querySelectorAll("[data-user-name]").forEach((element) => { element.textContent = getUserDisplayName(user); });
   revealProtectedPage();

@@ -26,7 +26,7 @@
       }
     });
     title.textContent = titles[nextView];
-    document.title = `${titles[nextView]} | PointerScore 100`;
+    document.title = `${titles[nextView]} | PointerScore`;
     setMessage();
 
     if (updateUrl) {

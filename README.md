@@ -1,4 +1,4 @@
-# PointerScore 100
+# PointerScore
 
 PointerScore-Landingpage mit Supabase Auth, geschütztem Dashboard und Rechner.
 

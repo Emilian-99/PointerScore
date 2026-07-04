@@ -27,7 +27,7 @@ function showView(view, { updateUrl = true } = {}) {
   });
   forms.forEach((form) => { form.hidden = form.dataset.authForm !== nextView; });
   title.textContent = titles[nextView];
-  document.title = `${titles[nextView]} | PointerScore 100`;
+  document.title = `${titles[nextView]} | PointerScore`;
   setMessage();
 
   if (updateUrl) {

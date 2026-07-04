@@ -3,37 +3,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard | PointerScore 100</title>
+  <title>Dashboard | PointerScore</title>
   <meta name="description" content="Dein persönliches PointerScore-Dashboard.">
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#eef8ff">
-  <link rel="icon" type="image/png" href="assets/logo-new-v2.png">
+  <link rel="icon" href="/favicon.ico?v=2" sizes="any">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="stylesheet" href="style.css?v=14">
 </head>
 <body class="protected-page dashboard-page is-auth-loading">
   <div class="auth-loading-screen" aria-live="polite"><img src="assets/logo-new-v2.png" alt="" width="56" height="56"><span>Zugang wird geprüft …</span></div>
   <div class="protected-content">
     <header class="site-header is-scrolled">
       <nav class="nav shell" aria-label="Hauptnavigation">
-        <a class="brand" href="index.html"><img src="assets/logo-new-v2.png" alt="" width="42" height="42"><span>PointerScore 100</span></a>
+        <a class="brand" href="index.html"><img src="assets/logo-new-v2.png" alt="" width="42" height="42"><span>PointerScore</span></a>
         <div class="nav-menu"><a href="rechner/" data-calculator-link>Rechner</a><a href="profile.html" data-profile-link>Profil</a><button class="nav-session-button" type="button" data-logout>Abmelden</button></div>
       </nav>
     </header>
 
     <main class="dashboard-main">
       <div class="shell">
-        <section class="dashboard-welcome">
+        <section class="dashboard-welcome" data-tour-dashboard>
           <div><p class="eyebrow">Dein PointerScore Bereich</p><h1>Willkommen, <span data-user-name>–</span></h1><p>Behalte deine Unternehmensanalysen und wichtigsten Kennzahlen im Blick.</p></div>
           <div class="dashboard-user"><span>Angemeldet als</span><strong data-user-email>–</strong></div>
         </section>
 
         <section class="dashboard-actions" aria-label="Schnellaktionen">
-          <a class="button button-primary dashboard-new-analysis" href="rechner/" data-calculator-link>Neue Analyse erstellen</a>
+          <a class="button button-primary dashboard-new-analysis" href="rechner/" data-calculator-link data-tour-new-analysis>Neue Analyse erstellen</a>
           <a class="button button-secondary dashboard-help-button dashboard-compare-button" href="compare.html" data-compare-link>Unternehmen vergleichen</a>
-          <a class="button button-secondary dashboard-help-button" href="help.html">Hilfe / Anleitung</a>
+          <a class="button button-secondary dashboard-help-button" href="help.html" data-tour-help>Hilfe / Anleitung</a>
         </section>
 
         <section class="dashboard-stats" aria-label="Analyse-Statistiken">
@@ -44,10 +45,9 @@
 
         <section class="dashboard-analyses" aria-labelledby="analyses-heading">
           <div class="dashboard-section-heading">
-            <div><p class="eyebrow">Übersicht</p><h2 id="analyses-heading">Meine Analysen</h2></div>
+            <div><p class="eyebrow">Übersicht</p><h2 id="analyses-heading">Meine Analysen</h2><span class="dashboard-storage-note">Sicher in der Cloud gespeichert</span></div>
             <div class="dashboard-analysis-tools">
               <label><span>Sortieren</span><select data-analysis-sort aria-label="Analysen sortieren"><option value="date">Erstellungsdatum</option><option value="name">Name</option><option value="score">PointerScore</option></select></label>
-              <span class="dashboard-storage-note">Sicher in der Cloud gespeichert</span>
             </div>
           </div>
           <p class="dashboard-analysis-status" data-analysis-status role="status" hidden></p>
@@ -68,5 +68,6 @@
   <script src="runtime-config.js?v=2"></script>
   <script src="i18n.js" defer></script>
   <script type="module" src="dashboard.js"></script>
+  <script type="module" src="onboarding-tour.js?v=2"></script>
 </body>
 </html>

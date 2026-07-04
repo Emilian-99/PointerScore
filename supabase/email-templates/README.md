@@ -3,7 +3,7 @@
 ## Registrierung bestätigen
 
 - Supabase: **Authentication → Email Templates → Confirm signup**
-- Betreff: `Bestätige deine E-Mail-Adresse | PointerScore 100`
+- Betreff: `Bestätige deine E-Mail-Adresse | PointerScore`
 - Inhalt: `confirm-signup.html`
 
 ## Passwort zurücksetzen
