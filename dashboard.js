@@ -5,6 +5,45 @@ const t = (value) => window.PointerScoreI18n?.translate(value) ?? value;
 let analyses = [];
 let sortMode = "date";
 
+function initializeAnnouncements() {
+  const root = document.querySelector("[data-announcements]");
+  if (!root) return;
+  const track = root.querySelector("[data-announcement-track]");
+  const status = root.querySelector("[data-announcement-status]");
+  const slides = [...track.children];
+  let active = 0;
+  let timer = 0;
+  let pointerStart = null;
+
+  const show = (next, restart = true) => {
+    active = (next + slides.length) % slides.length;
+    track.style.transform = `translateX(-${active * 100}%)`;
+    status.textContent = `${active + 1} / ${slides.length}`;
+    slides.forEach((slide, index) => slide.setAttribute("aria-hidden", String(index !== active)));
+    if (restart) startTimer();
+  };
+  const startTimer = () => {
+    window.clearInterval(timer);
+    timer = window.setInterval(() => show(active + 1, false), 15000);
+  };
+
+  root.querySelector("[data-announcement-prev]").addEventListener("click", () => show(active - 1));
+  root.querySelector("[data-announcement-next]").addEventListener("click", () => show(active + 1));
+  root.addEventListener("pointerdown", (event) => { pointerStart = event.clientX; });
+  root.addEventListener("pointerup", (event) => {
+    if (pointerStart === null) return;
+    const distance = event.clientX - pointerStart;
+    pointerStart = null;
+    if (Math.abs(distance) > 45) show(active + (distance < 0 ? 1 : -1));
+  });
+  root.addEventListener("mouseenter", () => window.clearInterval(timer));
+  root.addEventListener("mouseleave", startTimer);
+  document.addEventListener("visibilitychange", () => document.hidden ? window.clearInterval(timer) : startTimer());
+  show(0);
+}
+
+initializeAnnouncements();
+
 function formatDate(value) {
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "–";

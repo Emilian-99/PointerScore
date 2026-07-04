@@ -13,6 +13,18 @@ translations["Verantwortlich für den Inhalt"] = "Responsible for content";
 const originalDocumentTitle = document.title;
 
 Object.assign(translations, {
+  "PointerScore Ankündigungen": "PointerScore announcements",
+  "Demnächst": "Coming soon",
+  "PointerScore kommt auf dein Smartphone.": "PointerScore is coming to your smartphone.",
+  "Eine mobile Version ist bereits in Planung. So kannst du deine Analysen künftig noch einfacher unterwegs ansehen.": "A mobile version is already being planned, making it even easier to view your analyses on the go.",
+  "Danke": "Thank you",
+  "Schön, dass du PointerScore nutzt.": "Thank you for using PointerScore.",
+  "Vielen Dank für dein Vertrauen. Wir entwickeln PointerScore laufend weiter, damit deine Unternehmensanalysen noch übersichtlicher werden.": "Thank you for your trust. We continuously improve PointerScore to make your company analyses even clearer.",
+  "Vorherige Ankündigung": "Previous announcement",
+  "Nächste Ankündigung": "Next announcement"
+});
+
+Object.assign(translations, {
   "PointerScore | Unternehmen strukturiert bewerten": "PointerScore | Evaluate companies systematically",
   "Produkt": "Product",
   "Methode": "Method",

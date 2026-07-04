@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=14">
+  <link rel="stylesheet" href="style.css?v=16">
 </head>
 <body class="protected-page dashboard-page is-auth-loading">
   <div class="auth-loading-screen" aria-live="polite"><img src="assets/logo-new-v2.png" alt="" width="56" height="56"><span>Zugang wird geprüft …</span></div>
@@ -28,7 +28,28 @@
       <div class="shell">
         <section class="dashboard-welcome" data-tour-dashboard>
           <div><p class="eyebrow">Dein PointerScore Bereich</p><h1>Willkommen, <span data-user-name>–</span></h1><p>Behalte deine Unternehmensanalysen und wichtigsten Kennzahlen im Blick.</p></div>
-          <div class="dashboard-user"><span>Angemeldet als</span><strong data-user-email>–</strong></div>
+          <div class="dashboard-welcome-side">
+            <div class="dashboard-user"><span>Angemeldet als</span><strong data-user-email>–</strong></div>
+            <section class="dashboard-announcements" aria-label="PointerScore Ankündigungen" data-announcements>
+              <div class="dashboard-announcement-viewport">
+                <div class="dashboard-announcement-track" data-announcement-track>
+                  <article class="dashboard-announcement-slide dashboard-announcement-mobile">
+                    <div class="dashboard-announcement-icon" aria-hidden="true"><span></span><i></i></div>
+                    <div><span class="dashboard-announcement-label">Demnächst</span><h2>PointerScore kommt auf dein Smartphone.</h2><p>Eine mobile Version ist bereits in Planung. So kannst du deine Analysen künftig noch einfacher unterwegs ansehen.</p></div>
+                  </article>
+                  <article class="dashboard-announcement-slide dashboard-announcement-thanks">
+                    <div class="dashboard-announcement-icon" aria-hidden="true"><img src="assets/logo-new-v2.png" alt="" width="48" height="48"></div>
+                    <div><span class="dashboard-announcement-label">Danke</span><h2>Schön, dass du PointerScore nutzt.</h2><p>Vielen Dank für dein Vertrauen. Wir entwickeln PointerScore laufend weiter, damit deine Unternehmensanalysen noch übersichtlicher werden.</p></div>
+                  </article>
+                </div>
+              </div>
+              <div class="dashboard-announcement-controls">
+                <button type="button" data-announcement-prev aria-label="Vorherige Ankündigung">‹</button>
+                <span data-announcement-status aria-live="polite">1 / 2</span>
+                <button type="button" data-announcement-next aria-label="Nächste Ankündigung">›</button>
+              </div>
+            </section>
+          </div>
         </section>
 
         <section class="dashboard-actions" aria-label="Schnellaktionen">
