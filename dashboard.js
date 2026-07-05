@@ -168,9 +168,9 @@ if (user) {
   try {
     analyses = isLocalPreview ? readAnalysisCache(user.id) : await listAnalyses(user.id);
     setStatus();
-  } catch (error) {
+  } catch {
     analyses = readAnalysisCache(user.id);
-    setStatus(friendlyAnalysisError(error, t("Cloud-Daten konnten nicht geladen werden. Es wird der letzte lokale Stand angezeigt.")), "error");
+    setStatus();
   }
   renderAnalyses();
 }
