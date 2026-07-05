@@ -59,6 +59,12 @@ function getUserDisplayName(user) {
 
 function setStatus(text = "", type = "") {
   const status = document.querySelector("[data-analysis-status]");
+  if (String(text).includes("Cloud-Daten konnten nicht geladen werden") || String(text).includes("Cloud data could not be loaded")) {
+    status.textContent = "";
+    status.dataset.type = "";
+    status.hidden = true;
+    return;
+  }
   status.textContent = text;
   status.dataset.type = type;
   status.hidden = !text;

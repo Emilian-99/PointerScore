@@ -519,7 +519,6 @@ Object.assign(translations, {
   "Keine Notiz gespeichert.": "No note saved.",
   "Analysen werden aus der Cloud geladen …": "Loading analyses from the cloud …",
   "Sicher in der Cloud gespeichert": "Securely stored in the cloud",
-  "Cloud-Daten konnten nicht geladen werden. Es wird der letzte lokale Stand angezeigt.": "Cloud data could not be loaded. The latest local copy is shown.",
   "Analyse gelöscht.": "Analysis deleted.",
   "Analyse konnte nicht gelöscht werden.": "The analysis could not be deleted.",
   "Wird gespeichert …": "Saving …",
