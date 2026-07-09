@@ -55,6 +55,13 @@ function markComplete() {
   sessionStorage.removeItem(stateKey);
 }
 
+function cleanTourUrl() {
+  const url = new URL(location.href);
+  url.searchParams.delete("tour");
+  url.searchParams.delete("tourStep");
+  history.replaceState({}, "", url);
+}
+
 function removeHighlight() {
   target = null;
 }
@@ -65,6 +72,7 @@ function finish() {
   ui?.classList.add("onboarding-tour-is-fading");
   window.setTimeout(() => {
     markComplete();
+    cleanTourUrl();
     removeHighlight();
     ui?.remove();
     document.body.classList.remove("onboarding-tour-open");
@@ -166,6 +174,10 @@ async function start() {
     for (let i = 0; i < 60 && document.body.classList.contains("is-auth-loading"); i += 1) await new Promise(resolve => setTimeout(resolve, 100));
     const manual = params.get("tour") === "1";
     if (document.body.dataset.tourUserId) sessionStorage.setItem(userKey, document.body.dataset.tourUserId);
+    if (manual && localStorage.getItem(doneKey()) === "1" && params.get("tourStep") !== "0") {
+      cleanTourUrl();
+      return;
+    }
     if (!manual && localStorage.getItem(doneKey()) === "1") return;
     if (!manual && location.pathname.includes("dashboard") === false) return;
   }
