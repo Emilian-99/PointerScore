@@ -234,6 +234,13 @@ h1 {
 .legal-content h2 { margin-top: 40px; color: var(--ink-strong); font-size: 1.35rem; }
 .legal-content p, .legal-content li { color: var(--muted); }
 .legal-content a { color: var(--blue-deep); }
+.legal-document { overflow-wrap: break-word; }
+.legal-date { margin-top: -8px; font-weight: 700; color: var(--blue-deep); }
+.legal-draft-note { margin: 0 0 34px; padding: 18px 20px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,.74); box-shadow: 0 14px 34px rgba(12,35,64,.06); }
+.legal-section { scroll-margin-top: 110px; }
+.legal-section p { line-height: 1.78; }
+.legal-list-line { margin: 8px 0; padding-left: 10px; }
+.legal-form-line { display: block; max-width: 100%; margin: 12px 0 18px; color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: .05em; white-space: normal; overflow-wrap: anywhere; }
 
 @media (max-width: 1040px) {
   .hero-layout, .buy-layout, .faq-layout { grid-template-columns: 1fr; }
@@ -1188,6 +1195,10 @@ h1 {
 .calculator-access { width: 100%; justify-content: center; gap: 14px; }
 .calculator-access span { font-size: 1.18rem; transition: transform 180ms ease; }
 .calculator-access:hover span { transform: translateX(4px); }
+.plan-legal-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 14px; font-size: .74rem; font-weight: 800; letter-spacing: .01em; }
+.plan-legal-links a { color: var(--blue-deep); text-decoration: none; }
+.plan-legal-links a:hover { color: #2f82e8; }
+.plan-order-note { margin: 12px 0 0; color: var(--muted); font-size: .68rem; line-height: 1.55; text-align: center; }
 .plan-legal { display: block; margin-top: 16px; color: var(--muted); font-size: .75rem; line-height: 1.5; text-align: center; }
 @media (max-width: 900px) { .calculator-layout { grid-template-columns: 1fr; gap: 38px; } .calculator-copy { max-width: none; } .calculator-plan { max-width: 560px; } }
 @media (max-width: 620px) { .calculator-plan { padding: 24px; } .calculator-copy h2 { font-size: clamp(2.3rem, 12vw, 3.6rem); } }

@@ -621,6 +621,17 @@ Object.assign(translations, {
 const originalText = new WeakMap();
 const originalAttributes = new WeakMap();
 
+Object.assign(translations, {
+  "AGB": "Terms",
+  "Widerruf": "Withdrawal",
+  "Widerrufsformular": "Withdrawal form",
+  "Haftungsausschluss": "Disclaimer",
+  "Cookies": "Cookies",
+  "Abo kündigen": "Cancel subscription",
+  "Rechtliche Hinweise zum Abonnement": "Legal subscription information",
+  "Mit Klick auf den finalen Bestellbutton schließen Sie ein monatlich kündbares PointerScore-Abonnement zum Preis von 7,99 € pro Monat ab.": "By clicking the final order button, you enter into a monthly cancellable PointerScore subscription for €7.99 per month."
+});
+
 function translatedValue(original, language) {
   return language === "en" ? (translations[original] ?? original) : original;
 }

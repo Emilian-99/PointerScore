@@ -19,6 +19,7 @@ const sourceEntries = [
   "style.css",
   "script.js",
   "i18n.js",
+  "legal-pages.js",
   "runtime-config.js",
   "auth-client.js",
   "analysis-store.js",
