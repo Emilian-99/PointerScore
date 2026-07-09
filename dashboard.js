@@ -4,6 +4,8 @@ import { deleteAnalysis, friendlyAnalysisError, listAnalyses, readAnalysisCache,
 const t = (value) => window.PointerScoreI18n?.translate(value) ?? value;
 let analyses = [];
 let sortMode = "date";
+let searchQuery = "";
+let pendingDeleteAnalysis = null;
 
 function initializeAnnouncements() {
   const root = document.querySelector("[data-announcements]");
@@ -88,7 +90,20 @@ function renderAnalyses() {
     if (sortMode === "name") return String(a.company || "").localeCompare(String(b.company || ""), document.documentElement.lang, { sensitivity: "base" });
     if (sortMode === "score") return Number(b.score || 0) - Number(a.score || 0);
     return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+  }).filter((analysis) => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) return true;
+    return [analysis.company, analysis.score, analysis.notes, formatDate(analysis.createdAt)].some((value) => String(value || "").toLowerCase().includes(query));
   });
+
+  if (analyses.length > 0 && sortedAnalyses.length === 0) {
+    const card = document.createElement("div");
+    card.className = "dashboard-search-empty";
+    card.innerHTML = `<strong>${t("Keine Analyse gefunden.")}</strong><span>${t("Passe deine Suche an oder lösche den Suchbegriff.")}</span>`;
+    list.hidden = false;
+    list.append(card);
+    return;
+  }
 
   sortedAnalyses.forEach((analysis) => {
     const card = document.createElement("article");
@@ -140,20 +155,44 @@ function renderAnalyses() {
     });
 
     const deleteButton = card.querySelector(".dashboard-delete-button");
-    deleteButton.addEventListener("click", async () => {
-      deleteButton.disabled = true;
-      try {
-        if (!isLocalPreview) await deleteAnalysis(user.id, analysis.id);
-        analyses = analyses.filter((item) => item.id !== analysis.id);
-        renderAnalyses();
-        setStatus(t("Analyse gelöscht."), "success");
-      } catch (error) {
-        deleteButton.disabled = false;
-        setStatus(friendlyAnalysisError(error, t("Analyse konnte nicht gelöscht werden.")), "error");
-      }
-    });
+    deleteButton.addEventListener("click", () => openDeleteDialog(analysis));
     list.append(card);
   });
+}
+
+function openDeleteDialog(analysis) {
+  pendingDeleteAnalysis = analysis;
+  const dialog = document.querySelector("[data-delete-dialog]");
+  dialog.querySelector("[data-delete-company]").textContent = analysis.company || t("Unbenannte Analyse");
+  if (typeof dialog.showModal === "function") {
+    dialog.showModal();
+    return;
+  }
+  if (window.confirm(t("Analyse wirklich löschen?"))) void confirmDeleteAnalysis();
+}
+
+function closeDeleteDialog() {
+  const dialog = document.querySelector("[data-delete-dialog]");
+  if (dialog.open) dialog.close();
+  pendingDeleteAnalysis = null;
+}
+
+async function confirmDeleteAnalysis() {
+  if (!pendingDeleteAnalysis) return;
+  const analysis = pendingDeleteAnalysis;
+  const confirmButton = document.querySelector("[data-delete-confirm]");
+  confirmButton.disabled = true;
+  try {
+    if (!isLocalPreview) await deleteAnalysis(user.id, analysis.id);
+    analyses = analyses.filter((item) => item.id !== analysis.id);
+    closeDeleteDialog();
+    renderAnalyses();
+    setStatus(t("Analyse gelöscht."), "success");
+  } catch (error) {
+    setStatus(friendlyAnalysisError(error, t("Analyse konnte nicht gelöscht werden.")), "error");
+  } finally {
+    confirmButton.disabled = false;
+  }
 }
 
 const isLocalPreview = ["localhost", "127.0.0.1"].includes(window.location.hostname) && new URLSearchParams(window.location.search).get("preview") === "1";
@@ -183,5 +222,11 @@ if (user) {
 
 window.addEventListener("pointerscore:languagechange", () => { if (user) renderAnalyses(); });
 document.querySelector("[data-analysis-sort]").addEventListener("change", (event) => { sortMode = event.target.value; renderAnalyses(); });
+document.querySelector("[data-analysis-search]").addEventListener("input", (event) => { searchQuery = event.target.value; renderAnalyses(); });
+document.querySelector("[data-delete-confirm]").addEventListener("click", () => { void confirmDeleteAnalysis(); });
+document.querySelectorAll("[data-delete-cancel]").forEach((button) => button.addEventListener("click", closeDeleteDialog));
+document.querySelector("[data-delete-dialog]").addEventListener("click", (event) => {
+  if (event.target === event.currentTarget) closeDeleteDialog();
+});
 
 document.querySelectorAll("[data-logout]").forEach((button) => button.addEventListener("click", async () => { button.disabled = true; await supabase.auth.signOut({ scope: "local" }); window.location.replace("index.html"); }));

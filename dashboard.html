@@ -70,6 +70,7 @@
           <div class="dashboard-section-heading">
             <div><p class="eyebrow">Übersicht</p><h2 id="analyses-heading">Meine Analysen</h2><span class="dashboard-storage-note">Sicher in der Cloud gespeichert</span></div>
             <div class="dashboard-analysis-tools">
+              <label class="dashboard-analysis-search"><span>Suchen</span><input type="search" data-analysis-search placeholder="Analyse suchen …" aria-label="Analysen suchen"></label>
               <label><span>Sortieren</span><select data-analysis-sort aria-label="Analysen sortieren"><option value="date">Erstellungsdatum</option><option value="name">Name</option><option value="score">PointerScore</option></select></label>
             </div>
           </div>
@@ -87,6 +88,19 @@
       </div>
     </main>
   </div>
+  <dialog class="dashboard-delete-dialog" data-delete-dialog>
+    <form method="dialog">
+      <button class="dashboard-dialog-close" type="button" data-delete-cancel aria-label="Schließen">×</button>
+      <p class="eyebrow">Analyse löschen</p>
+      <h2>Analyse wirklich löschen?</h2>
+      <p>Diese Aktion kann nicht rückgängig gemacht werden.</p>
+      <strong data-delete-company>–</strong>
+      <div class="dashboard-delete-dialog-actions">
+        <button class="button button-secondary" type="button" data-delete-cancel>Abbrechen</button>
+        <button class="button dashboard-confirm-delete-button" type="button" data-delete-confirm>Endgültig löschen</button>
+      </div>
+    </form>
+  </dialog>
 
   <script src="runtime-config.js?v=2"></script>
   <script src="i18n.js" defer></script>

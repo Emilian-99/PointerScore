@@ -1,4 +1,21 @@
 const LEGAL_TRANSLATIONS = {
+  datenschutz: {
+    title: "Privacy Policy",
+    description: "Privacy Policy for PointerScore.",
+    sections: [
+      ["1. Controller", "Emilian Pohle\nAllensteiner Straße 1\n38642 Goslar\nGermany\n\nEmail: pointerscore@outlook.com\nWebsite: https://pointerscore.com"],
+      ["2. Provision of the website", "When this website is accessed, technically necessary access data may be processed. This can include IP address, time of access, requested file, referrer, browser type and operating system. Processing is carried out to provide the website securely and reliably."],
+      ["3. Registration and login with Supabase", "Supabase Auth is used for registration, login, session management, logout and password reset. The provider is Supabase, Inc., USA. In particular, email address, encrypted password, user ID, authentication and session data, login times and technically necessary connection data may be processed."],
+      ["4. Email confirmation and password reset", "Automated emails may be sent to the email address provided for account confirmation and password reset. The links in these emails are used only to confirm or restore the account."],
+      ["5. Local storage of session and language", "Supabase stores technically necessary authentication and session tokens in the browser's local storage so that login sessions can remain active and be securely refreshed. The selected language is also stored locally. This storage is necessary for the functions requested by the user."],
+      ["6. Calculator and analysis data", "Company metrics entered in the PointerScore calculator may be processed in the browser and, where cloud saving is used, stored in Supabase and linked to the logged-in user account. Access is intended to be restricted to the respective user."],
+      ["7. Storage period and account deletion", "Account data is stored as long as the user account exists or statutory retention obligations apply. Deletion of an account can be requested by email to pointerscore@outlook.com. Browser session data is removed from the current session when the user logs out."],
+      ["8. Contact", "If you contact PointerScore by email, the information provided will be processed to handle the request."],
+      ["9. Google Fonts", "This website may load fonts from Google Fonts. In that case, a connection to Google servers may be established and, in particular, the IP address may be processed. Before productive launch, local hosting of fonts should be reviewed."],
+      ["10. Rights of data subjects", "Data subjects may have rights to access, rectification, deletion, restriction of processing, data portability and objection under the applicable legal requirements. There may also be a right to lodge a complaint with a data protection supervisory authority."],
+      ["11. Last updated", "Last updated: 06.07.2026"]
+    ]
+  },
   agb: {
     title: "Terms and Conditions",
     description: "Terms and Conditions for PointerScore.",
@@ -117,12 +134,12 @@ function renderEnglishLegal(key) {
   const data = LEGAL_TRANSLATIONS[key];
   const container = document.querySelector(".legal-document");
   if (!data || !container) return;
+  const renderBody = body => String(body).split("\n\n").map(paragraph => `<p>${paragraph.split("\n").join("<br>")}</p>`).join("");
   container.innerHTML = [
     '<p class="eyebrow">Legal</p>',
     `<h1>${data.title}</h1>`,
     '<p class="legal-date">Last updated: 06.07.2026</p>',
-    '<p class="legal-draft-note">This English version is provided for easier understanding of the German legal text. In case of doubt, the German version should be reviewed before productive use.</p>',
-    ...data.sections.map(([heading, body], index) => `<section class="legal-section" id="${key}-en-${index + 1}"><h2>${heading}</h2><p>${body}</p></section>`)
+    ...data.sections.map(([heading, body], index) => `<section class="legal-section" id="${key}-en-${index + 1}"><h2>${heading}</h2>${renderBody(body)}</section>`)
   ].join("");
   document.title = `${data.title} | PointerScore`;
   const description = document.querySelector('meta[name="description"]');

@@ -629,7 +629,23 @@ Object.assign(translations, {
   "Cookies": "Cookies",
   "Abo kündigen": "Cancel subscription",
   "Rechtliche Hinweise zum Abonnement": "Legal subscription information",
-  "Mit Klick auf den finalen Bestellbutton schließen Sie ein monatlich kündbares PointerScore-Abonnement zum Preis von 7,99 € pro Monat ab.": "By clicking the final order button, you enter into a monthly cancellable PointerScore subscription for €7.99 per month."
+  "Mit Klick auf den finalen Bestellbutton schließen Sie ein monatlich kündbares PointerScore-Abonnement zum Preis von 7,99 € pro Monat ab.": "By clicking the final order button, you enter into a monthly cancellable PointerScore subscription for €7.99 per month.",
+  "Suchen": "Search",
+  "Analyse suchen …": "Search analysis …",
+  "Analysen suchen": "Search analyses",
+  "Keine Analyse gefunden.": "No analysis found.",
+  "Passe deine Suche an oder lösche den Suchbegriff.": "Adjust your search or clear the search term.",
+  "Analyse löschen": "Delete analysis",
+  "Schließen": "Close",
+  "Analyse wirklich löschen?": "Really delete this analysis?",
+  "Diese Aktion kann nicht rückgängig gemacht werden.": "This action cannot be undone.",
+  "Abbrechen": "Cancel",
+  "Endgültig löschen": "Delete permanently",
+  "Analyse gelöscht.": "Analysis deleted.",
+  "Analyse konnte nicht gelöscht werden.": "The analysis could not be deleted.",
+  "Trage die Zahlen der letzten drei abgeschlossenen Vorjahre/Geschäftsjahre ein, in derselben Einheit.": "Enter the figures from the last three completed previous years/financial years, using the same unit.",
+  "Umsatz aus den letzten drei abgeschlossenen Vorjahren/Geschäftsjahren. Jahr 1 ist das älteste Jahr, Jahr 3 das jüngste abgeschlossene Jahr.": "Revenue from the last three completed previous years/financial years. Year 1 is the oldest year, year 3 is the most recent completed year.",
+  "Nettoergebnis aus den letzten drei abgeschlossenen Vorjahren/Geschäftsjahren. Negative Werte werden konservativ bewertet.": "Net income from the last three completed previous years/financial years. Negative values are evaluated conservatively."
 });
 
 function translatedValue(original, language) {
