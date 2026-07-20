@@ -5151,3 +5151,145 @@ main {
     margin-left: 3px;
   }
 }
+
+/* Balanced mobile sizing after compact pass */
+@media (max-width: 760px) {
+  .protected-page .nav {
+    min-height: 62px;
+  }
+
+  .protected-page .brand img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .protected-page .brand span {
+    font-size: .8rem;
+  }
+
+  .protected-page .nav-menu a,
+  .protected-page .nav-session-button {
+    min-height: 34px;
+    padding: 7px 7px;
+    font-size: .68rem;
+  }
+
+  .protected-page .nav-menu .language-switch {
+    padding: 3px;
+  }
+
+  .protected-page .nav-menu .language-switch button {
+    min-width: 28px;
+    height: 28px;
+    font-size: .62rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-page .dashboard-main {
+    padding-top: 30px;
+  }
+
+  .dashboard-page .eyebrow {
+    font-size: .66rem;
+  }
+
+  .dashboard-page .dashboard-welcome h1 {
+    margin-bottom: 9px;
+    font-size: clamp(2.1rem, 10vw, 2.8rem);
+  }
+
+  .dashboard-page .dashboard-welcome p:not(.eyebrow) {
+    font-size: .88rem;
+    line-height: 1.5;
+  }
+
+  .dashboard-page .dashboard-welcome-side {
+    grid-template-columns: minmax(0, calc(100% - 128px)) 124px;
+    gap: 6px;
+  }
+
+  .dashboard-page .dashboard-user {
+    max-width: 124px;
+    padding: 8px 8px;
+  }
+
+  .dashboard-page .dashboard-user span {
+    font-size: .48rem;
+  }
+
+  .dashboard-page .dashboard-user strong {
+    max-width: 108px;
+    font-size: .56rem;
+  }
+
+  .dashboard-page .dashboard-announcements {
+    min-height: 112px;
+  }
+
+  .dashboard-page .dashboard-announcement-slide {
+    grid-template-columns: 30px minmax(0, 1fr);
+    gap: 8px;
+    padding: 12px 29px 16px;
+  }
+
+  .dashboard-page .dashboard-announcement-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .dashboard-page .dashboard-announcement-icon img {
+    width: 27px;
+    height: 27px;
+  }
+
+  .dashboard-page .dashboard-announcement-label {
+    font-size: .46rem;
+  }
+
+  .dashboard-page .dashboard-announcement-slide h2 {
+    font-size: .68rem;
+    line-height: 1.16;
+  }
+
+  .dashboard-page .dashboard-announcement-slide p,
+  .dashboard-page .dashboard-welcome .dashboard-announcement-slide p,
+  .dashboard-page .dashboard-welcome .dashboard-announcement-thanks p {
+    font-size: .52rem;
+    line-height: 1.22;
+  }
+
+  .dashboard-page .dashboard-actions {
+    gap: 8px;
+  }
+
+  .dashboard-page .dashboard-actions > a,
+  .dashboard-page .dashboard-actions > button {
+    min-height: 44px;
+    font-size: .82rem;
+  }
+
+  .dashboard-page .dashboard-stats {
+    gap: 8px;
+  }
+
+  .dashboard-page .dashboard-stat-card {
+    min-height: 106px;
+    padding: 15px 11px;
+  }
+
+  .dashboard-page .dashboard-stat-card span {
+    font-size: .58rem;
+  }
+
+  .dashboard-page .dashboard-stat-card strong {
+    margin-top: 7px;
+    font-size: 1.38rem;
+  }
+
+  .dashboard-page .dashboard-stat-card small {
+    margin-top: 9px;
+    font-size: .64rem;
+    line-height: 1.35;
+  }
+}
