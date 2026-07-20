@@ -3040,7 +3040,7 @@ main {
     transform: none;
   }
   .product-demo-layout .calculator-demo-head {
-    gap: 10px;
+    gap: 4px;
   }
   .product-demo-layout .calculator-demo-head h2 {
     font-size: 1.08rem;
@@ -3426,3 +3426,1728 @@ main {
 
 /* Stable fade-only transitions between tour steps */
 .onboarding-tour{opacity:1;transition:opacity .24s ease}.onboarding-tour.onboarding-tour-is-fading{opacity:0;pointer-events:none}.onboarding-tour-spotlight{transition:opacity .24s ease}.onboarding-tour-card{transition:opacity .24s ease;animation:none}.onboarding-tour-card.onboarding-tour-step-in{animation:none}
+
+/* Mobile-only refinement: keep desktop unchanged, make all app pages calmer on phones */
+@media (max-width: 640px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .shell,
+  .hero-inner,
+  .section-shell,
+  .footer-inner,
+  .dashboard-shell,
+  .profile-shell,
+  .compare-shell,
+  .help-shell,
+  .legal-shell {
+    width: min(100% - 24px, 1120px);
+  }
+
+  .site-header {
+    min-height: 64px;
+  }
+
+  .brand img,
+  .brand-logo {
+    width: 34px;
+    height: 34px;
+  }
+
+  .brand span,
+  .brand {
+    font-size: .96rem;
+  }
+
+  .button,
+  .hero-button,
+  .dashboard-new-analysis,
+  .dashboard-compare-button,
+  .dashboard-help-button {
+    min-height: 48px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: .9rem;
+  }
+
+  .hero {
+    padding-top: 48px;
+    padding-bottom: 58px;
+  }
+
+  .hero h1,
+  .auth-intro h1,
+  .dashboard-welcome h1,
+  .profile-hero h1,
+  .compare-hero h1,
+  .help-hero h1 {
+    font-size: clamp(2.25rem, 11.5vw, 3.2rem);
+    line-height: 1.04;
+    letter-spacing: -.048em;
+  }
+
+  .hero-copy,
+  .auth-intro > p:not(.eyebrow),
+  .dashboard-welcome p:not(.eyebrow),
+  .profile-hero p:not(.eyebrow),
+  .compare-hero p,
+  .help-hero p {
+    font-size: .95rem;
+    line-height: 1.62;
+  }
+
+  .section {
+    padding: 58px 0;
+  }
+
+  .section-heading h2,
+  .audience-copy h2,
+  .final-cta h2 {
+    font-size: clamp(2rem, 9vw, 2.75rem);
+    line-height: 1.08;
+  }
+
+  .hero-tool-card,
+  .calculator-plan,
+  .premium-plan,
+  .auth-card,
+  .profile-card,
+  .help-topic,
+  .compare-panel,
+  .dashboard-stat-card,
+  .dashboard-analyses {
+    border-radius: 14px;
+  }
+
+  .hero-tool-card,
+  .calculator-plan,
+  .premium-plan,
+  .auth-card,
+  .profile-card {
+    padding: 22px 18px;
+  }
+
+  .tool-logo,
+  .calculator-plan-head img {
+    width: 54px;
+    height: 54px;
+  }
+
+  .price-amount,
+  .dashboard-stat-card strong,
+  .profile-stat-grid strong {
+    font-size: 2rem;
+  }
+
+  .dashboard-main,
+  .profile-main,
+  .compare-main,
+  .help-main,
+  .auth-main {
+    padding-top: 36px;
+    padding-bottom: 72px;
+  }
+
+  .dashboard-welcome {
+    gap: 18px;
+    margin-bottom: 24px;
+  }
+
+  .dashboard-actions {
+    gap: 10px;
+  }
+
+  .dashboard-actions > a,
+  .dashboard-actions > button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .dashboard-welcome-side {
+    gap: 12px;
+  }
+
+  .dashboard-announcements {
+    min-height: 126px;
+  }
+
+  .dashboard-announcement-slide {
+    grid-template-columns: 40px minmax(0, 1fr);
+    gap: 10px;
+    padding: 17px 40px;
+  }
+
+  .dashboard-announcement-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .dashboard-announcement-slide h2 {
+    font-size: .9rem;
+    line-height: 1.22;
+  }
+
+  .dashboard-announcement-slide p,
+  .dashboard-welcome .dashboard-announcement-slide p {
+    font-size: .68rem;
+    line-height: 1.35;
+  }
+
+  .dashboard-stats,
+  .profile-stat-grid {
+    gap: 12px;
+  }
+
+  .dashboard-stat-card {
+    min-height: auto;
+    padding: 20px 18px;
+  }
+
+  .dashboard-analyses {
+    padding: 22px 16px;
+  }
+
+  .dashboard-section-heading {
+    gap: 14px;
+  }
+
+  .dashboard-section-heading h2 {
+    font-size: 1.9rem;
+    line-height: 1.1;
+  }
+
+  .dashboard-analysis-tools {
+    gap: 10px;
+  }
+
+  .dashboard-analysis-tools label {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .dashboard-analysis-tools select,
+  .dashboard-analysis-tools input {
+    width: 100%;
+    min-height: 42px;
+  }
+
+  .dashboard-analysis-card {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .dashboard-analysis-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .dashboard-analysis-actions .button,
+  .dashboard-delete-button,
+  .dashboard-duplicate-button {
+    width: 100%;
+    min-height: 42px;
+    justify-content: center;
+    border: 1px solid #d7e5ef;
+    border-radius: 9px;
+    background: #fff;
+    text-align: center;
+  }
+
+  .auth-layout,
+  .profile-layout,
+  .compare-layout,
+  .compare-picker {
+    gap: 16px;
+  }
+
+  .auth-tabs {
+    margin-bottom: 22px;
+  }
+
+  .auth-form input:not([type="checkbox"]),
+  .profile-form input,
+  .profile-password-form input,
+  .support-dialog input,
+  .support-dialog select,
+  .support-dialog textarea {
+    min-height: 46px;
+  }
+
+  .profile-avatar-row {
+    gap: 14px;
+  }
+
+  .profile-info-list > div {
+    gap: 10px;
+  }
+
+  .profile-info-list dd {
+    max-width: 58%;
+    word-break: break-word;
+  }
+
+  .compare-main {
+    padding-top: 30px;
+  }
+
+  .compare-hero,
+  .help-hero,
+  .profile-hero {
+    margin-bottom: 22px;
+  }
+
+  .compare-picker,
+  .compare-results,
+  .help-topic-content {
+    padding-inline: 16px;
+  }
+
+  .compare-versus {
+    margin: 0 auto;
+  }
+
+  .help-toolbar {
+    gap: 10px;
+  }
+
+  .help-search input {
+    min-height: 46px;
+    font-size: .92rem;
+  }
+
+  .help-topic summary {
+    padding: 16px;
+    font-size: .95rem;
+  }
+
+  .help-topic-content {
+    padding-bottom: 16px;
+    font-size: .92rem;
+    line-height: 1.62;
+  }
+
+  .legal-content {
+    padding: 24px 18px;
+    font-size: .95rem;
+    line-height: 1.66;
+  }
+
+  .footer,
+  footer {
+    gap: 12px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .shell,
+  .hero-inner,
+  .section-shell,
+  .footer-inner,
+  .dashboard-shell,
+  .profile-shell,
+  .compare-shell,
+  .help-shell,
+  .legal-shell {
+    width: min(100% - 20px, 1120px);
+  }
+
+  .hero h1,
+  .auth-intro h1,
+  .dashboard-welcome h1,
+  .profile-hero h1,
+  .compare-hero h1,
+  .help-hero h1 {
+    font-size: clamp(2.05rem, 11vw, 2.85rem);
+  }
+
+  .hero-tool-card,
+  .calculator-plan,
+  .premium-plan,
+  .auth-card,
+  .profile-card,
+  .dashboard-analyses {
+    padding-inline: 16px;
+  }
+
+  .dashboard-announcement-slide {
+    padding-inline: 36px;
+  }
+}
+
+/* Strong phone zoom-out pass: denser, smaller mobile UI only */
+@media (max-width: 640px) {
+  body {
+    font-size: 14px;
+  }
+
+  .shell,
+  .hero-inner,
+  .section-shell,
+  .footer-inner,
+  .dashboard-shell,
+  .profile-shell,
+  .compare-shell,
+  .help-shell,
+  .legal-shell {
+    width: min(100% - 18px, 1120px);
+  }
+
+  .site-header {
+    min-height: 58px;
+  }
+
+  .nav,
+  .header-inner {
+    min-height: 58px;
+  }
+
+  .brand img,
+  .brand-logo {
+    width: 30px;
+    height: 30px;
+  }
+
+  .brand,
+  .brand span {
+    font-size: .86rem;
+  }
+
+  .language-switch,
+  .language-toggle {
+    transform: scale(.86);
+    transform-origin: right center;
+  }
+
+  .hero {
+    padding-top: 34px;
+    padding-bottom: 42px;
+  }
+
+  .hero-layout,
+  .hero-inner,
+  .buy-layout,
+  .audience-layout,
+  .auth-layout,
+  .profile-layout,
+  .compare-layout {
+    gap: 18px;
+  }
+
+  .eyebrow {
+    margin-bottom: 10px;
+    font-size: .62rem;
+    letter-spacing: .14em;
+  }
+
+  .hero h1,
+  .auth-intro h1,
+  .dashboard-welcome h1,
+  .profile-hero h1,
+  .compare-hero h1,
+  .help-hero h1 {
+    font-size: clamp(1.85rem, 9.2vw, 2.55rem);
+    line-height: 1.03;
+    letter-spacing: -.045em;
+  }
+
+  .hero-copy,
+  .auth-intro > p:not(.eyebrow),
+  .dashboard-welcome p:not(.eyebrow),
+  .profile-hero p:not(.eyebrow),
+  .compare-hero p,
+  .help-hero p,
+  .section-heading p,
+  .audience-copy p {
+    font-size: .84rem;
+    line-height: 1.5;
+  }
+
+  .hero-copy {
+    margin: 16px 0 18px;
+  }
+
+  .button,
+  .hero-button,
+  .dashboard-new-analysis,
+  .dashboard-compare-button,
+  .dashboard-help-button {
+    min-height: 42px;
+    padding: 10px 13px;
+    border-radius: 8px;
+    font-size: .8rem;
+  }
+
+  .hero-benefits,
+  .hero-tool-card ul {
+    gap: 8px;
+  }
+
+  .hero-benefits li,
+  .hero-tool-card li {
+    gap: 8px;
+    font-size: .78rem;
+  }
+
+  .hero-benefits li > span,
+  .hero-tool-card li > span {
+    width: 18px;
+    height: 18px;
+    font-size: .6rem;
+  }
+
+  .section {
+    padding: 42px 0;
+  }
+
+  .section-heading {
+    margin-bottom: 22px;
+  }
+
+  .section-heading h2,
+  .audience-copy h2,
+  .final-cta h2 {
+    font-size: clamp(1.55rem, 7.5vw, 2.15rem);
+    line-height: 1.08;
+  }
+
+  .hero-tool-card,
+  .calculator-plan,
+  .premium-plan,
+  .auth-card,
+  .profile-card,
+  .dashboard-analyses {
+    padding: 16px 14px;
+    border-radius: 12px;
+  }
+
+  .tool-logo,
+  .calculator-plan-head img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .tool-card-brand strong,
+  .calculator-plan-head strong {
+    font-size: 1rem;
+  }
+
+  .tool-card-brand small,
+  .calculator-plan-head small {
+    font-size: .76rem;
+  }
+
+  .price-amount,
+  .dashboard-stat-card strong,
+  .profile-stat-grid strong {
+    font-size: 1.65rem;
+  }
+
+  .dashboard-main,
+  .profile-main,
+  .compare-main,
+  .help-main,
+  .auth-main {
+    padding-top: 26px;
+    padding-bottom: 54px;
+  }
+
+  .dashboard-welcome {
+    gap: 13px;
+    margin-bottom: 17px;
+  }
+
+  .dashboard-welcome h1 {
+    margin-bottom: 10px;
+  }
+
+  .dashboard-actions {
+    gap: 8px;
+  }
+
+  .dashboard-welcome-side {
+    gap: 9px;
+  }
+
+  .dashboard-announcements {
+    min-height: 108px;
+    border-radius: 12px;
+  }
+
+  .dashboard-announcement-slide {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 8px;
+    padding: 13px 34px;
+  }
+
+  .dashboard-announcement-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+  }
+
+  .dashboard-announcement-icon img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .dashboard-announcement-label {
+    margin-bottom: 2px;
+    font-size: .48rem;
+  }
+
+  .dashboard-announcement-slide h2 {
+    margin-bottom: 3px;
+    font-size: .78rem;
+    line-height: 1.16;
+  }
+
+  .dashboard-announcement-slide p,
+  .dashboard-welcome .dashboard-announcement-slide p,
+  .dashboard-welcome .dashboard-announcement-thanks p {
+    font-size: .58rem;
+    line-height: 1.28;
+  }
+
+  .dashboard-announcement-controls button {
+    width: 23px;
+    height: 23px;
+    font-size: 1.08rem;
+  }
+
+  .dashboard-announcement-controls span {
+    bottom: 3px;
+    font-size: .48rem;
+  }
+
+  .dashboard-stats,
+  .profile-stat-grid {
+    gap: 9px;
+  }
+
+  .dashboard-stat-card,
+  .profile-stat-grid article {
+    min-height: auto;
+    padding: 15px 14px;
+    border-radius: 11px;
+  }
+
+  .dashboard-stat-card span,
+  .profile-stat-grid span {
+    font-size: .68rem;
+  }
+
+  .dashboard-stat-card p {
+    font-size: .76rem;
+  }
+
+  .dashboard-section-heading h2 {
+    font-size: 1.45rem;
+  }
+
+  .dashboard-analysis-tools select,
+  .dashboard-analysis-tools input,
+  .auth-form input:not([type="checkbox"]),
+  .profile-form input,
+  .profile-password-form input,
+  .help-search input {
+    min-height: 40px;
+    font-size: .82rem;
+  }
+
+  .dashboard-analysis-card {
+    gap: 10px;
+    padding: 13px;
+  }
+
+  .dashboard-analysis-actions .button,
+  .dashboard-delete-button,
+  .dashboard-duplicate-button {
+    min-height: 38px;
+    font-size: .78rem;
+  }
+
+  .auth-tabs button {
+    min-height: 38px;
+    font-size: .82rem;
+  }
+
+  .auth-heading h2 {
+    font-size: 1.25rem;
+  }
+
+  .profile-avatar {
+    width: 58px;
+    height: 58px;
+    flex-basis: 58px;
+    border-radius: 16px;
+  }
+
+  .profile-card-heading {
+    margin-bottom: 16px;
+  }
+
+  .profile-card-heading h2 {
+    font-size: 1.25rem;
+  }
+
+  .compare-hero,
+  .help-hero,
+  .profile-hero {
+    margin-bottom: 16px;
+  }
+
+  .help-topic summary {
+    padding: 13px;
+    font-size: .86rem;
+  }
+
+  .help-topic-content {
+    padding: 0 13px 13px;
+    font-size: .82rem;
+    line-height: 1.52;
+  }
+
+  .legal-content {
+    padding: 18px 14px;
+    font-size: .84rem;
+    line-height: 1.56;
+  }
+}
+
+@media (max-width: 420px) {
+  .shell,
+  .hero-inner,
+  .section-shell,
+  .footer-inner,
+  .dashboard-shell,
+  .profile-shell,
+  .compare-shell,
+  .help-shell,
+  .legal-shell {
+    width: min(100% - 16px, 1120px);
+  }
+
+  .hero h1,
+  .auth-intro h1,
+  .dashboard-welcome h1,
+  .profile-hero h1,
+  .compare-hero h1,
+  .help-hero h1 {
+    font-size: clamp(1.72rem, 8.8vw, 2.35rem);
+  }
+
+  .hero-tool-card,
+  .calculator-plan,
+  .premium-plan,
+  .auth-card,
+  .profile-card,
+  .dashboard-analyses {
+    padding-inline: 12px;
+  }
+}
+
+/* Ultra-compact mobile design layer: intentionally denser phone-only layout */
+@media (max-width: 640px) {
+  body {
+    font-size: 12.5px;
+  }
+
+  .shell,
+  .hero-inner,
+  .section-shell,
+  .footer-inner,
+  .dashboard-shell,
+  .profile-shell,
+  .compare-shell,
+  .help-shell,
+  .legal-shell {
+    width: min(100% - 14px, 1120px);
+  }
+
+  .site-header {
+    min-height: 52px;
+  }
+
+  .nav,
+  .header-inner {
+    min-height: 52px;
+  }
+
+  .brand img,
+  .brand-logo {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+  }
+
+  .brand,
+  .brand span {
+    font-size: .76rem;
+  }
+
+  .language-switch,
+  .language-toggle {
+    transform: scale(.76);
+  }
+
+  .hero {
+    padding: 24px 0 30px;
+  }
+
+  .hero-inner,
+  .hero-layout {
+    gap: 13px;
+  }
+
+  .eyebrow {
+    margin-bottom: 7px;
+    font-size: .54rem;
+  }
+
+  .hero h1,
+  .auth-intro h1,
+  .dashboard-welcome h1,
+  .profile-hero h1,
+  .compare-hero h1,
+  .help-hero h1 {
+    font-size: clamp(1.45rem, 7.5vw, 2.05rem);
+    line-height: 1.02;
+    letter-spacing: -.04em;
+  }
+
+  .hero-copy,
+  .auth-intro > p:not(.eyebrow),
+  .dashboard-welcome p:not(.eyebrow),
+  .profile-hero p:not(.eyebrow),
+  .compare-hero p,
+  .help-hero p,
+  .section-heading p,
+  .audience-copy p {
+    font-size: .72rem;
+    line-height: 1.42;
+  }
+
+  .hero-copy {
+    margin: 11px 0 12px;
+  }
+
+  .button,
+  .hero-button,
+  .dashboard-new-analysis,
+  .dashboard-compare-button,
+  .dashboard-help-button {
+    min-height: 36px;
+    padding: 8px 11px;
+    border-radius: 7px;
+    font-size: .7rem;
+  }
+
+  .hero-button {
+    margin-top: 15px;
+  }
+
+  .hero-benefits,
+  .hero-tool-card ul {
+    gap: 6px;
+  }
+
+  .hero-benefits li,
+  .hero-tool-card li {
+    gap: 6px;
+    font-size: .68rem;
+  }
+
+  .hero-benefits li > span,
+  .hero-tool-card li > span {
+    width: 15px;
+    height: 15px;
+    font-size: .5rem;
+  }
+
+  .section {
+    padding: 30px 0;
+  }
+
+  .section-heading {
+    margin-bottom: 16px;
+  }
+
+  .section-heading h2,
+  .audience-copy h2,
+  .final-cta h2 {
+    font-size: clamp(1.22rem, 6vw, 1.7rem);
+  }
+
+  .hero-tool-card,
+  .calculator-plan,
+  .premium-plan,
+  .auth-card,
+  .profile-card,
+  .dashboard-analyses,
+  .dashboard-stat-card,
+  .help-topic,
+  .compare-panel {
+    padding: 11px 10px;
+    border-radius: 10px;
+  }
+
+  .tool-card-label {
+    margin-bottom: 12px;
+    font-size: .55rem;
+  }
+
+  .tool-card-brand,
+  .calculator-plan-head {
+    gap: 9px;
+  }
+
+  .tool-logo,
+  .calculator-plan-head img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .tool-card-brand strong,
+  .calculator-plan-head strong {
+    font-size: .86rem;
+  }
+
+  .tool-card-brand small,
+  .calculator-plan-head small {
+    margin-top: 3px;
+    font-size: .62rem;
+  }
+
+  .tool-score-preview {
+    margin-top: 13px;
+  }
+
+  .tool-score-preview > strong,
+  .price-amount {
+    font-size: 1.55rem;
+  }
+
+  .tool-divider {
+    margin: 11px 0;
+  }
+
+  .dashboard-main,
+  .profile-main,
+  .compare-main,
+  .help-main,
+  .auth-main {
+    padding-top: 18px;
+    padding-bottom: 42px;
+  }
+
+  .dashboard-welcome {
+    gap: 9px;
+    margin-bottom: 12px;
+  }
+
+  .dashboard-welcome h1 {
+    margin-bottom: 7px;
+  }
+
+  .dashboard-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .dashboard-actions > a,
+  .dashboard-actions > button {
+    width: auto;
+    min-width: 0;
+  }
+
+  .dashboard-actions > :first-child {
+    grid-column: 1 / -1;
+  }
+
+  .dashboard-announcements {
+    min-height: 92px;
+    border-radius: 10px;
+  }
+
+  .dashboard-announcement-slide {
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 7px;
+    padding: 10px 28px;
+  }
+
+  .dashboard-announcement-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+  }
+
+  .dashboard-announcement-icon img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .dashboard-announcement-mobile .dashboard-announcement-icon span {
+    width: 13px;
+    height: 22px;
+  }
+
+  .dashboard-announcement-mobile .dashboard-announcement-icon i {
+    width: 8px;
+    height: 8px;
+  }
+
+  .dashboard-announcement-label {
+    font-size: .42rem;
+  }
+
+  .dashboard-announcement-slide h2 {
+    font-size: .66rem;
+    line-height: 1.12;
+  }
+
+  .dashboard-announcement-slide p,
+  .dashboard-welcome .dashboard-announcement-slide p,
+  .dashboard-welcome .dashboard-announcement-thanks p {
+    font-size: .5rem;
+    line-height: 1.22;
+  }
+
+  .dashboard-announcement-controls button {
+    width: 20px;
+    height: 20px;
+    font-size: .95rem;
+  }
+
+  .dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .dashboard-stat-card {
+    padding: 11px 9px;
+  }
+
+  .dashboard-stat-card span,
+  .profile-stat-grid span {
+    font-size: .54rem;
+    line-height: 1.25;
+  }
+
+  .dashboard-stat-card strong,
+  .profile-stat-grid strong {
+    margin-top: 8px;
+    font-size: 1.25rem;
+  }
+
+  .dashboard-page .dashboard-stat-card {
+    display: grid;
+    align-content: start;
+    min-height: 92px;
+    padding: 12px 10px;
+  }
+
+  .dashboard-page .dashboard-stat-card span {
+    min-height: 22px;
+    color: #71879b;
+    font-size: .52rem;
+    line-height: 1.25;
+  }
+
+  .dashboard-page .dashboard-stat-card strong {
+    margin-top: 5px;
+    font-size: 1.18rem;
+    line-height: 1;
+  }
+
+  .dashboard-stat-card p {
+    font-size: .58rem;
+    line-height: 1.3;
+  }
+
+  .dashboard-page .dashboard-stat-card small {
+    display: block;
+    margin-top: 7px;
+    color: #7d91a4;
+    font-size: .58rem;
+    line-height: 1.35;
+    word-break: normal;
+  }
+
+  .dashboard-analyses {
+    margin-top: 12px;
+  }
+
+  .dashboard-section-heading {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .dashboard-section-heading h2 {
+    font-size: 1.18rem;
+  }
+
+  .dashboard-analysis-tools label > span {
+    font-size: .58rem;
+  }
+
+  .dashboard-analysis-tools select,
+  .dashboard-analysis-tools input,
+  .auth-form input:not([type="checkbox"]),
+  .profile-form input,
+  .profile-password-form input,
+  .support-dialog input,
+  .support-dialog select,
+  .support-dialog textarea,
+  .help-search input {
+    min-height: 35px;
+    font-size: .72rem;
+  }
+
+  .dashboard-analysis-card {
+    gap: 8px;
+    padding: 10px;
+    border-radius: 9px;
+  }
+
+  .dashboard-analysis-actions {
+    gap: 6px;
+  }
+
+  .dashboard-analysis-actions .button,
+  .dashboard-delete-button,
+  .dashboard-duplicate-button {
+    min-height: 34px;
+    font-size: .68rem;
+  }
+
+  .auth-tabs {
+    margin-bottom: 14px;
+  }
+
+  .auth-tabs button {
+    min-height: 34px;
+    font-size: .72rem;
+  }
+
+  .auth-heading {
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .auth-heading img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .auth-heading h2,
+  .profile-card-heading h2 {
+    font-size: 1rem;
+  }
+
+  .auth-form {
+    gap: 11px;
+  }
+
+  .profile-avatar-row {
+    gap: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+  }
+
+  .profile-avatar {
+    width: 48px;
+    height: 48px;
+    flex-basis: 48px;
+    border-radius: 13px;
+  }
+
+  .profile-card-heading {
+    margin-bottom: 12px;
+  }
+
+  .profile-stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .profile-stat-grid article {
+    min-height: 82px;
+    padding: 11px 10px;
+  }
+
+  .compare-hero,
+  .help-hero,
+  .profile-hero {
+    margin-bottom: 11px;
+  }
+
+  .compare-picker,
+  .compare-results {
+    padding: 10px;
+  }
+
+  .help-toolbar {
+    gap: 7px;
+  }
+
+  .help-topic summary {
+    padding: 10px;
+    font-size: .74rem;
+  }
+
+  .help-topic-content {
+    padding: 0 10px 10px;
+    font-size: .72rem;
+    line-height: 1.42;
+  }
+
+  .legal-content {
+    padding: 14px 10px;
+    font-size: .74rem;
+    line-height: 1.45;
+  }
+
+  footer,
+  .footer {
+    font-size: .62rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .shell,
+  .hero-inner,
+  .section-shell,
+  .footer-inner,
+  .dashboard-shell,
+  .profile-shell,
+  .compare-shell,
+  .help-shell,
+  .legal-shell {
+    width: min(100% - 12px, 1120px);
+  }
+}
+
+/* Restore the public landing page on phones: desktop-like, calmer and with clear side margins */
+@media (max-width: 640px) {
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .conversion-hero .shell,
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .trust-strip .shell,
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) main > .section .shell,
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) footer .shell,
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .footer-inner {
+    width: min(100% - 34px, 1120px);
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .conversion-hero {
+    padding: 72px 0 58px;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .conversion-hero-layout {
+    gap: 34px;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .conversion-hero-copy h1 {
+    font-size: clamp(2.45rem, 11vw, 3.1rem);
+    line-height: 1.02;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .conversion-hero-copy .hero-subtitle {
+    margin-top: 18px;
+    font-size: .98rem;
+    line-height: 1.68;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .conversion-hero-copy .hero-actions {
+    display: grid;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .conversion-hero-copy .hero-actions .button,
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .calculator-access {
+    min-height: 48px;
+    padding: 13px 17px;
+    border-radius: 9px;
+    font-size: .9rem;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .hero-proof {
+    display: grid;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .hero-proof span {
+    font-size: .88rem;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .showcase-window,
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .outcome-card,
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .comparison-column,
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .calculator-plan,
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .premium-plan {
+    padding: 22px 18px;
+    border-radius: 12px;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .section {
+    padding: 62px 0;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .section-heading {
+    margin-bottom: 30px;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .section-heading h2,
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .calculator-copy h2 {
+    font-size: clamp(2.05rem, 9vw, 2.75rem);
+    line-height: 1.08;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .section-heading p:last-child,
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .outcome-card p,
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .comparison-column li,
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .calculator-plan-features li {
+    font-size: .92rem;
+    line-height: 1.6;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .outcome-card > span {
+    width: 34px;
+    height: 34px;
+    font-size: .72rem;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .outcome-card h3,
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .comparison-column h3 {
+    font-size: 1.1rem;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .calculator-plan-head img,
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .premium-plan .calculator-plan-head img {
+    width: 60px;
+    height: 60px;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .calculator-plan-head h3 {
+    font-size: 1.2rem;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .price-amount {
+    font-size: 2.25rem;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .trust-strip-inner {
+    gap: 10px 14px;
+    min-height: 66px;
+    padding: 16px 0;
+    font-size: .78rem;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .conversion-pricing .pricing-copy h2 {
+    max-width: 8.8em;
+    font-size: clamp(2.5rem, 12vw, 3rem);
+    line-height: 1.06;
+    letter-spacing: -.045em;
+    text-wrap: balance;
+    word-break: normal;
+    hyphens: none;
+  }
+
+  body:not(.dashboard-page):not(.profile-page):not(.compare-page):not(.auth-page):not(.help-page):not(.protected-page) .conversion-pricing .pricing-copy > p:not(.eyebrow) {
+    max-width: 31em;
+    font-size: .98rem;
+    line-height: 1.65;
+  }
+}
+
+/* Protected app pages: keep the mobile header navigation visible without a burger button */
+@media (max-width: 760px) {
+  .protected-page .nav {
+    min-height: 58px;
+    gap: 5px;
+  }
+
+  .protected-page .nav > .brand {
+    flex: 0 0 auto;
+    margin-right: 2px;
+  }
+
+  .protected-page .brand span {
+    display: inline;
+    font-size: .66rem;
+  }
+
+  .protected-page .brand img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .protected-page .nav-menu {
+    position: static;
+    inset: auto;
+    display: flex;
+    width: auto;
+    max-width: calc(100vw - 106px);
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    margin-left: auto;
+    padding: 0;
+    gap: 1px;
+    overflow-x: auto;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    transition: none;
+    scrollbar-width: none;
+  }
+
+  .protected-page .nav-menu::-webkit-scrollbar {
+    display: none;
+  }
+
+  .protected-page .nav-menu a,
+  .protected-page .nav-session-button {
+    display: inline-flex;
+    min-height: 28px;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    padding: 6px 4px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: #5f7186;
+    background: transparent;
+    font: inherit;
+    font-size: .56rem;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .protected-page .nav-menu .language-switch {
+    display: inline-flex;
+    flex: 0 0 auto;
+    gap: 1px;
+    margin: 0;
+    padding: 2px;
+    border: 1px solid #cfe0ee;
+    border-radius: 8px;
+    background: #f5faff;
+    box-shadow: 0 5px 13px rgba(18,64,104,.08);
+    transform: none;
+  }
+
+  .protected-page .nav-menu .language-switch button {
+    min-width: 24px;
+    height: 26px;
+    padding: 0 5px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: #637790;
+    font: 800 .55rem/1 Inter, sans-serif;
+    cursor: pointer;
+  }
+
+  .protected-page .nav-menu .language-switch button.is-active {
+    color: #0c60ab;
+    background: #fff;
+    box-shadow: 0 2px 7px rgba(18,64,104,.12);
+  }
+
+  .protected-page .nav-menu a:hover,
+  .protected-page .nav-menu a:focus-visible,
+  .protected-page .nav-session-button:hover,
+  .protected-page .nav-session-button:focus-visible {
+    color: #175a9e;
+    background: rgba(47, 130, 232, .09);
+    outline: none;
+  }
+
+  .protected-page .nav-session-button {
+    border-color: #d6e3ef;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  .dashboard-page .dashboard-user {
+    justify-self: end;
+    width: max-content;
+    max-width: 108px;
+    padding: 6px 7px;
+    border-radius: 8px;
+  }
+
+  .dashboard-page .dashboard-user span {
+    font-size: .43rem;
+  }
+
+  .dashboard-page .dashboard-user strong {
+    display: block;
+    overflow: hidden;
+    max-width: 92px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: .5rem;
+    line-height: 1.25;
+  }
+
+  .dashboard-page .dashboard-welcome {
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .dashboard-page .dashboard-welcome-side {
+    display: grid;
+    grid-template-columns: minmax(0, calc(100% - 112px)) 108px;
+    align-items: start;
+    gap: 4px;
+  }
+
+  .dashboard-page .dashboard-user {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+  }
+
+  .dashboard-page .dashboard-announcements {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+    width: 100%;
+    min-height: 104px;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .dashboard-page .dashboard-announcement-slide {
+    grid-template-columns: 24px minmax(0, 1fr);
+    gap: 6px;
+    padding: 10px 26px 14px;
+  }
+
+  .dashboard-page .dashboard-announcement-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+  }
+
+  .dashboard-page .dashboard-announcement-icon img {
+    width: 21px;
+    height: 21px;
+    border-radius: 6px;
+  }
+
+  .dashboard-page .dashboard-announcement-mobile .dashboard-announcement-icon span {
+    width: 11px;
+    height: 18px;
+    border-width: 1.5px;
+    border-radius: 4px;
+  }
+
+  .dashboard-page .dashboard-announcement-mobile .dashboard-announcement-icon span::after {
+    bottom: 5px;
+    width: 3px;
+  }
+
+  .dashboard-page .dashboard-announcement-mobile .dashboard-announcement-icon i {
+    top: 2px;
+    right: 1px;
+    width: 7px;
+    height: 7px;
+    box-shadow: 0 0 0 3px rgba(75,165,248,.12);
+  }
+
+  .dashboard-page .dashboard-announcement-label {
+    margin-bottom: 1px;
+    font-size: .38rem;
+  }
+
+  .dashboard-page .dashboard-announcement-slide h2 {
+    margin-bottom: 2px;
+    font-size: .6rem;
+    line-height: 1.08;
+  }
+
+  .dashboard-page .dashboard-announcement-slide p,
+  .dashboard-page .dashboard-welcome .dashboard-announcement-slide p,
+  .dashboard-page .dashboard-welcome .dashboard-announcement-thanks p {
+    display: block;
+    overflow: visible;
+    font-size: .47rem;
+    line-height: 1.24;
+    -webkit-line-clamp: unset;
+  }
+
+  .dashboard-page .dashboard-announcement-controls button {
+    width: 18px;
+    height: 18px;
+    font-size: .84rem;
+  }
+
+  .dashboard-page .dashboard-announcement-controls [data-announcement-prev] {
+    left: 5px;
+  }
+
+  .dashboard-page .dashboard-announcement-controls [data-announcement-next] {
+    right: 5px;
+  }
+
+  .dashboard-page .dashboard-announcement-controls span {
+    bottom: 3px;
+    font-size: .42rem;
+  }
+}
+
+/* Final unified mobile app header across Dashboard/Profile/Compare */
+@media (max-width: 760px) {
+  .protected-page .site-header {
+    min-height: 58px;
+    background: rgba(255,255,255,.98);
+    border-bottom: 1px solid #dde4ea;
+    box-shadow: 0 2px 10px rgba(18,42,66,.035);
+    backdrop-filter: blur(14px);
+  }
+
+  .protected-page .nav {
+    width: min(100% - 14px, 1120px);
+    min-height: 58px;
+    gap: 6px;
+    justify-content: space-between;
+  }
+
+  .protected-page .nav > .brand {
+    flex: 0 0 auto;
+    gap: 6px;
+    margin-right: 0;
+  }
+
+  .protected-page .brand img {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    box-shadow: 0 4px 12px rgba(6,27,53,.12);
+  }
+
+  .protected-page .brand span {
+    display: inline;
+    color: #06192d;
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: -.02em;
+  }
+
+  .protected-page .nav-menu {
+    position: static;
+    inset: auto;
+    display: flex;
+    max-width: none;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    gap: 3px;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    transition: none;
+  }
+
+  .protected-page .nav-menu a,
+  .protected-page .nav-session-button {
+    position: relative;
+    display: inline-flex;
+    min-height: 30px;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    padding: 6px 6px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    color: #5f7186;
+    background: transparent;
+    font: inherit;
+    font-size: .62rem;
+    font-weight: 750;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color .18s ease, background .18s ease, transform .18s ease, border-color .18s ease;
+  }
+
+  .protected-page .nav-session-button {
+    border-color: #d6e3ef;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  .protected-page .nav-menu a::after,
+  .protected-page .nav-session-button::after {
+    content: "";
+    position: absolute;
+    right: 7px;
+    bottom: 4px;
+    left: 7px;
+    height: 2px;
+    border-radius: 999px;
+    background: #2f82e8;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 220ms ease;
+  }
+
+  .protected-page .nav-menu a:hover,
+  .protected-page .nav-menu a:focus-visible,
+  .protected-page .nav-session-button:hover,
+  .protected-page .nav-session-button:focus-visible {
+    color: #175a9e;
+    background: rgba(47, 130, 232, .09);
+    transform: translateY(-1px);
+    outline: none;
+  }
+
+  .protected-page .nav-menu a:hover::after,
+  .protected-page .nav-menu a:focus-visible::after,
+  .protected-page .nav-session-button:hover::after,
+  .protected-page .nav-session-button:focus-visible::after {
+    transform: scaleX(1);
+  }
+}
+
+/* Final app-header spacing: first two links grouped, logout separated, language at the end */
+@media (max-width: 760px) {
+  .protected-page .nav-menu {
+    gap: 1px;
+  }
+
+  .protected-page .nav-menu a + a {
+    margin-left: -2px;
+  }
+
+  .protected-page .nav-session-button {
+    margin-left: 9px;
+  }
+
+  .protected-page .nav-session-button + .language-switch {
+    margin-left: 3px;
+  }
+}
