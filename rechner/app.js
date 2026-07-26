@@ -63,12 +63,11 @@ function setMoneyUnit(unit){
  moneyUnit=unit==="Mrd."?"Mrd.":"Mio.";
  moneyUnitLabels.forEach(label=>{label.textContent=moneyUnit;label.setAttribute("aria-label","Einheit wechseln, aktuell "+moneyUnit)});
 }
-moneyUnitLabels.forEach(label=>{
- label.setAttribute("role","button");
- label.setAttribute("tabindex","0");
- label.setAttribute("title","Zwischen Mio. und Mrd. wechseln");
- label.addEventListener("click",()=>setMoneyUnit(moneyUnit==="Mio."?"Mrd.":"Mio."));
- label.addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();setMoneyUnit(moneyUnit==="Mio."?"Mrd.":"Mio.")}});
+moneyUnitLabels.forEach(label=>label.setAttribute("title","Zwischen Mio. und Mrd. wechseln"));
+document.addEventListener("click",event=>{
+ if(!event.target.closest("[data-money-unit-label]"))return;
+ event.preventDefault();
+ setMoneyUnit(moneyUnit==="Mio."?"Mrd.":"Mio.");
 });
 function collectInput(){const data={companyName:form.elements.companyName.value.trim(),industry:industry.value,marketPosition:marketPosition.value,qualityMetricType,moneyUnit};numberFields.forEach(field=>data[field]=parseGermanNumber(form.elements[field].value));return data}
 
