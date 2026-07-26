@@ -8,7 +8,8 @@
   "scripts": {
     "start": "electron .",
     "build": "electron-builder --win nsis",
-    "build:portable": "electron-builder --win portable --config.directories.output=portable-delivery --config.win.signAndEditExecutable=false --config.win.verifyUpdateCodeSignature=false"
+    "build:portable": "electron-builder --win portable --config.directories.output=portable-delivery --config.artifactName=PointerScore.exe --config.win.signAndEditExecutable=false --config.win.verifyUpdateCodeSignature=false",
+    "build:store": "electron-builder --win appx --config.directories.output=store-delivery --config.win.signAndEditExecutable=false --config.win.verifyUpdateCodeSignature=false"
   },
   "devDependencies": {
     "electron": "^31.7.7",
@@ -17,6 +18,7 @@
   "build": {
     "appId": "com.pointerscore.app",
     "productName": "PointerScore",
+    "artifactName": "PointerScore Setup ${version}.${ext}",
     "copyright": "Copyright © 2026 PointerScore",
     "directories": {
       "output": "installer-delivery"
@@ -46,6 +48,14 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "PointerScore"
+    },
+    "appx": {
+      "applicationId": "PointerScore",
+      "backgroundColor": "#eef8ff",
+      "displayName": "PointerScore",
+      "identityName": "PointerScore.PointerScore",
+      "publisher": "CN=Emilian Pohle",
+      "publisherDisplayName": "Emilian Pohle"
     }
   }
 }

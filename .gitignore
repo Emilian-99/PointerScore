@@ -5,6 +5,7 @@ desktop/node_modules/
 desktop/release*/
 desktop/installer*/
 desktop/portable*/
+desktop/store*/
 *.zip
 .env
 .env.local
