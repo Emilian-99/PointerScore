@@ -5293,3 +5293,15 @@ main {
     line-height: 1.35;
   }
 }
+
+/* Mobile dashboard cleanup: hide announcement/account cards and close the gap */
+@media (max-width: 640px) {
+  .dashboard-page .dashboard-welcome-side {
+    display: none;
+  }
+
+  .dashboard-page .dashboard-welcome {
+    display: block;
+    margin-bottom: 16px;
+  }
+}
