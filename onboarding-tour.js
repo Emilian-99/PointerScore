@@ -76,6 +76,7 @@ function finish() {
     removeHighlight();
     ui?.remove();
     document.body.classList.remove("onboarding-tour-open");
+    window.dispatchEvent(new CustomEvent("pointerscore:onboarding-complete"));
   }, 240);
 }
 

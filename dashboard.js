@@ -218,6 +218,7 @@ if (user) {
     setStatus();
   }
   renderAnalyses();
+  window.dispatchEvent(new CustomEvent("pointerscore:dashboard-ready"));
 }
 
 window.addEventListener("pointerscore:languagechange", () => { if (user) renderAnalyses(); });
