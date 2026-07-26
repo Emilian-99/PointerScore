@@ -8,7 +8,10 @@
     "dev": "node scripts/dev.mjs",
     "start": "node scripts/dev.mjs",
     "build": "node scripts/build.mjs",
-    "check": "npm run build && node scripts/check.mjs"
+    "check": "npm run build && node scripts/check.mjs",
+    "desktop:install": "npm --prefix desktop install",
+    "desktop:start": "npm --prefix desktop start",
+    "desktop:build": "npm --prefix desktop run build"
   },
   "engines": {
     "node": ">=18"

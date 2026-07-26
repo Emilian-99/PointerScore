@@ -1,0 +1,43 @@
+{
+  "name": "pointerscore-desktop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PointerScore desktop app shell",
+  "author": "Emilian Pohle",
+  "main": "main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "electron": "^31.7.7",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.pointerscore.app",
+    "productName": "PointerScore",
+    "copyright": "Copyright © 2026 PointerScore",
+    "directories": {
+      "output": "installer-delivery"
+    },
+    "files": [
+      "main.cjs",
+      "preload.cjs",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "icon.ico",
+      "signAndEditExecutable": false,
+      "verifyUpdateCodeSignature": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "PointerScore"
+    }
+  }
+}
