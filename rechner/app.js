@@ -37,7 +37,6 @@ const noteToggle=document.querySelector("#analysis-note-toggle");
 const noteEditor=document.querySelector("#analysis-note-editor");
 const noteInput=document.querySelector("#analysis-note");
 const saveNote=document.querySelector("#save-note");
-const moneyUnitButtons=document.querySelectorAll("[data-money-unit]");
 const moneyUnitLabels=document.querySelectorAll("[data-money-unit-label]");
 const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
 let qualityMetricType="ROE";
@@ -62,10 +61,15 @@ document.querySelectorAll(".toggle-button").forEach(button=>button.addEventListe
 const numberFields=["revenue1","revenue2","revenue3","profit1","profit2","profit3","totalDebt","totalAssets","currentRevenue","currentProfit","peRatio","qualityMetric"];
 function setMoneyUnit(unit){
  moneyUnit=unit==="Mrd."?"Mrd.":"Mio.";
- moneyUnitButtons.forEach(button=>{const selected=button.dataset.moneyUnit===moneyUnit;button.classList.toggle("active",selected);button.setAttribute("aria-pressed",String(selected))});
- moneyUnitLabels.forEach(label=>{label.textContent=moneyUnit});
+ moneyUnitLabels.forEach(label=>{label.textContent=moneyUnit;label.setAttribute("aria-label","Einheit wechseln, aktuell "+moneyUnit)});
 }
-moneyUnitButtons.forEach(button=>button.addEventListener("click",()=>setMoneyUnit(button.dataset.moneyUnit)));
+moneyUnitLabels.forEach(label=>{
+ label.setAttribute("role","button");
+ label.setAttribute("tabindex","0");
+ label.setAttribute("title","Zwischen Mio. und Mrd. wechseln");
+ label.addEventListener("click",()=>setMoneyUnit(moneyUnit==="Mio."?"Mrd.":"Mio."));
+ label.addEventListener("keydown",event=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();setMoneyUnit(moneyUnit==="Mio."?"Mrd.":"Mio.")}});
+});
 function collectInput(){const data={companyName:form.elements.companyName.value.trim(),industry:industry.value,marketPosition:marketPosition.value,qualityMetricType,moneyUnit};numberFields.forEach(field=>data[field]=parseGermanNumber(form.elements[field].value));return data}
 
 function updateCompletion(){
