@@ -37,8 +37,11 @@ const noteToggle=document.querySelector("#analysis-note-toggle");
 const noteEditor=document.querySelector("#analysis-note-editor");
 const noteInput=document.querySelector("#analysis-note");
 const saveNote=document.querySelector("#save-note");
+const moneyUnitButtons=document.querySelectorAll("[data-money-unit]");
+const moneyUnitLabels=document.querySelectorAll("[data-money-unit-label]");
 const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
 let qualityMetricType="ROE";
+let moneyUnit="Mio.";
 let scoreAnimationFrame=0;
 let lastResult=null;
 let currentNotes="";
@@ -50,13 +53,20 @@ appendOptions(industry,INDUSTRIES);appendOptions(marketPosition,MARKET_POSITIONS
 function refreshSelectOptions(select,options){const value=select.value;while(select.options.length>1)select.remove(1);appendOptions(select,options);select.value=value}
 
 document.querySelectorAll(".toggle-button").forEach(button=>button.addEventListener("click",()=>{
+ if(!button.dataset.metric)return;
  qualityMetricType=button.dataset.metric;
- document.querySelectorAll(".toggle-button").forEach(item=>{const selected=item===button;item.classList.toggle("active",selected);item.setAttribute("aria-pressed",String(selected))});
+ document.querySelectorAll("[data-metric]").forEach(item=>{const selected=item===button;item.classList.toggle("active",selected);item.setAttribute("aria-pressed",String(selected))});
  qualityLabelText.textContent=qualityMetricType;
 }));
 
 const numberFields=["revenue1","revenue2","revenue3","profit1","profit2","profit3","totalDebt","totalAssets","currentRevenue","currentProfit","peRatio","qualityMetric"];
-function collectInput(){const data={companyName:form.elements.companyName.value.trim(),industry:industry.value,marketPosition:marketPosition.value,qualityMetricType};numberFields.forEach(field=>data[field]=parseGermanNumber(form.elements[field].value));return data}
+function setMoneyUnit(unit){
+ moneyUnit=unit==="Mrd."?"Mrd.":"Mio.";
+ moneyUnitButtons.forEach(button=>{const selected=button.dataset.moneyUnit===moneyUnit;button.classList.toggle("active",selected);button.setAttribute("aria-pressed",String(selected))});
+ moneyUnitLabels.forEach(label=>{label.textContent=moneyUnit});
+}
+moneyUnitButtons.forEach(button=>button.addEventListener("click",()=>setMoneyUnit(button.dataset.moneyUnit)));
+function collectInput(){const data={companyName:form.elements.companyName.value.trim(),industry:industry.value,marketPosition:marketPosition.value,qualityMetricType,moneyUnit};numberFields.forEach(field=>data[field]=parseGermanNumber(form.elements[field].value));return data}
 
 function updateCompletion(){
  const value=name=>parseGermanNumber(form.elements[name].value);
@@ -197,9 +207,10 @@ async function openSavedAnalysis(){
  noteInput.value=currentNotes;
  noteToggle.textContent=t(currentNotes?"Notiz bearbeiten":"Notiz hinzufügen");
  Object.entries(analysis.input).forEach(([name,value])=>{const field=form.elements[name];if(field&&name!=="qualityMetricType")field.value=value??""});
+ if(analysis.input.moneyUnit)setMoneyUnit(analysis.input.moneyUnit);else setMoneyUnit("Mio.");
  if(analysis.input.qualityMetricType){
   qualityMetricType=analysis.input.qualityMetricType;
-  document.querySelectorAll(".toggle-button").forEach(button=>{const selected=button.dataset.metric===qualityMetricType;button.classList.toggle("active",selected);button.setAttribute("aria-pressed",String(selected))});
+  document.querySelectorAll("[data-metric]").forEach(button=>{const selected=button.dataset.metric===qualityMetricType;button.classList.toggle("active",selected);button.setAttribute("aria-pressed",String(selected))});
   qualityLabelText.textContent=qualityMetricType;
  }
  updateCompletion();
