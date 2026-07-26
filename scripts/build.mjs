@@ -37,7 +37,6 @@ const sourceEntries = [
   "demo-calculator.js",
   "demo-company-data.js",
   "assets",
-  "downloads",
   "pages",
   "CNAME"
 ];
