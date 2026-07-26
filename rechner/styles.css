@@ -1024,3 +1024,62 @@ input,select{transition:border-color .2s ease,box-shadow .2s ease,background-col
     margin-left: 3px;
   }
 }
+
+/* Match mobile calculator header exactly to Dashboard/Profile sizing */
+@media (max-width: 620px) {
+  .site-header {
+    height: 62px;
+    min-height: 62px;
+  }
+
+  .header-inner {
+    width: calc(100% - 14px);
+    min-height: 62px;
+    gap: 6px;
+    justify-content: space-between;
+  }
+
+  .brand {
+    gap: 6px;
+    font-size: .8rem;
+  }
+
+  .brand-logo {
+    width: 30px;
+    height: 30px;
+    border-radius: 7px;
+  }
+
+  .app-header-actions {
+    gap: 1px;
+  }
+
+  .app-header-actions > a,
+  .app-header-actions > button {
+    min-height: 34px;
+    padding: 7px 7px;
+    font-size: .68rem;
+  }
+
+  .app-header-actions a + a {
+    margin-left: -2px;
+  }
+
+  .app-header-actions > button[data-logout] {
+    margin-left: 9px;
+  }
+
+  .language-toggle {
+    gap: 1px;
+    margin-left: 3px;
+    padding: 3px;
+    border-radius: 8px;
+  }
+
+  .language-toggle button {
+    min-width: 28px;
+    height: 28px;
+    padding: 0 5px;
+    font-size: .62rem;
+  }
+}
