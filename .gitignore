@@ -4,6 +4,7 @@ dist/
 desktop/node_modules/
 desktop/release*/
 desktop/installer*/
+desktop/portable*/
 *.zip
 .env
 .env.local

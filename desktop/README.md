@@ -17,6 +17,14 @@ npm run build
 
 Der fertige Installer liegt danach im Ordner `desktop/installer-delivery/`.
 
+## Portable Windows-App bauen
+
+```bash
+npm run build:portable
+```
+
+Die portable App liegt danach im Ordner `desktop/portable-delivery/` und kann ohne Installation gestartet werden.
+
 ## Microsoft Store
 
 Für den Microsoft Store wird später zusätzlich ein Store-Paket benötigt. Dafür brauchst du einen Microsoft Developer Account und die finale App-Prüfung durch Microsoft.

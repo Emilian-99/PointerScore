@@ -11,7 +11,8 @@
     "check": "npm run build && node scripts/check.mjs",
     "desktop:install": "npm --prefix desktop install",
     "desktop:start": "npm --prefix desktop start",
-    "desktop:build": "npm --prefix desktop run build"
+    "desktop:build": "npm --prefix desktop run build",
+    "desktop:portable": "npm --prefix desktop run build:portable"
   },
   "engines": {
     "node": ">=18"
