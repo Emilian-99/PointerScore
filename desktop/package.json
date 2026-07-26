@@ -24,7 +24,14 @@
     "files": [
       "main.cjs",
       "preload.cjs",
+      "icon.ico",
       "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "icon.ico",
+        "to": "icon.ico"
+      }
     ],
     "win": {
       "target": "nsis",

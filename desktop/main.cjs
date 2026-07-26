@@ -3,6 +3,17 @@ const path = require("node:path");
 
 const appUrl = process.env.POINTERSCORE_APP_URL || "https://pointerscore.com/dashboard.html";
 const allowedHosts = new Set(["pointerscore.com", "www.pointerscore.com"]);
+const appId = "com.pointerscore.app";
+
+if (process.platform === "win32") {
+  app.setAppUserModelId(appId);
+}
+
+function getIconPath() {
+  return app.isPackaged
+    ? path.join(process.resourcesPath, "icon.ico")
+    : path.join(__dirname, "icon.ico");
+}
 
 function isAllowedAppUrl(targetUrl) {
   try {
@@ -14,13 +25,14 @@ function isAllowedAppUrl(targetUrl) {
 }
 
 function createWindow() {
+  const iconPath = getIconPath();
   const window = new BrowserWindow({
     width: 1280,
     height: 860,
     minWidth: 980,
     minHeight: 680,
     title: "PointerScore",
-    icon: path.join(__dirname, "..", "favicon.ico"),
+    icon: iconPath,
     backgroundColor: "#eef8ff",
     show: false,
     autoHideMenuBar: true,
