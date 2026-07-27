@@ -7,13 +7,17 @@
   const installButtons = () => [...document.querySelectorAll("[data-install-app]")];
   const dialog = document.querySelector("[data-install-dialog]");
 
+  function isDesktopApp() {
+    return window.PointerScoreDesktop?.isDesktopApp === true;
+  }
+
   function isMobileView() {
     return window.matchMedia?.("(max-width: 760px)").matches;
   }
 
   function updateInstallButtons() {
     installButtons().forEach((button) => {
-      button.hidden = isMobileView();
+      button.hidden = isMobileView() || isDesktopApp();
     });
   }
 
@@ -26,6 +30,7 @@
 
   function showDashboardInstallPopup(force = false) {
     if (!dialog) return;
+    if (isDesktopApp()) return;
     if (isMobileView()) return;
     if (!force && localStorage.getItem(dismissedKey) === "1") return;
     if (document.body.classList.contains("onboarding-tour-open")) {
@@ -37,6 +42,7 @@
   }
 
   function queueDashboardInstallPopup(force = false) {
+    if (isDesktopApp()) return;
     window.clearTimeout(popupTimer);
     if (document.body.classList.contains("onboarding-tour-open")) {
       window.addEventListener("pointerscore:onboarding-complete", () => queueDashboardInstallPopup(force), { once: true });

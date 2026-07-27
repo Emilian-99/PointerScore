@@ -4,7 +4,15 @@ const path = require("node:path");
 const appUrl = process.env.POINTERSCORE_APP_URL || "https://pointerscore.com/dashboard.html";
 const allowedHosts = new Set(["pointerscore.com", "www.pointerscore.com"]);
 const appId = "com.pointerscore.app";
-const splashDurationMs = 2600;
+const splashDurationMs = 9250;
+const splashVariants = [
+  { file: "splash-concept-fill.html", weight: 50 },
+  { file: "splash-concept.html", weight: 10 },
+  { file: "splash-concept-lightning.html", weight: 10 },
+  { file: "splash-concept-rain.html", weight: 10 },
+  { file: "splash-concept-click.html", weight: 10 },
+  { file: "splash-concept-breathe.html", weight: 10 }
+];
 
 if (process.platform === "win32") {
   app.setAppUserModelId(appId);
@@ -33,6 +41,18 @@ function normalizeAppUrl(targetUrl) {
 function loadAppHome(window) {
   if (window.isDestroyed()) return;
   window.loadURL(appUrl);
+}
+
+function selectSplashFile() {
+  const totalWeight = splashVariants.reduce((sum, variant) => sum + variant.weight, 0);
+  let random = Math.random() * totalWeight;
+
+  for (const variant of splashVariants) {
+    random -= variant.weight;
+    if (random <= 0) return variant.file;
+  }
+
+  return splashVariants[0].file;
 }
 
 function createWindow() {
@@ -84,7 +104,11 @@ function createWindow() {
     shell.openExternal(url);
   });
 
-  window.loadFile(path.join(__dirname, "splash.html"));
+  window.webContents.on("page-title-updated", (event) => {
+    event.preventDefault();
+  });
+
+  window.loadFile(path.join(__dirname, selectSplashFile()));
   window.webContents.once("did-finish-load", () => {
     setTimeout(() => loadAppHome(window), splashDurationMs);
   });

@@ -1,0 +1,293 @@
+﻿@import url("./splash-concept.css");
+
+.click-stage {
+  isolation: isolate;
+}
+
+.click-focus {
+  position: absolute;
+  left: 50%;
+  bottom: 63px;
+  z-index: 0;
+  width: 190px;
+  height: 190px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(47, 143, 240, .16), transparent 64%);
+  opacity: 0;
+  transform: translate(-50%, 50%) scale(.76);
+  animation: clickFocus 9.25s ease forwards;
+}
+
+.click-stage .logo-target {
+  animation:
+    clickTargetGlow 9.25s ease forwards,
+    clickTargetPress 9.25s ease forwards;
+}
+
+.click-fill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  height: 0;
+  background: #2f8ff0;
+  animation: clickFill 9.25s ease forwards;
+}
+
+.click-glow {
+  position: absolute;
+  inset: -18px;
+  z-index: 2;
+  border-radius: 38px;
+  background: radial-gradient(circle, rgba(136, 210, 255, .54), rgba(47, 143, 240, .36) 38%, transparent 70%);
+  opacity: 0;
+  transform: scale(.88);
+  animation: clickGlow 9.25s ease forwards;
+}
+
+.click-ripple {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 8;
+  width: 42px;
+  height: 42px;
+  border: 3px solid rgba(255, 255, 255, .92);
+  border-radius: 999px;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(.4);
+  pointer-events: none;
+}
+
+.ripple-one {
+  animation: clickRipple 9.25s ease forwards;
+}
+
+.ripple-two {
+  border-color: rgba(117, 199, 255, .72);
+  animation: clickRippleTwo 9.25s ease forwards;
+}
+
+.click-stage .logo-burst {
+  z-index: 3;
+  background: radial-gradient(circle, rgba(148, 215, 255, .5), rgba(47, 143, 240, .28) 45%, transparent 72%);
+  animation: clickBurst 9.25s ease forwards;
+}
+
+.click-stage .logo-target img {
+  animation: clickLogo 9.25s ease forwards;
+}
+
+.cursor-wrap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 20;
+  width: 52px;
+  height: 64px;
+  opacity: 0;
+  transform-origin: 18px 18px;
+  filter:
+    drop-shadow(1px 0 #000)
+    drop-shadow(-1px 0 #000)
+    drop-shadow(0 1px #000)
+    drop-shadow(0 -1px #000)
+    drop-shadow(0 8px 10px rgba(0, 0, 0, .22));
+  animation: cursorMove 9.25s linear forwards;
+  will-change: transform, opacity;
+}
+
+.mouse-cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 52px;
+  height: 64px;
+  object-fit: contain;
+  transform-origin: 18px 18px;
+  animation: cursorClick 9.25s ease forwards;
+  image-rendering: pixelated;
+}
+
+@keyframes cursorMove {
+  0%, 8% {
+    opacity: 0;
+    transform: translate(176px, 128px) scale(.94);
+  }
+  12% {
+    opacity: 1;
+    transform: translate(148px, 106px) scale(.97);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(64px, 56px) scale(1);
+  }
+  38%, 45% {
+    opacity: 1;
+    transform: translate(34px, 32px) scale(1);
+  }
+  52% {
+    opacity: .98;
+    transform: translate(104px, 82px) scale(.98);
+  }
+  58%, 100% {
+    opacity: 0;
+    transform: translate(176px, 128px) scale(.94);
+  }
+}
+
+@keyframes cursorClick {
+  0%, 43.8%, 47%, 100% {
+    transform: scale(1);
+  }
+  44.8% {
+    transform: scale(.92);
+  }
+  46% {
+    transform: scale(1.03);
+  }
+}
+
+@keyframes clickFill {
+  0%, 44.5% {
+    height: 0;
+  }
+  44.9%, 100% {
+    height: 100%;
+  }
+}
+
+@keyframes clickGlow {
+  0%, 44.4% {
+    opacity: 0;
+    transform: scale(.88);
+  }
+  44.95% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+  62%, 100% {
+    opacity: .54;
+    transform: scale(1.14);
+  }
+}
+
+@keyframes clickRipple {
+  0%, 44.5% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.4);
+  }
+  44.95% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(.56);
+  }
+  54.5%, 100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.8);
+  }
+}
+
+@keyframes clickRippleTwo {
+  0%, 44.9% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.3);
+  }
+  46.3% {
+    opacity: .72;
+    transform: translate(-50%, -50%) scale(.68);
+  }
+  55.5%, 100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3.2);
+  }
+}
+
+@keyframes clickBurst {
+  0%, 44.4% {
+    opacity: 0;
+    transform: scale(.92);
+  }
+  44.95% {
+    opacity: .9;
+    transform: scale(1.02);
+  }
+  62%, 100% {
+    opacity: .46;
+    transform: scale(1.16);
+  }
+}
+
+@keyframes clickLogo {
+  0%, 44.4% {
+    transform: translateY(0) scale(1);
+    filter: none;
+  }
+  44.9% {
+    transform: translateY(3px) scale(.96);
+    filter: brightness(1.26) drop-shadow(0 0 20px rgba(47, 143, 240, .66));
+  }
+  58% {
+    transform: translateY(-1px) scale(1.035);
+    filter: brightness(1.12) drop-shadow(0 0 16px rgba(47, 143, 240, .5));
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    filter: brightness(1.08) drop-shadow(0 0 14px rgba(47, 143, 240, .46));
+  }
+}
+
+@keyframes clickTargetPress {
+  0%, 44.4% {
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  44.9% {
+    transform: translateX(-50%) translateY(3px) scale(.975);
+  }
+  58% {
+    transform: translateX(-50%) translateY(-1px) scale(1.025);
+  }
+  62%, 100% {
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+@keyframes clickTargetGlow {
+  0%, 44.4% {
+    border-color: rgba(75, 161, 246, .55);
+    box-shadow:
+      inset 0 1px rgba(255, 255, 255, .48),
+      0 20px 48px rgba(25, 92, 150, .16);
+  }
+  44.95% {
+    border-color: rgba(135, 211, 255, .98);
+    box-shadow:
+      inset 0 1px rgba(255, 255, 255, .34),
+      0 20px 48px rgba(25, 92, 150, .16),
+      0 0 58px rgba(47, 143, 240, .76),
+      0 0 26px rgba(148, 215, 255, .42);
+  }
+  100% {
+    border-color: rgba(47, 143, 240, .98);
+    box-shadow:
+      inset 0 1px rgba(255, 255, 255, .18),
+      0 20px 48px rgba(25, 92, 150, .16),
+      0 0 44px rgba(47, 143, 240, .5),
+      0 0 18px rgba(47, 143, 240, .26);
+  }
+}
+
+@keyframes clickFocus {
+  0%, 34% {
+    opacity: 0;
+    transform: translate(-50%, 50%) scale(.76);
+  }
+  43% {
+    opacity: .42;
+    transform: translate(-50%, 50%) scale(1);
+  }
+  54%, 100% {
+    opacity: 0;
+    transform: translate(-50%, 50%) scale(1.22);
+  }
+}

@@ -103,38 +103,46 @@ body {
   font-weight: 600;
 }
 
-.market-line {
-  width: min(420px, 100%);
-  height: 105px;
-  overflow: visible;
+.splash-loader {
+  position: relative;
+  display: grid;
+  width: 118px;
+  height: 118px;
+  margin: 6px 0 2px;
+  place-items: center;
 }
 
-.track {
-  fill: none;
-  stroke: rgba(151, 183, 210, .25);
-  stroke-width: 6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.splash-loader::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background:
+    conic-gradient(from 0deg, #2f8ff0 0deg, #78c1ff 92deg, rgba(120, 193, 255, .16) 94deg, rgba(120, 193, 255, .16) 360deg);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 13px), #000 calc(100% - 12px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 13px), #000 calc(100% - 12px));
+  filter: drop-shadow(0 8px 18px rgba(49, 143, 240, .25));
+  animation: loaderSpin 1.15s linear infinite;
 }
 
-.pulse-line {
-  fill: none;
-  stroke: url(#lineGradient);
-  stroke-width: 6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  filter: url(#lineGlow);
-  stroke-dasharray: 650;
-  stroke-dashoffset: 650;
-  animation: drawLine 2.1s cubic-bezier(.42, 0, .18, 1) infinite;
+.splash-loader::after {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(69, 150, 232, .22);
+  background: radial-gradient(circle, rgba(87, 166, 250, .18), rgba(255, 255, 255, .18));
+  animation: loaderPulse 1.7s ease-in-out infinite;
 }
 
-.arrow-head {
-  fill: #58a6fa;
-  filter: drop-shadow(0 4px 12px rgba(45, 132, 232, .35));
-  offset-path: path("M20 100 L105 86 L168 94 L236 62 L292 72 L365 36 L445 49 L500 18");
-  offset-rotate: auto;
-  animation: moveArrow 2.1s cubic-bezier(.42, 0, .18, 1) infinite;
+.splash-loader span {
+  position: relative;
+  z-index: 1;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: linear-gradient(145deg, #1f7fe4, #77c0ff);
+  box-shadow: 0 0 0 12px rgba(69, 150, 232, .1), 0 10px 24px rgba(29, 114, 204, .22);
 }
 
 .loading-row {
@@ -189,46 +197,16 @@ body {
   }
 }
 
-@keyframes drawLine {
-  0% {
-    opacity: 0;
-    stroke-dashoffset: 650;
-  }
-  12% {
-    opacity: 1;
-  }
-  74% {
-    opacity: 1;
-    stroke-dashoffset: 0;
-  }
-  88% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    stroke-dashoffset: 0;
+@keyframes loaderSpin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
-@keyframes moveArrow {
-  0% {
-    opacity: 0;
-    offset-distance: 0%;
-  }
-  12% {
-    opacity: 1;
-  }
-  74% {
-    opacity: 1;
-    offset-distance: 100%;
-  }
-  88% {
-    opacity: 1;
-    offset-distance: 100%;
-  }
-  100% {
-    opacity: 0;
-    offset-distance: 100%;
+@keyframes loaderPulse {
+  50% {
+    opacity: .58;
+    transform: scale(.92);
   }
 }
 

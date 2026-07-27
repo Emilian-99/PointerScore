@@ -28,6 +28,9 @@
       "preload.cjs",
       "splash.html",
       "splash.css",
+      "splash-concept*.html",
+      "splash-concept*.css",
+      "cursor-white-filled.svg",
       "icon.ico",
       "package.json"
     ],

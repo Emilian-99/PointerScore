@@ -1,0 +1,193 @@
+@import url("./splash-concept.css");
+
+.fill-stage {
+  isolation: isolate;
+}
+
+.fill-aura {
+  position: absolute;
+  left: 50%;
+  bottom: 62px;
+  width: 212px;
+  height: 212px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(91, 179, 255, .2), transparent 66%);
+  opacity: 0;
+  transform: translate(-50%, 50%) scale(.78);
+  animation: fillAura 9.25s ease forwards;
+}
+
+.fill-target {
+  background: rgba(255, 255, 255, .96);
+  animation:
+    simpleTargetBreath 9.25s ease-in-out forwards,
+    simpleTargetGlow 9.25s ease forwards;
+}
+
+.fill-target img {
+  animation: simpleLogoSettle 9.25s ease forwards;
+}
+
+.simple-liquid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  height: 0;
+  background: #2f8ff0;
+  box-shadow: inset 0 12px 24px rgba(255, 255, 255, .13);
+  animation: simpleLiquidFill 9.25s linear forwards;
+}
+
+.simple-liquid::before,
+.simple-liquid::after,
+.simple-liquid span {
+  content: "";
+  position: absolute;
+  left: -28%;
+  right: -28%;
+  top: -10px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(223, 244, 255, .34);
+  animation:
+    simpleLiquidWave 2.4s ease-in-out infinite,
+    simpleWaveFade 9.25s linear forwards;
+}
+
+.simple-liquid::after {
+  top: -6px;
+  opacity: .22;
+  transform: translateX(18px);
+  animation-duration: 2.9s, 9.25s;
+}
+
+.simple-liquid span {
+  top: -14px;
+  opacity: .15;
+  transform: translateX(-22px);
+  animation-duration: 3.3s, 9.25s;
+}
+
+.simple-glow {
+  position: absolute;
+  inset: -20px;
+  z-index: 2;
+  border-radius: 42px;
+  background: radial-gradient(circle, rgba(128, 206, 255, .45), rgba(47, 143, 240, .28) 42%, transparent 72%);
+  opacity: 0;
+  transform: scale(.9);
+  animation: simpleFillGlow 9.25s ease forwards;
+}
+
+.fill-stage .logo-burst {
+  z-index: 0;
+  background: radial-gradient(circle, rgba(80, 171, 255, .28), transparent 66%);
+  animation: simpleFillBurst 9.25s ease forwards;
+}
+
+@keyframes simpleLiquidFill {
+  0% {
+    height: 0;
+  }
+  62%, 100% {
+    height: 100%;
+  }
+}
+
+@keyframes simpleLiquidWave {
+  0%, 100% {
+    transform: translateX(-16px) scaleY(.88);
+  }
+  50% {
+    transform: translateX(16px) scaleY(1.08);
+  }
+}
+
+@keyframes simpleWaveFade {
+  0%, 54% {
+    opacity: 1;
+  }
+  70%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes simpleTargetBreath {
+  0%, 18% {
+    transform: translateX(-50%) scale(1);
+  }
+  54% {
+    transform: translateX(-50%) scale(1.02);
+  }
+  82%, 100% {
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes simpleLogoSettle {
+  0%, 18% {
+    transform: scale(1);
+    filter: saturate(1);
+  }
+  72% {
+    transform: scale(1.025);
+    filter: saturate(1.12);
+  }
+  88%, 100% {
+    transform: scale(1);
+    filter: saturate(1.16);
+  }
+}
+
+@keyframes simpleTargetGlow {
+  0%, 22% {
+    box-shadow:
+      inset 0 1px rgba(255, 255, 255, .48),
+      0 20px 48px rgba(25, 92, 150, .16);
+  }
+  84%, 100% {
+    box-shadow:
+      inset 0 1px rgba(255, 255, 255, .52),
+      0 0 0 6px rgba(47, 143, 240, .08),
+      0 26px 58px rgba(31, 127, 228, .24);
+  }
+}
+
+@keyframes simpleFillGlow {
+  0%, 20% {
+    opacity: 0;
+    transform: scale(.9);
+  }
+  72% {
+    opacity: .42;
+    transform: scale(1.1);
+  }
+  88%, 100% {
+    opacity: .5;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes simpleFillBurst {
+  0%, 28% {
+    opacity: 0;
+    transform: scale(.94);
+  }
+  86%, 100% {
+    opacity: .38;
+    transform: scale(1.14);
+  }
+}
+
+@keyframes fillAura {
+  0%, 18% {
+    opacity: 0;
+    transform: translate(-50%, 50%) scale(.78);
+  }
+  78%, 100% {
+    opacity: .42;
+    transform: translate(-50%, 50%) scale(1.08);
+  }
+}

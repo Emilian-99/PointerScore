@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PointerScore Ladeanimation Random</title>
+  <script>
+    const variants = [
+      { url: "./splash-concept-fill.html", weight: 50 },
+      { url: "./splash-concept.html", weight: 10 },
+      { url: "./splash-concept-lightning.html", weight: 10 },
+      { url: "./splash-concept-rain.html", weight: 10 },
+      { url: "./splash-concept-click.html", weight: 10 },
+      { url: "./splash-concept-breathe.html", weight: 10 }
+    ];
+
+    const total = variants.reduce((sum, variant) => sum + variant.weight, 0);
+    let random = Math.random() * total;
+    let selected = variants[0];
+
+    for (const variant of variants) {
+      random -= variant.weight;
+      if (random <= 0) {
+        selected = variant;
+        break;
+      }
+    }
+
+    const cacheBuster = Date.now().toString(36);
+    window.location.replace(`${selected.url}?random=1&v=${cacheBuster}`);
+  </script>
+</head>
+<body>
+  PointerScore Ladeanimation wird ausgewählt.
+</body>
+</html>

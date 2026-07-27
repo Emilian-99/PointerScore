@@ -1,0 +1,397 @@
+@import url("./splash-concept.css");
+
+.rain-stage {
+  isolation: isolate;
+}
+
+.rain-cloud {
+  position: absolute;
+  left: 50%;
+  top: -60px;
+  z-index: 15;
+  width: 132px;
+  height: 60px;
+  border-radius: 44px;
+  background: #aeb8c5;
+  box-shadow: 0 18px 34px rgba(29, 54, 83, .18);
+  opacity: 0;
+  transform: translateX(-50%) translateY(-18px) scale(.94);
+  animation: cloudArrive 9.25s cubic-bezier(.2, .78, .2, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.cloud-bump {
+  position: absolute;
+  bottom: 23px;
+  border-radius: 999px;
+  background: #aeb8c5;
+  box-shadow: none;
+}
+
+.cloud-bump-one {
+  left: 14px;
+  width: 50px;
+  height: 50px;
+}
+
+.cloud-bump-two {
+  left: 43px;
+  bottom: 29px;
+  width: 64px;
+  height: 64px;
+}
+
+.cloud-bump-three {
+  right: 12px;
+  width: 48px;
+  height: 48px;
+}
+
+.cloud-face {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.eye {
+  position: absolute;
+  top: 32px;
+  width: 8px;
+  height: 10px;
+  border-radius: 999px;
+  background: #314154;
+  box-shadow: none;
+}
+
+.eye-left {
+  left: 47px;
+  animation: eyeSmile 9.25s ease forwards;
+}
+
+.eye-right {
+  right: 47px;
+  animation: cloudWink 9.25s ease forwards;
+}
+
+.mouth {
+  position: absolute;
+  left: 50%;
+  top: 42px;
+  width: 25px;
+  height: 10px;
+  border: 2px solid rgba(49, 65, 84, .88);
+  border-top: 0;
+  border-radius: 0 0 18px 18px;
+  transform: translateX(-50%);
+  animation: happyMouth 9.25s ease forwards;
+}
+
+.rain-stream {
+  position: absolute;
+  left: 50%;
+  top: 58px;
+  z-index: 12;
+  width: 122px;
+  height: 110px;
+  opacity: 0;
+  transform: translateX(-50%);
+  animation: rainWindow 9.25s ease forwards;
+}
+
+.drop {
+  position: absolute;
+  top: var(--top, 0);
+  width: 7px;
+  height: 18px;
+  border-radius: 999px 999px 999px 999px;
+  background: linear-gradient(180deg, #9ed8ff 0%, #2f8ff0 78%);
+  opacity: 0;
+  box-shadow:
+    0 0 10px rgba(47, 143, 240, .36),
+    inset 0 3px rgba(255, 255, 255, .48);
+  transform: translateY(-16px);
+  animation: rainDrop var(--speed, 1.05s) linear var(--delay, 2.85s) infinite;
+  will-change: transform, opacity;
+}
+
+.drop-one { left: 4px; top: -12px; width: 5px; height: 15px; --speed: .92s; --delay: 2.48s; }
+.drop-two { left: 17px; top: 4px; width: 8px; height: 22px; --speed: 1.04s; --delay: 2.67s; }
+.drop-three { left: 31px; top: -5px; width: 6px; height: 17px; --speed: .86s; --delay: 2.56s; }
+.drop-four { left: 45px; top: 8px; width: 9px; height: 24px; --speed: 1.1s; --delay: 2.81s; }
+.drop-five { left: 60px; top: -14px; width: 5px; height: 14px; --speed: .8s; --delay: 2.62s; }
+.drop-six { left: 72px; top: 1px; width: 7px; height: 20px; --speed: .98s; --delay: 2.91s; }
+.drop-seven { left: 91px; top: -8px; width: 6px; height: 18px; --speed: .9s; --delay: 2.72s; }
+.drop-eight { left: 107px; top: 6px; width: 8px; height: 21px; --speed: 1.07s; --delay: 3.02s; }
+.drop-nine { left: 12px; top: 19px; width: 7px; height: 19px; --speed: .88s; --delay: 3.18s; }
+.drop-ten { left: 38px; top: 14px; width: 5px; height: 15px; --speed: .82s; --delay: 3.34s; }
+.drop-eleven { left: 66px; top: 22px; width: 9px; height: 23px; --speed: 1.08s; --delay: 3.21s; }
+.drop-twelve { left: 99px; top: 16px; width: 6px; height: 16px; --speed: .85s; --delay: 3.44s; }
+.drop-thirteen { left: 25px; top: -18px; width: 5px; height: 16px; --speed: .94s; --delay: 3.58s; }
+.drop-fourteen { left: 53px; top: 28px; width: 7px; height: 20px; --speed: 1s; --delay: 3.73s; }
+.drop-fifteen { left: 82px; top: -16px; width: 6px; height: 18px; --speed: .89s; --delay: 3.86s; }
+.drop-sixteen { left: 113px; top: 24px; width: 8px; height: 22px; --speed: 1.06s; --delay: 4.02s; }
+.drop-seventeen { left: 2px; top: 35px; width: 6px; height: 18px; --speed: .91s; --delay: 4.18s; }
+.drop-eighteen { left: 34px; top: -24px; width: 8px; height: 21px; --speed: 1.03s; --delay: 4.31s; }
+.drop-nineteen { left: 75px; top: 34px; width: 5px; height: 15px; --speed: .84s; --delay: 4.47s; }
+.drop-twenty { left: 104px; top: -22px; width: 7px; height: 20px; --speed: .97s; --delay: 4.6s; }
+
+.rain-stage .logo-target {
+  animation: rainTargetGlow 9.25s ease forwards;
+}
+
+.rain-fill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  height: 0;
+  background: #2f8ff0;
+  box-shadow: inset 0 12px 28px rgba(255, 255, 255, .2);
+  animation: rainFill 9.25s ease forwards;
+}
+
+.rain-fill::before,
+.rain-fill::after,
+.rain-fill span {
+  content: "";
+  position: absolute;
+  left: -24%;
+  right: -24%;
+  top: -10px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(223, 244, 255, .55);
+  animation:
+    waterWave 1.18s ease-in-out infinite,
+    rainWaveSettle 9.25s linear forwards;
+}
+
+.rain-fill::after {
+  top: -7px;
+  opacity: .42;
+  transform: translateX(18px);
+  animation-duration: 1.45s, 9.25s;
+}
+
+.rain-fill span {
+  top: -13px;
+  opacity: .28;
+  transform: translateX(-20px);
+  animation-duration: 1.8s, 9.25s;
+}
+
+.rain-mist {
+  position: absolute;
+  inset: -14px;
+  z-index: 2;
+  border-radius: 36px;
+  background: radial-gradient(circle, rgba(127, 202, 255, .46), rgba(47, 143, 240, .18) 36%, transparent 68%);
+  opacity: 0;
+  animation: rainMist 9.25s ease forwards;
+}
+
+.rain-stage .logo-burst {
+  z-index: 3;
+  background: radial-gradient(circle, rgba(112, 196, 255, .42), rgba(47, 143, 240, .24) 42%, transparent 72%);
+  animation: rainBurst 9.25s ease forwards;
+}
+
+.rain-stage .logo-target img {
+  animation: rainLogo 9.25s ease forwards;
+}
+
+@keyframes cloudArrive {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-22px) scale(.94);
+  }
+  16% {
+    opacity: 1;
+    transform: translateX(-50%) translate(-5px, 78px) rotate(-.8deg) scale(1);
+  }
+  30% {
+    opacity: 1;
+    transform: translateX(-50%) translate(5px, 82px) rotate(.7deg) scale(1);
+  }
+  46% {
+    opacity: 1;
+    transform: translateX(-50%) translate(-4px, 79px) rotate(-.6deg) scale(1.01);
+  }
+  62% {
+    opacity: 1;
+    transform: translateX(-50%) translate(6px, 83px) rotate(.8deg) scale(1);
+  }
+  78% {
+    opacity: 1;
+    transform: translateX(-50%) translate(-2px, 80px) rotate(-.3deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translate(4px, 55px) rotate(.5deg) scale(.98);
+  }
+}
+
+@keyframes eyeSmile {
+  0%, 34%, 50%, 100% {
+    transform: scaleY(1);
+  }
+  42%, 44% {
+    transform: translateY(1px) scaleY(.82);
+  }
+}
+
+@keyframes cloudWink {
+  0%, 38%, 45%, 100% {
+    transform: scaleY(1);
+  }
+  40%, 42% {
+    transform: scaleY(.16);
+  }
+}
+
+@keyframes happyMouth {
+  0%, 100% {
+    transform: translateX(-50%);
+  }
+  38%, 58% {
+    transform: translateX(-50%) translateY(1px);
+  }
+}
+
+@keyframes rainWindow {
+  0%, 22% {
+    opacity: 0;
+  }
+  27%, 82% {
+    opacity: 1;
+  }
+  90%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes rainDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) translateX(0) scaleY(.9);
+  }
+  12% {
+    opacity: 1;
+  }
+  44% {
+    opacity: .92;
+    transform: translateY(44px) translateX(3px) scaleY(1.04);
+  }
+  84% {
+    opacity: 1;
+    transform: translateY(94px) translateX(-2px) scaleY(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(108px) translateX(0) scale(.7, .34);
+  }
+}
+
+@keyframes rainFill {
+  0%, 38% {
+    height: 0;
+  }
+  47% {
+    height: 22%;
+  }
+  57% {
+    height: 44%;
+  }
+  67% {
+    height: 66%;
+  }
+  77% {
+    height: 84%;
+  }
+  86%, 100% {
+    height: 100%;
+  }
+}
+
+@keyframes rainWaveSettle {
+  0%, 82% {
+    opacity: 1;
+  }
+  94%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes rainMist {
+  0%, 26% {
+    opacity: 0;
+    transform: scale(.92);
+  }
+  42%, 72% {
+    opacity: .42;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: .32;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes rainBurst {
+  0%, 30% {
+    opacity: 0;
+    transform: scale(.94);
+  }
+  55% {
+    opacity: .34;
+    transform: scale(1.04);
+  }
+  83% {
+    opacity: .66;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: .5;
+    transform: scale(1.16);
+  }
+}
+
+@keyframes rainLogo {
+  0%, 34% {
+    filter: none;
+    transform: translateY(0) scale(1);
+  }
+  62% {
+    filter: brightness(1.08) drop-shadow(0 0 10px rgba(47, 143, 240, .28));
+    transform: translateY(1px) scale(.995);
+  }
+  100% {
+    filter: brightness(1.08) drop-shadow(0 0 14px rgba(47, 143, 240, .46));
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes rainTargetGlow {
+  0%, 34% {
+    border-color: rgba(75, 161, 246, .55);
+    box-shadow:
+      inset 0 1px rgba(255, 255, 255, .48),
+      0 20px 48px rgba(25, 92, 150, .16);
+  }
+  62% {
+    border-color: rgba(83, 179, 255, .76);
+    box-shadow:
+      inset 0 1px rgba(255, 255, 255, .28),
+      0 20px 48px rgba(25, 92, 150, .16),
+      0 0 28px rgba(47, 143, 240, .34);
+  }
+  100% {
+    border-color: rgba(47, 143, 240, .98);
+    box-shadow:
+      inset 0 1px rgba(255, 255, 255, .18),
+      0 20px 48px rgba(25, 92, 150, .16),
+      0 0 44px rgba(47, 143, 240, .5),
+      0 0 18px rgba(47, 143, 240, .26);
+  }
+}

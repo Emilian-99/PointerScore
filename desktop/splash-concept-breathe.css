@@ -1,0 +1,280 @@
+﻿@import url("./splash-concept.css");
+
+.breathe-stage {
+  isolation: isolate;
+}
+
+.breath-aura {
+  position: absolute;
+  left: 50%;
+  bottom: 64px;
+  z-index: 0;
+  width: 230px;
+  height: 230px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, rgba(112, 196, 255, .22), transparent 58%),
+    radial-gradient(circle, rgba(47, 143, 240, .12), transparent 72%);
+  opacity: 0;
+  transform: translate(-50%, 50%) scale(.72);
+  animation: breathAura 9.25s ease-in-out forwards;
+}
+
+.inhale-target {
+  z-index: 14;
+  background: rgba(255, 255, 255, .96);
+  animation:
+    inhaleBreath 9.25s ease-in-out forwards,
+    inhaleTargetGlow 9.25s ease forwards;
+}
+
+.inhale-target img {
+  animation: inhaleLogo 9.25s ease-in-out forwards;
+}
+
+.inhale-fill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  height: 0;
+  background: #2f8ff0;
+  box-shadow: inset 0 10px 22px rgba(255, 255, 255, .1);
+  animation: inhaleFill 9.25s linear forwards;
+}
+
+.inhale-fill::before,
+.inhale-fill::after,
+.inhale-fill span {
+  display: none;
+}
+
+.inhale-fill::after {
+  top: -7px;
+  opacity: .34;
+  transform: translateX(22px);
+  animation-duration: 1.7s;
+}
+
+.inhale-fill span {
+  top: -15px;
+  opacity: .25;
+  transform: translateX(-24px);
+  animation-duration: 2s;
+}
+
+.inhale-glow {
+  position: absolute;
+  inset: -22px;
+  z-index: 2;
+  border-radius: 42px;
+  background: radial-gradient(circle, rgba(143, 214, 255, .58), rgba(47, 143, 240, .3) 42%, transparent 72%);
+  opacity: 0;
+  transform: scale(.86);
+  animation: inhaleGlow 9.25s ease-in-out forwards;
+}
+
+.breathe-stage .logo-burst {
+  z-index: 0;
+  background: radial-gradient(circle, rgba(80, 171, 255, .34), transparent 66%);
+  animation: inhaleBurst 9.25s ease-in-out forwards;
+}
+
+.particle {
+  position: absolute;
+  z-index: 4;
+  left: var(--start-x);
+  top: var(--start-y);
+  width: var(--length);
+  height: var(--thick);
+  border-radius: 999px;
+  background: #2f8ff0;
+  box-shadow:
+    0 0 8px rgba(47, 143, 240, .42);
+  opacity: 0;
+  transform: translate(0, 0) rotate(var(--angle)) scaleX(.18);
+  transform-origin: center center;
+  filter: none;
+  animation-name: inhaleParticle;
+  animation-duration: var(--duration);
+  animation-timing-function: linear;
+  animation-delay: var(--delay);
+  animation-iteration-count: 5;
+  animation-fill-mode: both;
+  will-change: transform, opacity;
+}
+
+.particle-one { --start-x: 2.5px; --start-y: 21.0px; --end-x: 91.5px; --end-y: 104.0px; --length: 31px; --thick: 2px; --angle: 48.6deg; --delay: 0.00s; --duration: 1.18s; }
+.particle-two { --start-x: 280.5px; --start-y: 45.5px; --end-x: -76.2px; --end-y: 79.0px; --length: 43px; --thick: 3px; --angle: 134.0deg; --delay: 0.17s; --duration: 1.34s; }
+.particle-three { --start-x: 54.0px; --start-y: 7.0px; --end-x: 60.6px; --end-y: 118.0px; --length: 36px; --thick: 2px; --angle: 62.8deg; --delay: 0.06s; --duration: 1.24s; }
+.particle-four { --start-x: 306.5px; --start-y: 110.5px; --end-x: -98.0px; --end-y: 46.9px; --length: 39px; --thick: 3px; --angle: 154.4deg; --delay: 0.41s; --duration: 1.29s; }
+.particle-five { --start-x: -7.0px; --start-y: 82.0px; --end-x: 95.0px; --end-y: 63.7px; --length: 28px; --thick: 2px; --angle: 33.9deg; --delay: 0.25s; --duration: 1.16s; }
+.particle-six { --start-x: 195.0px; --start-y: 13.5px; --end-x: -33.8px; --end-y: 111.0px; --length: 46px; --thick: 3px; --angle: 106.9deg; --delay: 0.12s; --duration: 1.37s; }
+.particle-seven { --start-x: 260.5px; --start-y: 235.0px; --end-x: -49.0px; --end-y: -20.6px; --length: 33px; --thick: 2px; --angle: -157.2deg; --delay: 0.53s; --duration: 1.22s; }
+.particle-eight { --start-x: 18.5px; --start-y: 212.5px; --end-x: 63.0px; --end-y: -12.5px; --length: 41px; --thick: 3px; --angle: -11.2deg; --delay: 0.34s; --duration: 1.31s; }
+.particle-nine { --start-x: 297.5px; --start-y: 180.0px; --end-x: -87.0px; --end-y: 4.6px; --length: 35px; --thick: 2px; --angle: 176.9deg; --delay: 0.72s; --duration: 1.20s; }
+.particle-ten { --start-x: 101.0px; --start-y: 20.0px; --end-x: 30.6px; --end-y: 105.0px; --length: 30px; --thick: 2px; --angle: 73.7deg; --delay: 0.48s; --duration: 1.26s; }
+.particle-eleven { --start-x: -20.0px; --start-y: 144.5px; --end-x: 100.0px; --end-y: 26.4px; --length: 44px; --thick: 3px; --angle: 14.8deg; --delay: 0.64s; --duration: 1.35s; }
+.particle-twelve { --start-x: 229.5px; --start-y: 1.0px; --end-x: -55.0px; --end-y: 124.0px; --length: 37px; --thick: 2px; --angle: 113.9deg; --delay: 0.21s; --duration: 1.19s; }
+.particle-thirteen { --start-x: 307.0px; --start-y: 68.0px; --end-x: -95.0px; --end-y: 72.2px; --length: 32px; --thick: 2px; --angle: 142.8deg; --delay: 0.88s; --duration: 1.28s; }
+.particle-fourteen { --start-x: -9.5px; --start-y: 195.5px; --end-x: 89.0px; --end-y: -4.7px; --length: 45px; --thick: 3px; --angle: -3.0deg; --delay: 0.57s; --duration: 1.32s; }
+.particle-fifteen { --start-x: 271.0px; --start-y: 17.0px; --end-x: -77.7px; --end-y: 108.0px; --length: 34px; --thick: 2px; --angle: 125.7deg; --delay: 0.78s; --duration: 1.21s; }
+.particle-sixteen { --start-x: 43.0px; --start-y: 239.5px; --end-x: 39.0px; --end-y: -19.9px; --length: 40px; --thick: 3px; --angle: -27.0deg; --delay: 0.31s; --duration: 1.36s; }
+.particle-seventeen { --start-x: 294.5px; --start-y: 142.0px; --end-x: -81.0px; --end-y: 25.9px; --length: 29px; --thick: 2px; --angle: 162.3deg; --delay: 1.03s; --duration: 1.17s; }
+.particle-eighteen { --start-x: 10.0px; --start-y: 55.5px; --end-x: 71.0px; --end-y: 69.9px; --length: 42px; --thick: 3px; --angle: 44.6deg; --delay: 0.95s; --duration: 1.30s; }
+.particle-nineteen { --start-x: -13.0px; --start-y: 258.0px; --end-x: 97.0px; --end-y: -42.4px; --length: 36px; --thick: 2px; --angle: -23.6deg; --delay: 0.69s; --duration: 1.25s; }
+.particle-twenty { --start-x: 126.5px; --start-y: 4.0px; --end-x: 15.1px; --end-y: 121.0px; --length: 31px; --thick: 2px; --angle: 82.9deg; --delay: 1.18s; --duration: 1.23s; }
+.particle-twentyone { --start-x: 307.5px; --start-y: 216.5px; --end-x: -101.0px; --end-y: -17.9px; --length: 43px; --thick: 3px; --angle: -170.0deg; --delay: 0.83s; --duration: 1.33s; }
+.particle-twentytwo { --start-x: -10.5px; --start-y: 117.0px; --end-x: 96.0px; --end-y: 42.9px; --length: 33px; --thick: 2px; --angle: 24.1deg; --delay: 1.11s; --duration: 1.20s; }
+.particle-twentythree { --start-x: 239.5px; --start-y: 258.5px; --end-x: -31.0px; --end-y: -23.4px; --length: 39px; --thick: 3px; --angle: -142.9deg; --delay: 1.28s; --duration: 1.38s; }
+.particle-twentyfour { --start-x: 295.5px; --start-y: 252.0px; --end-x: -85.0px; --end-y: -36.8px; --length: 35px; --thick: 2px; --angle: -156.6deg; --delay: 0.99s; --duration: 1.27s; }
+.particle-twentyfive { --start-x: 274.0px; --start-y: 92.5px; --end-x: -69.0px; --end-y: 49.7px; --length: 46px; --thick: 3px; --angle: 144.3deg; --delay: 1.38s; --duration: 1.31s; }
+.particle-twentysix { --start-x: 159.0px; --start-y: 13.0px; --end-x: -5.8px; --end-y: 112.0px; --length: 30px; --thick: 2px; --angle: 92.9deg; --delay: 1.22s; --duration: 1.18s; }
+.particle-twentyseven { --start-x: 25.5px; --start-y: 167.5px; --end-x: 56.0px; --end-y: 9.4px; --length: 41px; --thick: 3px; --angle: 9.5deg; --delay: 1.49s; --duration: 1.34s; }
+.particle-twentyeight { --start-x: 301.0px; --start-y: 201.0px; --end-x: -90.0px; --end-y: -7.6px; --length: 34px; --thick: 2px; --angle: -175.1deg; --delay: 1.34s; --duration: 1.22s; }
+
+@keyframes inhaleParticle {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(var(--angle)) scaleX(.18);
+  }
+  6% {
+    opacity: .88;
+    transform: translate(calc(var(--end-x) * .06), calc(var(--end-y) * .06)) rotate(var(--angle)) scaleX(.7);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(calc(var(--end-x) * .5), calc(var(--end-y) * .5)) rotate(var(--angle)) scaleX(1);
+  }
+  88% {
+    opacity: .92;
+    transform: translate(calc(var(--end-x) * .88), calc(var(--end-y) * .88)) rotate(var(--angle)) scaleX(.58);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--end-x), var(--end-y)) rotate(var(--angle)) scaleX(0);
+  }
+}
+
+@keyframes inhaleFill {
+  0%, 12% {
+    height: 0;
+  }
+  78%, 100% {
+    height: 100%;
+  }
+}
+
+@keyframes inhaleBreath {
+  0%, 16% {
+    transform: translateX(-50%) scale(1);
+  }
+  30% {
+    transform: translateX(-50%) scale(1.025);
+  }
+  46% {
+    transform: translateX(-50%) scale(.985);
+  }
+  62% {
+    transform: translateX(-50%) scale(1.035);
+  }
+  80%, 100% {
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@keyframes inhaleLogo {
+  0%, 20% {
+    transform: scale(1);
+    filter: saturate(1);
+  }
+  42% {
+    transform: scale(.97);
+    filter: saturate(1.08);
+  }
+  62% {
+    transform: scale(1.04);
+    filter: saturate(1.18);
+  }
+  82%, 100% {
+    transform: scale(1);
+    filter: saturate(1.18);
+  }
+}
+
+@keyframes inhaleWave {
+  0%, 100% {
+    transform: translateX(-12px) scaleY(.82);
+  }
+  50% {
+    transform: translateX(16px) scaleY(1.12);
+  }
+}
+
+@keyframes inhaleGlow {
+  0%, 20% {
+    opacity: 0;
+    transform: scale(.86);
+  }
+  42% {
+    opacity: .34;
+    transform: scale(1);
+  }
+  70% {
+    opacity: .64;
+    transform: scale(1.12);
+  }
+  86%, 100% {
+    opacity: .5;
+    transform: scale(1.16);
+  }
+}
+
+@keyframes inhaleBurst {
+  0%, 24% {
+    opacity: 0;
+    transform: scale(.9);
+  }
+  62% {
+    opacity: .4;
+    transform: scale(1.12);
+  }
+  84%, 100% {
+    opacity: .48;
+    transform: scale(1.16);
+  }
+}
+
+@keyframes inhaleTargetGlow {
+  0%, 24% {
+    box-shadow:
+      inset 0 1px rgba(255, 255, 255, .48),
+      0 20px 48px rgba(25, 92, 150, .16);
+  }
+  72%, 100% {
+    box-shadow:
+      inset 0 1px rgba(255, 255, 255, .52),
+      0 0 0 6px rgba(47, 143, 240, .08),
+      0 26px 58px rgba(31, 127, 228, .24);
+  }
+}
+
+@keyframes breathAura {
+  0%, 12% {
+    opacity: 0;
+    transform: translate(-50%, 50%) scale(.72);
+  }
+  32% {
+    opacity: .48;
+    transform: translate(-50%, 50%) scale(1);
+  }
+  56% {
+    opacity: .32;
+    transform: translate(-50%, 50%) scale(.9);
+  }
+  82%, 100% {
+    opacity: .42;
+    transform: translate(-50%, 50%) scale(1.08);
+  }
+}

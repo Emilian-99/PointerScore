@@ -1,0 +1,316 @@
+@import url("./splash-concept.css");
+
+.lightning-stage {
+  isolation: isolate;
+}
+
+.storm-dim {
+  position: absolute;
+  inset: -88px -110px;
+  z-index: 0;
+  border-radius: 42px;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(0, 8, 19, .9), rgba(0, 12, 28, .72) 42%, rgba(0, 18, 42, .2) 72%, transparent 82%);
+  opacity: 0;
+  pointer-events: none;
+  animation: stormDim 9.25s ease forwards;
+}
+
+.bolt {
+  position: absolute;
+  left: 50%;
+  top: 28px;
+  z-index: 14;
+  width: 54px;
+  height: 140px;
+  opacity: 0;
+  transform: translateX(-50%) scaleY(.55);
+  transform-origin: top center;
+  clip-path: polygon(58% 0, 34% 29%, 49% 29%, 25% 60%, 45% 60%, 32% 100%, 78% 49%, 58% 49%, 78% 18%, 61% 18%);
+  filter:
+    drop-shadow(0 0 12px rgba(255, 255, 255, .86))
+    drop-shadow(0 0 28px rgba(73, 170, 255, .72));
+}
+
+.bolt-main {
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 36%, #eef9ff 74%, #ffffff 100%);
+  animation: lightningStrike 9.25s cubic-bezier(.18, .8, .15, 1) forwards;
+}
+
+.bolt-main::before,
+.bolt-main::after {
+  content: "";
+  position: absolute;
+  background: #fff;
+  opacity: 0;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, .95));
+  animation: lightningBranch 9.25s ease forwards;
+}
+
+.bolt-main::before {
+  left: 7px;
+  top: 44px;
+  width: 31px;
+  height: 52px;
+  clip-path: polygon(70% 0, 32% 42%, 55% 42%, 17% 100%, 90% 34%, 62% 34%);
+}
+
+.bolt-main::after {
+  right: 3px;
+  top: 65px;
+  width: 28px;
+  height: 42px;
+  clip-path: polygon(22% 0, 72% 36%, 50% 36%, 88% 100%, 18% 30%, 42% 30%);
+}
+
+.bolt-soft {
+  width: 62px;
+  height: 148px;
+  background: rgba(255, 255, 255, .64);
+  filter: blur(9px);
+  animation: lightningAura 9.25s ease forwards;
+}
+
+.lightning-stage .logo-target {
+  animation:
+    lightningTargetGlow 9.25s ease forwards,
+    impactJolt 9.25s ease forwards;
+}
+
+.lightning-fill {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  height: 0;
+  background: #ffffff;
+  opacity: 0;
+  animation: lightningFill 9.25s ease forwards;
+}
+
+.lightning-glow {
+  position: absolute;
+  inset: -18px;
+  z-index: 2;
+  border-radius: 38px;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, .86), rgba(255, 255, 255, .48) 34%, transparent 68%);
+  opacity: 0;
+  animation: permanentGlow 9.25s ease forwards;
+}
+
+.lightning-stage .logo-burst {
+  z-index: 3;
+  background: radial-gradient(circle, rgba(255, 255, 255, .86), rgba(255, 255, 255, .52) 42%, transparent 72%);
+  animation: lightningBurst 9.25s ease forwards;
+}
+
+.lightning-stage .logo-target img {
+  animation: lightningLogo 9.25s ease forwards;
+}
+
+@keyframes stormDim {
+  0%, 31.7% {
+    opacity: 0;
+  }
+  32.2% {
+    opacity: 1;
+  }
+  34.4% {
+    opacity: .88;
+  }
+  39% {
+    opacity: .18;
+  }
+  46%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes lightningStrike {
+  0%, 31.9% {
+    opacity: 0;
+    transform: translateX(-50%) scaleY(.2);
+  }
+  32.25% {
+    opacity: 1;
+    transform: translateX(-50%) scaleY(1.12) skewX(-2deg);
+  }
+  33.05% {
+    opacity: 1;
+    transform: translateX(-50%) scaleY(1.02) skewX(1deg);
+  }
+  35.5% {
+    opacity: .18;
+    transform: translateX(-50%) scaleY(.96) skewX(0);
+  }
+  41%, 100% {
+    opacity: 0;
+    transform: translateX(-50%) scaleY(.9);
+  }
+}
+
+@keyframes lightningBranch {
+  0%, 31.95% {
+    opacity: 0;
+    transform: scale(.72);
+  }
+  32.25%, 33% {
+    opacity: .98;
+    transform: scale(1);
+  }
+  35.4%, 100% {
+    opacity: 0;
+    transform: scale(.86);
+  }
+}
+
+@keyframes lightningAura {
+  0%, 31.8% {
+    opacity: 0;
+    transform: translateX(-50%) scaleY(.18);
+  }
+  32.4% {
+    opacity: 1;
+    transform: translateX(-50%) scaleY(1.05);
+  }
+  37% {
+    opacity: .2;
+    transform: translateX(-50%) scaleY(.98);
+  }
+  46%, 100% {
+    opacity: 0;
+    transform: translateX(-50%) scaleY(.92);
+  }
+}
+
+@keyframes lightningFill {
+  0%, 31.9% {
+    height: 0;
+    opacity: 0;
+    background: #ffffff;
+  }
+  32.55% {
+    height: 100%;
+    opacity: 1;
+    background: #2f8ff0;
+  }
+  100% {
+    height: 100%;
+    opacity: 1;
+    background: #2f8ff0;
+  }
+}
+
+@keyframes permanentGlow {
+  0%, 31.9% {
+    opacity: 0;
+    transform: scale(.88);
+  }
+  32.7% {
+    opacity: 1;
+    transform: scale(1.07);
+    background: radial-gradient(circle, rgba(190, 232, 255, .92), rgba(47, 143, 240, .6) 34%, transparent 68%);
+  }
+  42% {
+    opacity: .82;
+    transform: scale(1.14);
+    background: radial-gradient(circle, rgba(139, 209, 255, .62), rgba(47, 143, 240, .5) 34%, transparent 68%);
+  }
+  100% {
+    opacity: .58;
+    transform: scale(1.1);
+    background: radial-gradient(circle, rgba(136, 210, 255, .5), rgba(47, 143, 240, .46) 34%, transparent 68%);
+  }
+}
+
+@keyframes lightningBurst {
+  0%, 31.9% {
+    opacity: 0;
+    transform: scale(.92);
+  }
+  32.65% {
+    opacity: 1;
+    transform: scale(1.05);
+    background: radial-gradient(circle, rgba(220, 244, 255, .96), rgba(47, 143, 240, .68) 42%, transparent 72%);
+  }
+  38% {
+    opacity: .78;
+    transform: scale(1.14);
+    background: radial-gradient(circle, rgba(142, 211, 255, .72), rgba(47, 143, 240, .5) 42%, transparent 72%);
+  }
+  100% {
+    opacity: .48;
+    transform: scale(1.18);
+    background: radial-gradient(circle, rgba(139, 209, 255, .52), rgba(47, 143, 240, .5) 42%, transparent 72%);
+  }
+}
+
+@keyframes lightningLogo {
+  0%, 31.9% {
+    transform: translateY(0) scale(1);
+    filter: none;
+  }
+  32.65% {
+    transform: translateY(2px) scale(.965);
+    filter: brightness(1.55) drop-shadow(0 0 24px rgba(47, 143, 240, .82));
+  }
+  38% {
+    transform: translateY(0) scale(1.045);
+    filter: brightness(1.22) drop-shadow(0 0 18px rgba(77, 176, 255, .62));
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    filter: brightness(1.08) drop-shadow(0 0 14px rgba(47, 143, 240, .48));
+  }
+}
+
+@keyframes impactJolt {
+  0%, 31.9% {
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  32.45% {
+    transform: translateX(-50%) translateY(4px) scale(.975);
+  }
+  33.2% {
+    transform: translateX(-50%) translateY(-2px) scale(1.035);
+  }
+  35.2% {
+    transform: translateX(-50%) translateY(1px) scale(1.012);
+  }
+  40%, 100% {
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+@keyframes lightningTargetGlow {
+  0%, 31.5% {
+    border-color: rgba(75, 161, 246, .55);
+    box-shadow:
+      inset 0 1px rgba(255, 255, 255, .48),
+      0 20px 48px rgba(25, 92, 150, .16);
+  }
+  32.7% {
+    border-color: rgba(112, 199, 255, .98);
+    box-shadow:
+      inset 0 1px rgba(255, 255, 255, .34),
+      0 20px 48px rgba(25, 92, 150, .16),
+      0 0 68px rgba(47, 143, 240, .86),
+      0 0 96px rgba(141, 211, 255, .52);
+  }
+  44% {
+    border-color: rgba(101, 194, 255, .98);
+    box-shadow:
+      inset 0 1px rgba(255, 255, 255, .25),
+      0 20px 48px rgba(25, 92, 150, .16),
+      0 0 50px rgba(47, 143, 240, .58),
+      0 0 20px rgba(139, 209, 255, .32);
+  }
+  100% {
+    border-color: rgba(47, 143, 240, .98);
+    box-shadow:
+      inset 0 1px rgba(255, 255, 255, .2),
+      0 20px 48px rgba(25, 92, 150, .16),
+      0 0 42px rgba(47, 143, 240, .52),
+      0 0 18px rgba(47, 143, 240, .26);
+  }
+}
