@@ -1,6 +1,7 @@
 const isCalculator = location.pathname.includes("/rechner/");
 const params = new URLSearchParams(location.search);
 const preview = params.get("preview") === "1";
+const isManualTour = params.get("tour") === "1";
 const rootPath = isCalculator ? "../" : "";
 const calculatorPath = `${rootPath}rechner/${preview ? "?preview=1" : ""}`;
 const dashboardPath = `${rootPath}dashboard.html${preview ? "?preview=1" : ""}`;
@@ -30,11 +31,22 @@ const copy = {
   ]
 };
 
-const selectors = [null, ".dashboard-stats", "[data-tour-new-analysis]", ".form-card", ".result-column", "[data-tour-help]", "[data-profile-link]", null];
-let step = Number(params.get("tourStep") ?? sessionStorage.getItem(stateKey) ?? 0);
+const selectors = [null, "[data-tour-dashboard]", "[data-tour-new-analysis]", ".form-card", ".result-column", "[data-tour-help]", "[data-profile-link]", null];
+let step = getInitialStep();
 let target = null;
 let ui = null;
 let transitioning = false;
+
+function getInitialStep() {
+  const rawStep = params.get("tourStep");
+  const rawValue = rawStep ?? (isManualTour ? "0" : sessionStorage.getItem(stateKey)) ?? "0";
+  const parsed = Number(rawValue);
+  return Number.isFinite(parsed) ? Math.max(0, Math.min(7, parsed)) : 0;
+}
+
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 function doneKey() {
   const userId = document.body.dataset.tourUserId || sessionStorage.getItem(userKey);
@@ -66,6 +78,27 @@ function removeHighlight() {
   target = null;
 }
 
+function findTarget() {
+  const primary = selectors[step] ? document.querySelector(selectors[step]) : null;
+  if (primary && primary.getClientRects().length) return primary;
+
+  const fallbacks = {
+    1: [".dashboard-main", ".dashboard-actions"],
+    2: [".dashboard-new-analysis", ".dashboard-actions"],
+    3: ["#score-form", ".calculator-shell"],
+    4: ["#save-button", "#result-content", ".result-column"],
+    5: [".dashboard-help-button", ".dashboard-actions"],
+    6: [".nav-menu", ".site-header"]
+  };
+
+  for (const selector of fallbacks[step] || []) {
+    const element = document.querySelector(selector);
+    if (element && element.getClientRects().length) return element;
+  }
+
+  return null;
+}
+
 function finish() {
   if (transitioning) return;
   transitioning = true;
@@ -92,13 +125,20 @@ function createUi() {
 }
 
 function placeCard() {
+  if (!ui) return;
   const card = ui.querySelector(".onboarding-tour-card");
   const spotlight = ui.querySelector(".onboarding-tour-spotlight");
+  if (!card || !spotlight) return;
+  const viewportWidth = window.visualViewport?.width || innerWidth;
+  const viewportHeight = window.visualViewport?.height || innerHeight;
   card.style.removeProperty("top"); card.style.removeProperty("left"); card.style.removeProperty("right"); card.style.removeProperty("bottom");
   if (!target || !target.getClientRects().length) {
     ui.classList.add("onboarding-tour-no-target");
     spotlight.style.opacity = "0";
-    if (innerWidth >= 760) { card.style.left = `${Math.max(20, (innerWidth - card.offsetWidth) / 2)}px`; card.style.top = `${Math.max(20, (innerHeight - card.offsetHeight) / 2)}px`; }
+    if (viewportWidth >= 760) {
+      card.style.left = `${Math.max(20, (viewportWidth - card.offsetWidth) / 2)}px`;
+      card.style.top = `${Math.max(20, (viewportHeight - card.offsetHeight) / 2)}px`;
+    }
     return;
   }
   ui.classList.remove("onboarding-tour-no-target");
@@ -106,20 +146,22 @@ function placeCard() {
   const padding = step === 3 || step === 4 ? 10 : 8;
   const top = Math.max(8, box.top - padding);
   const leftEdge = Math.max(8, box.left - padding);
-  const right = Math.min(innerWidth - 8, box.right + padding);
-  const bottom = Math.min(innerHeight - 8, box.bottom + padding);
+  const right = Math.min(viewportWidth - 8, box.right + padding);
+  const bottom = Math.min(viewportHeight - 8, box.bottom + padding);
   spotlight.style.opacity = "1";
   spotlight.style.left = `${leftEdge}px`; spotlight.style.top = `${top}px`;
   spotlight.style.width = `${Math.max(44, right - leftEdge)}px`; spotlight.style.height = `${Math.max(44, bottom - top)}px`;
-  if (innerWidth < 760) return;
-  const width = Math.min(410, innerWidth - 40);
-  const cardLeft = right + width + 28 < innerWidth ? right + 18 : Math.max(20, leftEdge - width - 18);
+  if (viewportWidth < 760) return;
+  const width = Math.min(410, viewportWidth - 40);
+  const cardLeft = right + width + 28 < viewportWidth ? right + 18 : Math.max(20, leftEdge - width - 18);
   card.style.left = `${cardLeft}px`;
-  card.style.top = `${Math.max(20, Math.min(innerHeight - card.offsetHeight - 20, top))}px`;
+  card.style.top = `${Math.max(20, Math.min(viewportHeight - card.offsetHeight - 20, top))}px`;
 }
 
 function render(onReady) {
   removeHighlight();
+  document.body.dataset.tourStep = String(step);
+  ui.dataset.step = String(step);
   const lang = document.documentElement.lang === "en" ? "en" : "de";
   const text = copy[lang][step];
   ui.querySelector("h2").textContent = text[0];
@@ -130,14 +172,16 @@ function render(onReady) {
   ui.querySelector(".onboarding-tour-back").textContent = lang === "de" ? "Zurück" : "Back";
   ui.querySelector(".onboarding-tour-next").textContent = step === 7 ? (lang === "de" ? "Jetzt starten" : "Get started") : (lang === "de" ? "Weiter" : "Next");
   ui.querySelector(".onboarding-tour-back").hidden = step === 0;
-  target = selectors[step] ? document.querySelector(selectors[step]) : null;
+  target = findTarget();
   if (target && target.getClientRects().length) {
     const box = target.getBoundingClientRect();
-    if (step !== 6 && (box.top < 80 || box.bottom > innerHeight - 150)) {
+    const lowerSafeArea = innerWidth < 760 ? 300 : 150;
+    const block = step === 4 ? "start" : step === 6 ? "nearest" : "center";
+    if (box.top < 78 || box.bottom > innerHeight - lowerSafeArea) {
       // The tour is hidden while changing steps, so position the next target
       // immediately. This prevents the old card/spotlight from flashing once
       // before the delayed smooth scroll has reached its destination.
-      target.scrollIntoView({ behavior: "auto", block: step === 4 ? "start" : "center" });
+      target.scrollIntoView({ behavior: "auto", block });
     }
   }
   requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -170,18 +214,15 @@ function go(nextStep) {
 }
 
 async function start() {
-  if (isCalculator && params.get("tour") !== "1") return;
-  if (!isCalculator) {
-    for (let i = 0; i < 60 && document.body.classList.contains("is-auth-loading"); i += 1) await new Promise(resolve => setTimeout(resolve, 100));
-    const manual = params.get("tour") === "1";
-    if (document.body.dataset.tourUserId) sessionStorage.setItem(userKey, document.body.dataset.tourUserId);
-    if (manual && localStorage.getItem(doneKey()) === "1" && params.get("tourStep") !== "0") {
-      cleanTourUrl();
-      return;
-    }
-    if (!manual && localStorage.getItem(doneKey()) === "1") return;
-    if (!manual && location.pathname.includes("dashboard") === false) return;
-  }
+  if (isCalculator && !isManualTour) return;
+
+  for (let i = 0; i < 80 && document.body.classList.contains("is-auth-loading"); i += 1) await wait(100);
+
+  if (document.body.dataset.tourUserId) sessionStorage.setItem(userKey, document.body.dataset.tourUserId);
+
+  if (!isManualTour && localStorage.getItem(doneKey()) === "1") return;
+  if (!isManualTour && !isCalculator && location.pathname.includes("dashboard") === false) return;
+
   document.body.classList.add("onboarding-tour-open");
   ui = createUi();
   go(step);
