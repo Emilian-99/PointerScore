@@ -4,8 +4,8 @@ const path = require("node:path");
 const appUrl = process.env.POINTERSCORE_APP_URL || "https://pointerscore.com/dashboard.html";
 const allowedHosts = new Set(["pointerscore.com", "www.pointerscore.com"]);
 const appId = "com.pointerscore.app";
-const splashDurationMs = 9250;
-const appRevealFadeMs = 360;
+const splashDurationMs = 12650;
+const appRevealFadeMs = 680;
 const splashVariants = [
   { file: "splash-concept-fill.html", weight: 50 },
   { file: "splash-concept.html", weight: 10 },
