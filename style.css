@@ -5297,7 +5297,8 @@ main {
 
 /* Mobile dashboard cleanup: hide announcement/account cards and close the gap */
 @media (max-width: 640px) {
-  .dashboard-page .dashboard-welcome-side {
+  .dashboard-page .dashboard-user,
+  .dashboard-page .dashboard-announcements {
     display: none;
   }
 

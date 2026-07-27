@@ -1,6 +1,6 @@
 {
   "name": "pointerscore-desktop",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "PointerScore desktop app shell",
   "author": "Emilian Pohle",
@@ -18,7 +18,7 @@
   "build": {
     "appId": "com.pointerscore.app",
     "productName": "PointerScore",
-    "artifactName": "PointerScore Setup ${version}.${ext}",
+    "artifactName": "PointerScore-Setup-${version}.${ext}",
     "copyright": "Copyright © 2026 PointerScore",
     "directories": {
       "output": "installer-delivery"
@@ -26,6 +26,8 @@
     "files": [
       "main.cjs",
       "preload.cjs",
+      "splash.html",
+      "splash.css",
       "icon.ico",
       "package.json"
     ],

@@ -4,6 +4,7 @@ const path = require("node:path");
 const appUrl = process.env.POINTERSCORE_APP_URL || "https://pointerscore.com/dashboard.html";
 const allowedHosts = new Set(["pointerscore.com", "www.pointerscore.com"]);
 const appId = "com.pointerscore.app";
+const splashDurationMs = 2600;
 
 if (process.platform === "win32") {
   app.setAppUserModelId(appId);
@@ -15,13 +16,23 @@ function getIconPath() {
     : path.join(__dirname, "icon.ico");
 }
 
-function isAllowedAppUrl(targetUrl) {
+function normalizeAppUrl(targetUrl) {
   try {
     const url = new URL(targetUrl);
-    return allowedHosts.has(url.hostname);
+    if (!allowedHosts.has(url.hostname)) return null;
+
+    const pathName = url.pathname.replace(/\/+$/, "") || "/";
+    if (pathName === "/" || pathName === "/index.html") return appUrl;
+
+    return targetUrl;
   } catch {
-    return false;
+    return null;
   }
+}
+
+function loadAppHome(window) {
+  if (window.isDestroyed()) return;
+  window.loadURL(appUrl);
 }
 
 function createWindow() {
@@ -49,18 +60,34 @@ function createWindow() {
   });
 
   window.webContents.setWindowOpenHandler(({ url }) => {
-    if (isAllowedAppUrl(url)) return { action: "allow" };
+    const normalizedUrl = normalizeAppUrl(url);
+    if (normalizedUrl) {
+      window.loadURL(normalizedUrl);
+      return { action: "deny" };
+    }
+
     shell.openExternal(url);
     return { action: "deny" };
   });
 
   window.webContents.on("will-navigate", (event, url) => {
-    if (isAllowedAppUrl(url)) return;
+    const normalizedUrl = normalizeAppUrl(url);
+    if (normalizedUrl) {
+      if (normalizedUrl !== url) {
+        event.preventDefault();
+        window.loadURL(normalizedUrl);
+      }
+      return;
+    }
+
     event.preventDefault();
     shell.openExternal(url);
   });
 
-  window.loadURL(appUrl);
+  window.loadFile(path.join(__dirname, "splash.html"));
+  window.webContents.once("did-finish-load", () => {
+    setTimeout(() => loadAppHome(window), splashDurationMs);
+  });
 }
 
 app.whenReady().then(() => {
