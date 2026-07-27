@@ -90,11 +90,14 @@
   position: absolute;
   left: 50%;
   top: 58px;
-  z-index: 12;
+  z-index: 8;
   width: 122px;
-  height: 110px;
+  height: 68px;
+  overflow: hidden;
   opacity: 0;
   transform: translateX(-50%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 78%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 78%, transparent 100%);
   animation: rainWindow 9.25s ease forwards;
 }
 
@@ -136,6 +139,7 @@
 .drop-twenty { left: 104px; top: -22px; width: 7px; height: 20px; --speed: .97s; --delay: 4.6s; }
 
 .rain-stage .logo-target {
+  z-index: 14;
   animation: rainTargetGlow 9.25s ease forwards;
 }
 
