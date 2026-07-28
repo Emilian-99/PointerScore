@@ -9,12 +9,12 @@ const splashDurationMs = 13100;
 const appPreRevealMs = 12700;
 const appRevealFadeMs = 2000;
 const splashVariants = [
-  { file: "splash-concept-fill.html", weight: 50 },
-  { file: "splash-concept.html", weight: 10 },
-  { file: "splash-concept-lightning.html", weight: 10 },
-  { file: "splash-concept-rain.html", weight: 10 },
-  { file: "splash-concept-click.html", weight: 10 },
-  { file: "splash-concept-breathe.html", weight: 10 }
+  { file: "splash-concept-fill.html", weight: 75 },
+  { file: "splash-concept.html", weight: 5 },
+  { file: "splash-concept-lightning.html", weight: 5 },
+  { file: "splash-concept-rain.html", weight: 5 },
+  { file: "splash-concept-click.html", weight: 5 },
+  { file: "splash-concept-breathe.html", weight: 5 }
 ];
 
 if (process.platform === "win32") {
