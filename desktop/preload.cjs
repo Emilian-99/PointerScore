@@ -1,8 +1,14 @@
-const { contextBridge } = require("electron");
+const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("PointerScoreDesktop", {
   platform: process.platform,
-  isDesktopApp: true
+  isDesktopApp: true,
+  saveAnalysisPdf(reportHtml, fileName) {
+    return ipcRenderer.invoke("pointerscore:save-analysis-pdf", {
+      html: String(reportHtml || ""),
+      fileName: String(fileName || "PointerScore-Analyse.pdf")
+    });
+  }
 });
 
 function markDesktopApp() {

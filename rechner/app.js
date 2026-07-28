@@ -230,8 +230,24 @@ async function exportAnalysisPdf(){
  if(!lastResult)return;
  exportNote.textContent=t("Der hochwertige PDF-Bericht wird vorbereitet …");exportNote.hidden=false;
  currentNotes=noteInput.value.trim();
- const opened=await createAnalysisReport({...lastResult,notes:currentNotes});
- exportNote.textContent=opened?t("PDF-Bericht geöffnet. Wähle im Druckdialog „Als PDF speichern“."):t("Bitte erlaube Pop-ups, um den PDF-Bericht zu öffnen.");
+ try{
+  const report=await createAnalysisReport({...lastResult,notes:currentNotes},{language:window.PointerScoreI18n?.language||localStorage.getItem("pointerscore-language")||document.documentElement.lang});
+  if(report?.ok&&report.mode==="desktop"){
+   exportNote.textContent=t("PDF wurde gespeichert.");
+   return;
+  }
+  if(report?.ok){
+   exportNote.textContent=t("PDF-Bericht geöffnet. Wähle im Druckdialog „Als PDF speichern“.");
+   return;
+  }
+  if(report?.canceled){
+   exportNote.textContent=t("PDF-Speichern wurde abgebrochen.");
+   return;
+  }
+  exportNote.textContent=t("Bitte erlaube Pop-ups, um den PDF-Bericht zu öffnen.");
+ }catch(error){
+  exportNote.textContent=t("PDF konnte nicht erstellt werden. Bitte versuche es erneut.");
+ }
 }
 function printAnalysis(){
  if(!lastResult)return;

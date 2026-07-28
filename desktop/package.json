@@ -1,6 +1,6 @@
 {
   "name": "pointerscore-desktop",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": true,
   "description": "PointerScore desktop app shell",
   "author": "Emilian Pohle",
@@ -9,7 +9,8 @@
     "start": "electron .",
     "build": "electron-builder --win nsis",
     "build:portable": "electron-builder --win portable --config.directories.output=portable-delivery --config.artifactName=PointerScore.exe --config.win.signAndEditExecutable=false --config.win.verifyUpdateCodeSignature=false",
-    "build:store": "electron-builder --win appx --config.directories.output=store-delivery --config.win.signAndEditExecutable=false --config.win.verifyUpdateCodeSignature=false"
+    "build:store": "electron-builder --win appx --config.directories.output=store-delivery --config.win.signAndEditExecutable=false --config.win.verifyUpdateCodeSignature=false",
+    "build:msix": "node scripts/build-msix.mjs"
   },
   "devDependencies": {
     "electron": "^31.7.7",
@@ -75,7 +76,11 @@
       "displayName": "PointerScore",
       "identityName": "PointerScore.PointerScore",
       "publisher": "CN=Emilian Pohle",
-      "publisherDisplayName": "Emilian Pohle"
+      "publisherDisplayName": "Emilian Pohle",
+      "languages": [
+        "de-DE",
+        "en-US"
+      ]
     }
   }
 }

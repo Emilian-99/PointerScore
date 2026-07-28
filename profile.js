@@ -167,7 +167,8 @@ document.querySelector("[data-delete-form]").addEventListener("submit", async (e
   if (submitter?.value !== "confirm") return;
   event.preventDefault();
   const form = event.currentTarget;
-  if (form.elements.confirmation.value.trim().toLocaleUpperCase("de-DE") !== "LÖSCHEN") return setStatus("[data-delete-status]", t("Bitte gib LÖSCHEN vollständig ein."), "error");
+  const confirmation = form.elements.confirmation.value.trim().toLocaleUpperCase("de-DE");
+  if (!["LÖSCHEN", "DELETE"].includes(confirmation)) return setStatus("[data-delete-status]", t("Bitte gib LÖSCHEN vollständig ein."), "error");
   submitter.disabled = true;
   setStatus("[data-delete-status]", t("Konto wird gelöscht …"));
   try {

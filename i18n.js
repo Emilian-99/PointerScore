@@ -480,6 +480,9 @@ Object.assign(translations, {
   "Der hochwertige PDF-Bericht wird vorbereitet …": "The high-quality PDF report is being prepared …",
   "PDF-Bericht geöffnet. Wähle im Druckdialog „Als PDF speichern“.": "PDF report opened. Choose “Save as PDF” in the print dialog.",
   "Bitte erlaube Pop-ups, um den PDF-Bericht zu öffnen.": "Please allow pop-ups to open the PDF report.",
+  "PDF wurde gespeichert.": "PDF saved.",
+  "PDF-Speichern wurde abgebrochen.": "PDF saving was cancelled.",
+  "PDF konnte nicht erstellt werden. Bitte versuche es erneut.": "The PDF could not be created. Please try again.",
   "Künstliche Intelligenz": "Artificial intelligence",
   "Halbleiter": "Semiconductors",
   "Zahlungsdienstleister": "Payment services",
@@ -555,6 +558,7 @@ Object.assign(translations, {
   "Persönliche Angaben": "Personal details",
   "Profilbild": "Profile picture",
   "Bild auswählen": "Choose image",
+  "PNG, JPG oder WebP · maximal 2 MB": "PNG, JPG or WebP · maximum 2 MB",
   "Anzeigename": "Display name",
   "Dein Name": "Your name",
   "Benutzername": "Username",
@@ -585,9 +589,12 @@ Object.assign(translations, {
   "Passwort bestätigen": "Confirm password",
   "Passwort ändern": "Change password",
   "Konto löschen": "Delete account",
+  "Dein Konto und alle gespeicherten Analysen werden dauerhaft entfernt.": "Your account and all saved analyses will be permanently removed.",
   "Sicherheitsabfrage": "Security confirmation",
   "Konto wirklich löschen?": "Really delete account?",
   "Bestätigung": "Confirmation",
+  "Gib": "Enter",
+  "ein, um fortzufahren.": "to continue.",
   "Abbrechen": "Cancel",
   "Endgültig löschen": "Permanently delete",
   "Profil wird gespeichert …": "Saving profile …",
@@ -602,10 +609,12 @@ Object.assign(translations, {
   "Passwort wird aktualisiert …": "Updating password …",
   "Passwort wurde geändert.": "Password changed.",
   "Passwort konnte nicht geändert werden.": "The password could not be changed.",
+  "Die Passwörter stimmen nicht überein.": "The passwords do not match.",
   "Bitte gib LÖSCHEN vollständig ein.": "Please enter DELETE in full.",
   "Konto wird gelöscht …": "Deleting account …",
   "Konto konnte nicht gelöscht werden.": "The account could not be deleted.",
   "Profildaten konnten nicht geladen werden. Bitte versuche es später erneut.": "Profile data could not be loaded. Please try again later."
+  ,"Die Abo-Verwaltung wird mit dem Zahlungsanbieter verbunden.": "Subscription management will be connected to the payment provider."
   ,"Support / Problem melden": "Support / report a problem"
   ,"Sortieren": "Sort"
   ,"Analysen sortieren": "Sort analyses"
@@ -635,6 +644,15 @@ Object.assign(translations, {
   ,"Du hast eine Frage oder möchtest ein Problem melden? Schreibe direkt an den PointerScore-Support.": "Do you have a question or want to report a problem? Contact PointerScore support directly."
 });
 
+Object.assign(translations, {
+  "Analysen speichern & bearbeiten": "Save & edit analyses",
+  "Profil | PointerScore": "Profile | PointerScore",
+  "Diese Aktion kann nicht rückgängig gemacht werden. Gib": "This action cannot be undone. Enter",
+  "LÖSCHEN": "DELETE",
+  "ROE oder ROIC": "ROE or ROIC",
+  "Keine Anlageberatung.": "No investment advice."
+});
+
 const originalText = new WeakMap();
 const originalAttributes = new WeakMap();
 
@@ -662,7 +680,8 @@ Object.assign(translations, {
   "Analyse konnte nicht gelöscht werden.": "The analysis could not be deleted.",
   "Trage die Zahlen der letzten drei abgeschlossenen Vorjahre/Geschäftsjahre ein, in derselben Einheit.": "Enter the figures from the last three completed previous years/financial years, using the same unit.",
   "Umsatz aus den letzten drei abgeschlossenen Vorjahren/Geschäftsjahren. Jahr 1 ist das älteste Jahr, Jahr 3 das jüngste abgeschlossene Jahr.": "Revenue from the last three completed previous years/financial years. Year 1 is the oldest year, year 3 is the most recent completed year.",
-  "Nettoergebnis aus den letzten drei abgeschlossenen Vorjahren/Geschäftsjahren. Negative Werte werden konservativ bewertet.": "Net income from the last three completed previous years/financial years. Negative values are evaluated conservatively."
+  "Nettoergebnis aus den letzten drei abgeschlossenen Vorjahren/Geschäftsjahren. Negative Werte werden konservativ bewertet.": "Net income from the last three completed previous years/financial years. Negative values are evaluated conservatively.",
+  "PointerScore dient ausschließlich Bildungs- und Informationszwecken. Der Score ersetzt weder eigene Recherche noch eine persönliche Beratung.": "PointerScore is provided solely for educational and informational purposes. The score does not replace your own research or personal advice."
 });
 
 Object.assign(translations, {

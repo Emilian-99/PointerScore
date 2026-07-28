@@ -95,10 +95,27 @@ const REPORT_TEXT={
  }
 };
 
-const getReportLanguage=()=>document.documentElement.lang==="en"?"en":"de";
-const translateReportValue=value=>{
+const normalizeReportLanguage=value=>String(value||"").toLowerCase().startsWith("en")?"en":"de";
+const getReportLanguage=preferredLanguage=>normalizeReportLanguage(
+ preferredLanguage||
+ window.PointerScoreI18n?.language||
+ localStorage.getItem("pointerscore-language")||
+ document.documentElement.lang||
+ navigator.language
+);
+const safeReportFilePart=value=>String(value||"PointerScore")
+ .trim()
+ .replace(/[<>:"/\\|?*\x00-\x1F]/g,"-")
+ .replace(/\s+/g," ")
+ .slice(0,80)||"PointerScore";
+const getReportFileName=(result,language)=>{
+ const date=new Date().toISOString().slice(0,10);
+ const type=language==="en"?"Analysis":"Analyse";
+ return "PointerScore-"+type+"-"+safeReportFilePart(result.companyName)+"-"+date+".pdf";
+};
+const translateReportValue=(value,language)=>{
  const text=String(value??"");
- return window.PointerScoreI18n?.translate(text)??text;
+ return window.PointerScoreI18n?.translate(text,language)??text;
 };
 const formatReportPercent=(value,copy)=>value===null?copy.notMeaningful:new Intl.NumberFormat(copy.locale,{minimumFractionDigits:1,maximumFractionDigits:1}).format(value)+" %";
 
@@ -113,13 +130,18 @@ async function createReportLogo(){
  });
 }
 
-export async function createAnalysisReport(result){
- const language=getReportLanguage();
+export async function createAnalysisReport(result,options={}){
+ const language=getReportLanguage(options.language);
  const copy=REPORT_TEXT[language];
- const reportWindow=window.open("","_blank");
- if(!reportWindow)return false;
- reportWindow.document.write('<!doctype html><html lang="'+language+'"><head><meta charset="utf-8"><title>'+copy.preparingTitle+'</title><style>body{font-family:Arial,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0;color:#061b35;background:#edf7ff}div{text-align:center}span{display:block;width:48px;height:48px;margin:0 auto 18px;border:5px solid #dce7f0;border-top-color:#4b97ee;border-radius:50%;animation:s .8s linear infinite}@keyframes s{to{transform:rotate(360deg)}}</style></head><body><div><span></span><strong>'+copy.preparing+'</strong></div></body></html>');
- reportWindow.document.close();
+ const desktopPdfSaver=window.PointerScoreDesktop?.saveAnalysisPdf;
+ const useDesktopPdf=typeof desktopPdfSaver==="function";
+ let reportWindow=null;
+ if(!useDesktopPdf){
+  reportWindow=window.open("","_blank");
+  if(!reportWindow)return{ok:false,mode:"popup-blocked",language};
+  reportWindow.document.write('<!doctype html><html lang="'+language+'"><head><meta charset="utf-8"><title>'+copy.preparingTitle+'</title><style>body{font-family:Arial,sans-serif;display:grid;place-items:center;min-height:100vh;margin:0;color:#061b35;background:#edf7ff}div{text-align:center}span{display:block;width:48px;height:48px;margin:0 auto 18px;border:5px solid #dce7f0;border-top-color:#4b97ee;border-radius:50%;animation:s .8s linear infinite}@keyframes s{to{transform:rotate(360deg)}}</style></head><body><div><span></span><strong>'+copy.preparing+'</strong></div></body></html>');
+  reportWindow.document.close();
+ }
 
  const logo=await createReportLogo();
  const createdAt=new Intl.DateTimeFormat(copy.locale,{dateStyle:"long",timeStyle:"short"}).format(new Date());
@@ -130,9 +152,9 @@ export async function createAnalysisReport(result){
  const logoMarkup=logo?'<img src="'+logo+'" alt="PointerScore Logo">':'<span class="logo-fallback">PS</span>';
  const categories=result.categories.map(category=>{
   const width=Math.round(category.score/category.max*100);
-  return '<div class="category-row"><div class="category-line"><strong>'+escapeReportHtml(translateReportValue(category.label))+'</strong><span>'+category.score+' / '+category.max+'</span></div><div class="category-track"><i style="width:'+width+'%"></i></div></div>';
+  return '<div class="category-row"><div class="category-line"><strong>'+escapeReportHtml(translateReportValue(category.label,language))+'</strong><span>'+category.score+' / '+category.max+'</span></div><div class="category-track"><i style="width:'+width+'%"></i></div></div>';
  }).join("");
- const analysisList=(items,type)=>items.map(text=>'<li><b class="'+type+'">'+(type==="good"?"✓":"!")+'</b><span>'+escapeReportHtml(translateReportValue(text))+'</span></li>').join("");
+ const analysisList=(items,type)=>items.map(text=>'<li><b class="'+type+'">'+(type==="good"?"✓":"!")+'</b><span>'+escapeReportHtml(translateReportValue(text,language))+'</span></li>').join("");
  const metrics=[
   [copy.revenueGrowth12,formatReportPercent(result.metrics.revenueGrowth12,copy)],
   [copy.revenueGrowth23,formatReportPercent(result.metrics.revenueGrowth23,copy)],
@@ -158,9 +180,14 @@ export async function createAnalysisReport(result){
   '.note{margin-top:8mm;padding:5mm;border-left:1.2mm solid #4b97ee;border-radius:0 2.5mm 2.5mm 0;background:rgba(255,255,255,.68);color:#536b80;font-size:8pt;line-height:1.55}.note strong{color:#18324f}.footer{position:absolute;left:17mm;right:17mm;bottom:10mm;display:flex;justify-content:space-between;padding-top:3mm;border-top:1px solid rgba(107,139,166,.25);color:#72869a;font-size:7pt}',
   '@media screen{body{padding:20px}.page{margin:0 auto 20px;box-shadow:0 12px 40px rgba(20,58,91,.18)}}@media print{body{background:#fff;padding:0}.page{margin:0;box-shadow:none}}'
  ].join("");
- const pageOne='<section class="page"><header class="header"><div class="brand">'+logoMarkup+'<div><strong>PointerScore</strong><small>'+copy.structuredAnalysis+'</small></div></div><div class="meta"><b>'+copy.createdLabel+'</b>'+escapeReportHtml(createdAt)+'</div></header><div class="title"><p class="kicker">'+copy.analysisVersion+'</p><h1>'+copy.companyValuation+'</h1><p class="company">'+company+'</p></div><div class="score-panel"><svg class="score-svg" viewBox="0 0 120 120" role="img" aria-label="'+copy.totalScore+' '+result.total+' '+copy.outOf100.toLowerCase()+'"><circle cx="60" cy="60" r="54" fill="none" stroke="#dfe8ef" stroke-width="9"/><circle cx="60" cy="60" r="54" fill="none" stroke="'+signalColor+'" stroke-width="9" stroke-linecap="round" stroke-dasharray="'+dash+' '+circumference+'" transform="rotate(-90 60 60)"/><text x="60" y="58" text-anchor="middle" font-size="30" font-weight="800" fill="#061b35">'+result.total+'</text><text x="60" y="76" text-anchor="middle" font-size="10" font-weight="700" fill="#718599">'+copy.outOf100+'</text></svg><div class="score-summary"><h2>'+copy.totalScore+'</h2><span class="signal">'+escapeReportHtml(translateReportValue(result.signal.label))+'</span><p>'+escapeReportHtml(translateReportValue(result.signal.copy))+'</p></div></div><section class="section"><div class="section-head"><h2>'+copy.categoryTitle+'</h2><span>'+copy.maxPoints+'</span></div><div class="category-grid">'+categories+'</div></section><section class="section"><div class="section-head"><h2>'+copy.autoAnalysis+'</h2><span>'+copy.basedOnInput+'</span></div><div class="analysis"><div class="analysis-card"><h3>'+copy.strengths+'</h3><ul>'+analysisList(result.analysis.strengths,"good")+'</ul></div><div class="analysis-card"><h3>'+copy.potential+'</h3><ul>'+analysisList(result.analysis.potential,"warn")+'</ul></div></div></section><footer class="footer"><span>'+copy.noAdviceFooter+'</span><span>'+copy.pageOne+'</span></footer></section>';
+ const pageOne='<section class="page"><header class="header"><div class="brand">'+logoMarkup+'<div><strong>PointerScore</strong><small>'+copy.structuredAnalysis+'</small></div></div><div class="meta"><b>'+copy.createdLabel+'</b>'+escapeReportHtml(createdAt)+'</div></header><div class="title"><p class="kicker">'+copy.analysisVersion+'</p><h1>'+copy.companyValuation+'</h1><p class="company">'+company+'</p></div><div class="score-panel"><svg class="score-svg" viewBox="0 0 120 120" role="img" aria-label="'+copy.totalScore+' '+result.total+' '+copy.outOf100.toLowerCase()+'"><circle cx="60" cy="60" r="54" fill="none" stroke="#dfe8ef" stroke-width="9"/><circle cx="60" cy="60" r="54" fill="none" stroke="'+signalColor+'" stroke-width="9" stroke-linecap="round" stroke-dasharray="'+dash+' '+circumference+'" transform="rotate(-90 60 60)"/><text x="60" y="58" text-anchor="middle" font-size="30" font-weight="800" fill="#061b35">'+result.total+'</text><text x="60" y="76" text-anchor="middle" font-size="10" font-weight="700" fill="#718599">'+copy.outOf100+'</text></svg><div class="score-summary"><h2>'+copy.totalScore+'</h2><span class="signal">'+escapeReportHtml(translateReportValue(result.signal.label,language))+'</span><p>'+escapeReportHtml(translateReportValue(result.signal.copy,language))+'</p></div></div><section class="section"><div class="section-head"><h2>'+copy.categoryTitle+'</h2><span>'+copy.maxPoints+'</span></div><div class="category-grid">'+categories+'</div></section><section class="section"><div class="section-head"><h2>'+copy.autoAnalysis+'</h2><span>'+copy.basedOnInput+'</span></div><div class="analysis"><div class="analysis-card"><h3>'+copy.strengths+'</h3><ul>'+analysisList(result.analysis.strengths,"good")+'</ul></div><div class="analysis-card"><h3>'+copy.potential+'</h3><ul>'+analysisList(result.analysis.potential,"warn")+'</ul></div></div></section><footer class="footer"><span>'+copy.noAdviceFooter+'</span><span>'+copy.pageOne+'</span></footer></section>';
  const pageTwo='<section class="page"><header class="header"><div class="brand">'+logoMarkup+'<div><strong>PointerScore</strong><small>'+copy.detailEvaluation+'</small></div></div><div class="meta"><b>'+company+'</b>'+escapeReportHtml(createdAt)+'</div></header><div class="title"><p class="kicker">'+copy.calculatedMetrics+'</p><h1>'+copy.detailAnalysis+'</h1><p class="company">'+copy.basis+'</p></div><table class="report-table"><thead><tr><th>'+copy.metric+'</th><th>'+copy.result+'</th></tr></thead><tbody>'+metrics+'</tbody></table>'+personalNote+'<section class="section"><div class="section-head"><h2>'+copy.methodTitle+'</h2><span>'+copy.total100+'</span></div><div class="method-grid"><div class="method-item"><strong>25</strong><span>'+copy.future+'</span></div><div class="method-item"><strong>25</strong><span>'+copy.growth+'</span></div><div class="method-item"><strong>20</strong><span>'+copy.stability+'</span></div><div class="method-item"><strong>10</strong><span>'+copy.valuation+'</span></div><div class="method-item"><strong>20</strong><span>'+copy.quality+'</span></div></div></section><div class="note"><strong>'+copy.noteLabel+'</strong> '+copy.disclaimer+'</div><footer class="footer"><span>'+copy.reportFooter+'</span><span>'+copy.pageTwo+'</span></footer></section>';
- const reportHtml='<!doctype html><html lang="'+language+'"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PointerScore '+(language==="en"?"Analysis":"Analyse")+' - '+company+'</title><style>'+styles+'</style></head><body>'+pageOne+pageTwo+'<script>window.addEventListener("load",function(){setTimeout(function(){window.print()},500)})<\/script></body></html>';
+ const printScript=useDesktopPdf?"":'<script>window.addEventListener("load",function(){setTimeout(function(){window.print()},500)})<\/script>';
+ const reportHtml='<!doctype html><html lang="'+language+'"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PointerScore '+(language==="en"?"Analysis":"Analyse")+' - '+company+'</title><style>'+styles+'</style></head><body>'+pageOne+pageTwo+printScript+'</body></html>';
+ if(useDesktopPdf){
+  const saved=await desktopPdfSaver(reportHtml,getReportFileName(result,language));
+  return{ok:Boolean(saved?.ok),mode:"desktop",language,canceled:Boolean(saved?.canceled),filePath:saved?.filePath||"",error:saved?.error||""};
+ }
  reportWindow.document.open();reportWindow.document.write(reportHtml);reportWindow.document.close();
- return true;
+ return{ok:true,mode:"browser",language};
 }

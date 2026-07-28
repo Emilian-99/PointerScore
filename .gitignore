@@ -7,6 +7,7 @@ desktop/release*/
 desktop/installer*/
 desktop/portable*/
 desktop/store*/
+desktop/msix-delivery/
 *.zip
 .env
 .env.local

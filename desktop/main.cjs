@@ -1,4 +1,5 @@
-const { app, BrowserWindow, Menu, shell } = require("electron");
+const { app, BrowserWindow, Menu, shell, ipcMain, dialog } = require("electron");
+const fs = require("node:fs/promises");
 const path = require("node:path");
 
 const appUrl = process.env.POINTERSCORE_APP_URL || "https://pointerscore.com/dashboard.html";
@@ -66,6 +67,15 @@ function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+function sanitizePdfFileName(fileName) {
+  const normalized = String(fileName || "PointerScore-Analyse.pdf")
+    .replace(/[<>:"/\\|?*\x00-\x1F]/g, "-")
+    .replace(/\s+/g, " ")
+    .trim();
+  const safeName = normalized || "PointerScore-Analyse.pdf";
+  return safeName.toLowerCase().endsWith(".pdf") ? safeName : `${safeName}.pdf`;
+}
+
 function createBaseWindow(options = {}) {
   const iconPath = getIconPath();
   return new BrowserWindow({
@@ -88,8 +98,34 @@ function createBaseWindow(options = {}) {
   });
 }
 
+function createReportWindowOptions() {
+  return {
+    width: 980,
+    height: 760,
+    minWidth: 760,
+    minHeight: 560,
+    title: "PointerScore PDF",
+    icon: getIconPath(),
+    backgroundColor: "#edf7ff",
+    show: true,
+    autoHideMenuBar: true,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+      sandbox: true
+    }
+  };
+}
+
 function attachAppNavigation(window) {
   window.webContents.setWindowOpenHandler(({ url }) => {
+    if (url === "about:blank") {
+      return {
+        action: "allow",
+        overrideBrowserWindowOptions: createReportWindowOptions()
+      };
+    }
+
     const normalizedUrl = normalizeAppUrl(url);
     if (normalizedUrl) {
       window.loadURL(normalizedUrl);
@@ -118,6 +154,58 @@ function attachAppNavigation(window) {
     event.preventDefault();
   });
 }
+
+ipcMain.handle("pointerscore:save-analysis-pdf", async (event, payload = {}) => {
+  const reportHtml = String(payload.html || "");
+  if (!reportHtml.trim()) {
+    return { ok: false, error: "empty-report" };
+  }
+
+  const ownerWindow = BrowserWindow.fromWebContents(event.sender);
+  const defaultPath = sanitizePdfFileName(payload.fileName);
+  const pdfWindow = new BrowserWindow({
+    width: 980,
+    height: 760,
+    show: false,
+    title: "PointerScore PDF",
+    icon: getIconPath(),
+    backgroundColor: "#edf7ff",
+    autoHideMenuBar: true,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+      sandbox: true
+    }
+  });
+
+  try {
+    await pdfWindow.loadURL(`data:text/html;charset=utf-8,${encodeURIComponent(reportHtml)}`);
+    await wait(450);
+
+    const pdfBuffer = await pdfWindow.webContents.printToPDF({
+      printBackground: true,
+      pageSize: "A4",
+      margins: { marginType: "none" }
+    });
+
+    const result = await dialog.showSaveDialog(ownerWindow || undefined, {
+      title: "PointerScore PDF speichern",
+      defaultPath,
+      filters: [{ name: "PDF", extensions: ["pdf"] }]
+    });
+
+    if (result.canceled || !result.filePath) {
+      return { ok: false, canceled: true };
+    }
+
+    await fs.writeFile(result.filePath, pdfBuffer);
+    return { ok: true, filePath: result.filePath };
+  } catch (error) {
+    return { ok: false, error: String(error?.message || error) };
+  } finally {
+    if (!pdfWindow.isDestroyed()) pdfWindow.destroy();
+  }
+});
 
 async function waitForAppReady(window) {
   const startedAt = Date.now();
