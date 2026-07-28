@@ -1,5 +1,6 @@
 const { app, BrowserWindow, Menu, shell, ipcMain, dialog } = require("electron");
 const fs = require("node:fs/promises");
+const fsSync = require("node:fs");
 const path = require("node:path");
 
 const appUrl = process.env.POINTERSCORE_APP_URL || "https://pointerscore.com/dashboard.html";
@@ -8,14 +9,15 @@ const appId = "com.pointerscore.app";
 const splashDurationMs = 13100;
 const appPreRevealMs = 12700;
 const appRevealFadeMs = 2000;
-const splashVariants = [
-  { file: "splash-concept-fill.html", weight: 75 },
-  { file: "splash-concept.html", weight: 5 },
-  { file: "splash-concept-lightning.html", weight: 5 },
-  { file: "splash-concept-rain.html", weight: 5 },
-  { file: "splash-concept-click.html", weight: 5 },
-  { file: "splash-concept-breathe.html", weight: 5 }
+const classicSplashFile = "splash-concept-fill.html";
+const specialSplashFiles = [
+  "splash-concept.html",
+  "splash-concept-lightning.html",
+  "splash-concept-rain.html",
+  "splash-concept-click.html",
+  "splash-concept-breathe.html"
 ];
+const splashBagFileName = "splash-variant-bag.json";
 
 if (process.platform === "win32") {
   app.setAppUserModelId(appId);
@@ -51,16 +53,96 @@ function withDesktopAppMarker(targetUrl) {
   }
 }
 
-function selectSplashFile() {
-  const totalWeight = splashVariants.reduce((sum, variant) => sum + variant.weight, 0);
-  let random = Math.random() * totalWeight;
+function isSpecialSplashFile(file) {
+  return specialSplashFiles.includes(file);
+}
 
-  for (const variant of splashVariants) {
-    random -= variant.weight;
-    if (random <= 0) return variant.file;
+function shuffle(items) {
+  const shuffled = [...items];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
+  }
+  return shuffled;
+}
+
+function hasAdjacentSpecials(positions) {
+  const sorted = [...positions].sort((a, b) => a - b);
+  return sorted.some((position, index) => {
+    const next = sorted[(index + 1) % sorted.length];
+    const distance = (next - position + 20) % 20;
+    return distance === 1 || distance === 19;
+  });
+}
+
+function createSplashBag(lastFile = "") {
+  let specialPositions = [];
+  for (let attempt = 0; attempt < 160; attempt += 1) {
+    const positions = shuffle([...Array(20).keys()]).slice(0, specialSplashFiles.length);
+    if (!hasAdjacentSpecials(positions)) {
+      specialPositions = positions;
+      break;
+    }
   }
 
-  return splashVariants[0].file;
+  if (specialPositions.length === 0) specialPositions = [1, 5, 9, 13, 17];
+
+  const bag = Array(20).fill(classicSplashFile);
+  const specials = shuffle(specialSplashFiles);
+  specialPositions.forEach((position, index) => {
+    bag[position] = specials[index];
+  });
+
+  if (isSpecialSplashFile(lastFile) && isSpecialSplashFile(bag[0])) {
+    const swapIndex = bag.findIndex((file) => file === classicSplashFile);
+    if (swapIndex > 0) [bag[0], bag[swapIndex]] = [bag[swapIndex], bag[0]];
+  }
+
+  return bag;
+}
+
+function splashStatePath() {
+  return path.join(app.getPath("userData"), splashBagFileName);
+}
+
+function readSplashState() {
+  try {
+    const state = JSON.parse(fsSync.readFileSync(splashStatePath(), "utf8"));
+    const validFiles = new Set([classicSplashFile, ...specialSplashFiles]);
+    return {
+      bag: Array.isArray(state.bag) ? state.bag.filter((file) => validFiles.has(file)) : [],
+      lastFile: validFiles.has(state.lastFile) ? state.lastFile : ""
+    };
+  } catch {
+    return { bag: [], lastFile: "" };
+  }
+}
+
+function writeSplashState(state) {
+  try {
+    fsSync.mkdirSync(path.dirname(splashStatePath()), { recursive: true });
+    fsSync.writeFileSync(splashStatePath(), JSON.stringify(state), "utf8");
+  } catch {
+    // The animation can still start with the default variant if persistence fails.
+  }
+}
+
+function selectSplashFile() {
+  const state = readSplashState();
+  let bag = state.bag.length ? state.bag : createSplashBag(state.lastFile);
+  let selected = bag.shift() || classicSplashFile;
+
+  if (isSpecialSplashFile(state.lastFile) && isSpecialSplashFile(selected)) {
+    const classicIndex = bag.findIndex((file) => file === classicSplashFile);
+    if (classicIndex >= 0) {
+      bag.splice(classicIndex, 1);
+      bag.unshift(selected);
+      selected = classicSplashFile;
+    }
+  }
+
+  writeSplashState({ bag, lastFile: selected });
+  return selected;
 }
 
 function wait(ms) {
