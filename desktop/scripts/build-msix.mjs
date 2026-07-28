@@ -61,6 +61,35 @@ function findGeneratedAppx() {
   return files[0];
 }
 
+function patchStoreManifest(layoutDir) {
+  const manifestPath = path.join(layoutDir, "AppxManifest.xml");
+  ensureFile(manifestPath, "AppxManifest.xml");
+
+  let manifest = fs.readFileSync(manifestPath, "utf8");
+
+  manifest = manifest.replace(
+    /<PublisherDisplayName>[\s\S]*?<\/PublisherDisplayName>/,
+    "<PublisherDisplayName>PointerScore</PublisherDisplayName>"
+  );
+
+  manifest = manifest.replace(
+    /<Resources>[\s\S]*?<\/Resources>/,
+    [
+      "<Resources>",
+      '    <Resource Language="de-DE" />',
+      '    <Resource Language="en-US" />',
+      "  </Resources>"
+    ].join("\n")
+  );
+
+  manifest = manifest.replace(
+    /<TargetDeviceFamily Name="Windows\.Desktop" MinVersion="[^"]+" MaxVersionTested="[^"]+"\s*\/>/,
+    '<TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.22621.0" />'
+  );
+
+  fs.writeFileSync(manifestPath, manifest, "utf8");
+}
+
 function packageMsix(appxPath) {
   ensureFile(sevenZip, "7-Zip");
   ensureFile(makeAppx, "makeappx.exe");
@@ -77,6 +106,7 @@ function packageMsix(appxPath) {
   fs.rmSync(uploadPath, { force: true });
 
   run(sevenZip, ["x", "-y", appxPath, `-o${layoutDir}`]);
+  patchStoreManifest(layoutDir);
   run(makeAppx, ["pack", "/d", layoutDir, "/p", msixPath, "/o"]);
   run(sevenZip, ["a", "-tzip", uploadPath, path.basename(msixPath)], { cwd: outputDir });
   fs.rmSync(layoutDir, { recursive: true, force: true });
