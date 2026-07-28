@@ -27,15 +27,9 @@ function setStatus(selector, message = "", type = "") {
   element.hidden = !message;
 }
 
-function initials(name, email) {
-  const source = String(name || email?.split("@")[0] || "PS").trim();
-  return source.split(/[\s._-]+/).filter(Boolean).slice(0, 2).map((part) => part[0]?.toUpperCase()).join("") || "PS";
-}
-
-function renderAvatar(url, name) {
+function renderAvatar(url) {
   const image = document.querySelector("[data-avatar-image]");
-  const fallback = document.querySelector("[data-avatar-initials]");
-  fallback.textContent = initials(name, user.email);
+  const fallback = document.querySelector("[data-avatar-placeholder]");
   image.hidden = !url;
   fallback.hidden = Boolean(url);
   if (url) image.src = url;
@@ -46,7 +40,7 @@ function renderProfile(profile) {
   profileForm.elements.displayName.value = profile?.display_name || user.user_metadata?.full_name || "";
   profileForm.elements.username.value = profile?.username || "";
   profileForm.elements.email.value = user.email || "";
-  renderAvatar(profile?.avatar_url, profileForm.elements.displayName.value);
+  renderAvatar(profile?.avatar_url);
   document.querySelector("[data-member-since]").textContent = formatDate(user.created_at);
   document.querySelector("[data-last-sign-in]").textContent = formatDate(user.last_sign_in_at, true);
   document.querySelector("[data-account-id]").textContent = user.id;
@@ -112,7 +106,7 @@ profileForm.addEventListener("submit", async (event) => {
       await supabase.auth.updateUser({ data: { full_name: displayName, username, avatar_url: data.avatar_url } });
       currentProfile = data;
     } else currentProfile = next;
-    renderAvatar(currentProfile.avatar_url, displayName);
+    renderAvatar(currentProfile.avatar_url);
     setStatus("[data-profile-form-status]", t("Profil gespeichert."), "success");
   } catch (error) {
     setStatus("[data-profile-form-status]", error?.code === "23505" ? t("Dieser Benutzername ist bereits vergeben.") : t("Profil konnte nicht gespeichert werden."), "error");
@@ -126,7 +120,7 @@ avatarInput.addEventListener("change", async () => {
   setStatus("[data-profile-status]", t("Profilbild wird hochgeladen …"));
   try {
     if (isLocalPreview) {
-      renderAvatar(URL.createObjectURL(file), profileForm.elements.displayName.value);
+      renderAvatar(URL.createObjectURL(file));
     } else {
       const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
       const path = `${user.id}/avatar.${extension}`;
@@ -138,7 +132,7 @@ avatarInput.addEventListener("change", async () => {
       if (error) throw error;
       currentProfile = saved;
       await supabase.auth.updateUser({ data: { avatar_url: avatarUrl } });
-      renderAvatar(avatarUrl, profileForm.elements.displayName.value);
+      renderAvatar(avatarUrl);
     }
     setStatus("[data-profile-status]", t("Profilbild aktualisiert."), "success");
   } catch (error) { setStatus("[data-profile-status]", t("Profilbild konnte nicht hochgeladen werden."), "error"); }

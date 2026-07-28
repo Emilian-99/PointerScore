@@ -39,7 +39,15 @@
           <section class="profile-card profile-identity-card" aria-labelledby="profile-heading">
             <div class="profile-card-heading"><div><p class="eyebrow">Persönliche Angaben</p><h2 id="profile-heading">Profil</h2></div><span class="profile-card-badge">PointerScore</span></div>
             <div class="profile-avatar-row">
-              <div class="profile-avatar" data-avatar><span data-avatar-initials>PS</span><img data-avatar-image alt="Profilbild" hidden></div>
+              <div class="profile-avatar" data-avatar>
+                <span class="profile-avatar-placeholder" data-avatar-placeholder aria-hidden="true">
+                  <svg viewBox="0 0 64 64" focusable="false">
+                    <circle cx="32" cy="22" r="13"></circle>
+                    <path d="M10 57c2.8-14 11.5-22 22-22s19.2 8 22 22"></path>
+                  </svg>
+                </span>
+                <img data-avatar-image alt="Profilbild" hidden>
+              </div>
               <div><strong>Profilbild</strong><p>PNG, JPG oder WebP · maximal 2 MB</p><label class="profile-upload-button"><input type="file" accept="image/png,image/jpeg,image/webp" data-avatar-input><span>Bild auswählen</span></label></div>
             </div>
             <form class="profile-form" data-profile-form>
