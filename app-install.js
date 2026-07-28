@@ -8,7 +8,9 @@
   const dialog = document.querySelector("[data-install-dialog]");
 
   function isDesktopApp() {
-    return window.PointerScoreDesktop?.isDesktopApp === true;
+    return window.PointerScoreDesktop?.isDesktopApp === true
+      || new URLSearchParams(window.location.search).get("desktopApp") === "1"
+      || navigator.userAgent.includes("PointerScoreDesktop");
   }
 
   function isMobileView() {
@@ -24,6 +26,12 @@
   function closeDialog() {
     if (!dialog) return;
     if (dialog.open) dialog.close();
+  }
+
+  if (isDesktopApp()) {
+    updateInstallButtons();
+    closeDialog();
+    return;
   }
 
   if (forceInstallPrompt) localStorage.removeItem(dismissedKey);

@@ -31,7 +31,7 @@ body::after {
   background: #000;
   opacity: 0;
   pointer-events: none;
-  animation: desktopSplashBlackout 12.65s cubic-bezier(.22, .8, .25, 1) forwards;
+  animation: desktopSplashBlackout 13.1s cubic-bezier(.22, .8, .25, 1) forwards;
 }
 
 .splash-shell {
@@ -44,7 +44,7 @@ body::after {
   padding: 32px;
   opacity: 1;
   transform: scale(1);
-  animation: desktopSplashContent 12.65s cubic-bezier(.22, .8, .25, 1) forwards;
+  animation: desktopSplashContent 13.1s cubic-bezier(.22, .8, .25, 1) forwards;
 }
 
 .splash-card {
@@ -183,21 +183,21 @@ body::after {
 }
 
 @keyframes desktopSplashContent {
-  0%, 84.2% {
+  0%, 81.3% {
     opacity: 1;
     transform: scale(1);
   }
-  100% {
+  96.6%, 100% {
     opacity: 0;
     transform: scale(.997);
   }
 }
 
 @keyframes desktopSplashBlackout {
-  0%, 84.2% {
+  0%, 81.3% {
     opacity: 0;
   }
-  100% {
+  96.6%, 100% {
     opacity: 1;
   }
 }

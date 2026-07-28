@@ -2,6 +2,7 @@ node_modules/
 .pnpm-store/
 dist/
 desktop/node_modules/
+desktop/.electron-builder-cache/
 desktop/release*/
 desktop/installer*/
 desktop/portable*/

@@ -1,6 +1,6 @@
 {
   "name": "pointerscore-desktop",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "private": true,
   "description": "PointerScore desktop app shell",
   "author": "Emilian Pohle",
@@ -41,6 +41,7 @@
         "to": "icon.ico"
       }
     ],
+    "afterPack": "after-pack.cjs",
     "win": {
       "target": "nsis",
       "icon": "icon.ico",
@@ -51,6 +52,9 @@
       "oneClick": false,
       "perMachine": false,
       "allowToChangeInstallationDirectory": true,
+      "installerIcon": "icon.ico",
+      "uninstallerIcon": "icon.ico",
+      "installerHeaderIcon": "icon.ico",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "PointerScore"

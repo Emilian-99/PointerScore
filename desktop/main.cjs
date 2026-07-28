@@ -4,8 +4,9 @@ const path = require("node:path");
 const appUrl = process.env.POINTERSCORE_APP_URL || "https://pointerscore.com/dashboard.html";
 const allowedHosts = new Set(["pointerscore.com", "www.pointerscore.com"]);
 const appId = "com.pointerscore.app";
-const splashDurationMs = 12650;
-const appRevealFadeMs = 680;
+const splashDurationMs = 13100;
+const appPreRevealMs = 12700;
+const appRevealFadeMs = 2000;
 const splashVariants = [
   { file: "splash-concept-fill.html", weight: 50 },
   { file: "splash-concept.html", weight: 10 },
@@ -31,11 +32,21 @@ function normalizeAppUrl(targetUrl) {
     if (!allowedHosts.has(url.hostname)) return null;
 
     const pathName = url.pathname.replace(/\/+$/, "") || "/";
-    if (pathName === "/" || pathName === "/index.html") return appUrl;
+    if (pathName === "/" || pathName === "/index.html") return withDesktopAppMarker(appUrl);
 
-    return targetUrl;
+    return withDesktopAppMarker(targetUrl);
   } catch {
     return null;
+  }
+}
+
+function withDesktopAppMarker(targetUrl) {
+  try {
+    const url = new URL(targetUrl);
+    url.searchParams.set("desktopApp", "1");
+    return url.toString();
+  } catch {
+    return targetUrl;
   }
 }
 
@@ -159,8 +170,12 @@ async function prepareAppReveal(window) {
 
 async function revealAppWindow(appWindow, splashWindow) {
   await prepareAppReveal(appWindow);
-  if (!appWindow.isDestroyed()) appWindow.show();
-  if (!splashWindow.isDestroyed()) splashWindow.close();
+  if (!appWindow.isDestroyed() && !appWindow.isVisible()) appWindow.show();
+  if (!splashWindow.isDestroyed()) {
+    splashWindow.setAlwaysOnTop(false);
+    splashWindow.close();
+  }
+  if (!appWindow.isDestroyed()) appWindow.focus();
 
   setTimeout(() => {
     if (appWindow.isDestroyed()) return;
@@ -177,11 +192,22 @@ async function revealAppWindow(appWindow, splashWindow) {
   }, 70);
 }
 
+async function showAppBehindSplash(appWindow, splashWindow) {
+  await prepareAppReveal(appWindow);
+  if (!splashWindow.isDestroyed()) splashWindow.setAlwaysOnTop(true);
+  if (!appWindow.isDestroyed() && !appWindow.isVisible()) {
+    if (typeof appWindow.showInactive === "function") appWindow.showInactive();
+    else appWindow.show();
+  }
+  if (!splashWindow.isDestroyed()) splashWindow.focus();
+}
+
 function createWindow() {
   const splashWindow = createBaseWindow({ backgroundColor: "#000000" });
   const appWindow = createBaseWindow({ backgroundColor: "#000000" });
 
   attachAppNavigation(appWindow);
+  appWindow.webContents.setUserAgent(`${appWindow.webContents.getUserAgent()} PointerScoreDesktop/1.0`);
 
   splashWindow.once("ready-to-show", () => {
     if (!splashWindow.isDestroyed()) splashWindow.show();
@@ -192,11 +218,17 @@ function createWindow() {
   });
 
   splashWindow.loadFile(path.join(__dirname, selectSplashFile()));
-  appWindow.loadURL(appUrl);
+  appWindow.loadURL(withDesktopAppMarker(appUrl));
+  const appReady = waitForAppReady(appWindow);
+
+  Promise.all([
+    wait(appPreRevealMs),
+    appReady
+  ]).then(() => showAppBehindSplash(appWindow, splashWindow));
 
   Promise.all([
     wait(splashDurationMs),
-    waitForAppReady(appWindow)
+    appReady
   ]).then(() => revealAppWindow(appWindow, splashWindow));
 }
 
