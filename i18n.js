@@ -758,7 +758,6 @@ Object.assign(translations, {
   "Kein passendes Thema gefunden.": "No matching topic found.",
   "Versuche einen allgemeineren Suchbegriff.": "Try a broader search term.",
   "Zum Dashboard": "Go to dashboard",
-  "Willkommens-Tour starten": "Start welcome tour",
   "23 Themen": "23 topics",
   "Umsatz der letzten drei Geschäftsjahre.": "Revenue for the last three financial years.",
   "Hauptnavigation": "Main navigation"

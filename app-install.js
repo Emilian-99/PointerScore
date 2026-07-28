@@ -41,10 +41,6 @@
     if (isDesktopApp()) return;
     if (isMobileView()) return;
     if (!force && localStorage.getItem(dismissedKey) === "1") return;
-    if (document.body.classList.contains("onboarding-tour-open")) {
-      queueDashboardInstallPopup(force);
-      return;
-    }
     if (dialog.open) return;
     if (typeof dialog.showModal === "function") dialog.showModal();
   }
@@ -52,10 +48,6 @@
   function queueDashboardInstallPopup(force = false) {
     if (isDesktopApp()) return;
     window.clearTimeout(popupTimer);
-    if (document.body.classList.contains("onboarding-tour-open")) {
-      window.addEventListener("pointerscore:onboarding-complete", () => queueDashboardInstallPopup(force), { once: true });
-      return;
-    }
     popupTimer = window.setTimeout(() => showDashboardInstallPopup(force), popupDelay);
   }
 

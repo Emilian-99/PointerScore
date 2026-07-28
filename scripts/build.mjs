@@ -27,7 +27,6 @@ const sourceEntries = [
   "auth-view.js",
   "auth-page.js",
   "dashboard.js",
-  "onboarding-tour.js",
   "profile.js",
   "compare.js",
   "help.js",
