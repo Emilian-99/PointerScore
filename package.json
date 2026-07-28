@@ -1,6 +1,6 @@
 {
   "name": "pointerscore-website",
-  "version": "1.0.0",
+  "version": "1.0.6",
   "private": true,
   "type": "module",
   "description": "PointerScore website with Supabase authentication and protected calculator",

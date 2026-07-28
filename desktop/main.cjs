@@ -1,4 +1,4 @@
-const { app, BrowserWindow, shell } = require("electron");
+const { app, BrowserWindow, Menu, shell } = require("electron");
 const path = require("node:path");
 
 const appUrl = process.env.POINTERSCORE_APP_URL || "https://pointerscore.com/dashboard.html";
@@ -233,6 +233,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+  Menu.setApplicationMenu(null);
   createWindow();
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
