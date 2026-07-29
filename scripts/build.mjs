@@ -1,4 +1,4 @@
-import { mkdir, readFile, readdir, stat, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, rm, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import "./generate-config.mjs";
@@ -19,7 +19,6 @@ const sourceEntries = [
   "style.css",
   "script.js",
   "i18n.js",
-  "app-install.js",
   "legal-pages.js",
   "runtime-config.js",
   "auth-client.js",
@@ -36,7 +35,6 @@ const sourceEntries = [
   "demo-calculator.js",
   "demo-company-data.js",
   "assets",
-  "downloads",
   "pages",
   "CNAME"
 ];
@@ -55,6 +53,7 @@ async function copyEntry(source, destination) {
   await writeFile(destination, await readFile(source));
 }
 
+await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
 
 for (const entry of sourceEntries) {

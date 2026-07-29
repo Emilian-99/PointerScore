@@ -132,6 +132,7 @@ input,select{transition:border-color .2s ease,box-shadow .2s ease,background-col
   .brand-logo{width:42px;height:42px;border-radius:8px;box-shadow:none}
   .app-header-actions{gap:6px}
   .app-header-actions>a{padding:10px 13px;border-radius:8px;color:#5f7186;font-size:.95rem;font-weight:600;transition:color .18s ease,background .18s ease}
+  .app-header-actions>a + a{margin-left:-13px}
   .app-header-actions>a:hover{color:#175a9e;background:rgba(47,130,232,.09)}
   .app-header-actions>a{position:relative}
   .app-header-actions>a::after{content:"";position:absolute;right:13px;bottom:7px;left:13px;height:2px;border-radius:999px;background:#2f82e8;transform:scaleX(0);transform-origin:left;transition:transform 220ms ease}
