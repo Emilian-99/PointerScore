@@ -17,6 +17,7 @@ const specialSplashFiles = [
   "splash-concept-click.html",
   "splash-concept-breathe.html"
 ];
+const specialSplashChance = 0.25;
 const splashBagFileName = "splash-variant-bag.json";
 
 if (process.platform === "win32") {
@@ -66,39 +67,12 @@ function shuffle(items) {
   return shuffled;
 }
 
-function hasAdjacentSpecials(positions) {
-  const sorted = [...positions].sort((a, b) => a - b);
-  return sorted.some((position, index) => {
-    const next = sorted[(index + 1) % sorted.length];
-    const distance = (next - position + 20) % 20;
-    return distance === 1 || distance === 19;
-  });
-}
-
-function createSplashBag(lastFile = "") {
-  let specialPositions = [];
-  for (let attempt = 0; attempt < 160; attempt += 1) {
-    const positions = shuffle([...Array(20).keys()]).slice(0, specialSplashFiles.length);
-    if (!hasAdjacentSpecials(positions)) {
-      specialPositions = positions;
-      break;
-    }
+function createSpecialSplashQueue(lastFile = "") {
+  const queue = shuffle(specialSplashFiles);
+  if (queue.length > 1 && queue[0] === lastFile) {
+    [queue[0], queue[1]] = [queue[1], queue[0]];
   }
-
-  if (specialPositions.length === 0) specialPositions = [1, 5, 9, 13, 17];
-
-  const bag = Array(20).fill(classicSplashFile);
-  const specials = shuffle(specialSplashFiles);
-  specialPositions.forEach((position, index) => {
-    bag[position] = specials[index];
-  });
-
-  if (isSpecialSplashFile(lastFile) && isSpecialSplashFile(bag[0])) {
-    const swapIndex = bag.findIndex((file) => file === classicSplashFile);
-    if (swapIndex > 0) [bag[0], bag[swapIndex]] = [bag[swapIndex], bag[0]];
-  }
-
-  return bag;
+  return queue;
 }
 
 function splashStatePath() {
@@ -110,11 +84,13 @@ function readSplashState() {
     const state = JSON.parse(fsSync.readFileSync(splashStatePath(), "utf8"));
     const validFiles = new Set([classicSplashFile, ...specialSplashFiles]);
     return {
-      bag: Array.isArray(state.bag) ? state.bag.filter((file) => validFiles.has(file)) : [],
+      specialQueue: Array.isArray(state.specialQueue)
+        ? state.specialQueue.filter((file) => specialSplashFiles.includes(file))
+        : [],
       lastFile: validFiles.has(state.lastFile) ? state.lastFile : ""
     };
   } catch {
-    return { bag: [], lastFile: "" };
+    return { specialQueue: [], lastFile: "" };
   }
 }
 
@@ -129,19 +105,17 @@ function writeSplashState(state) {
 
 function selectSplashFile() {
   const state = readSplashState();
-  let bag = state.bag.length ? state.bag : createSplashBag(state.lastFile);
-  let selected = bag.shift() || classicSplashFile;
-
-  if (isSpecialSplashFile(state.lastFile) && isSpecialSplashFile(selected)) {
-    const classicIndex = bag.findIndex((file) => file === classicSplashFile);
-    if (classicIndex >= 0) {
-      bag.splice(classicIndex, 1);
-      bag.unshift(selected);
-      selected = classicSplashFile;
-    }
+  if (Math.random() >= specialSplashChance) {
+    writeSplashState({ specialQueue: state.specialQueue, lastFile: classicSplashFile });
+    return classicSplashFile;
   }
 
-  writeSplashState({ bag, lastFile: selected });
+  const specialQueue = state.specialQueue.length
+    ? state.specialQueue
+    : createSpecialSplashQueue(state.lastFile);
+  const selected = specialQueue.shift() || classicSplashFile;
+
+  writeSplashState({ specialQueue, lastFile: selected });
   return selected;
 }
 

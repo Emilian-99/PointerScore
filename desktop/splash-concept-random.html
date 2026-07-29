@@ -5,29 +5,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PointerScore Ladeanimation Random</title>
   <script>
-    const variants = [
-      { url: "./splash-concept-fill.html", weight: 50 },
-      { url: "./splash-concept.html", weight: 10 },
-      { url: "./splash-concept-lightning.html", weight: 10 },
-      { url: "./splash-concept-rain.html", weight: 10 },
-      { url: "./splash-concept-click.html", weight: 10 },
-      { url: "./splash-concept-breathe.html", weight: 10 }
+    const classicVariant = "./splash-concept-fill.html";
+    const specialVariants = [
+      "./splash-concept.html",
+      "./splash-concept-lightning.html",
+      "./splash-concept-rain.html",
+      "./splash-concept-click.html",
+      "./splash-concept-breathe.html"
     ];
+    const specialChance = 0.25;
+    const stateKey = "pointerscore:splash-special-queue";
 
-    const total = variants.reduce((sum, variant) => sum + variant.weight, 0);
-    let random = Math.random() * total;
-    let selected = variants[0];
+    function shuffle(items) {
+      const shuffled = [...items];
+      for (let index = shuffled.length - 1; index > 0; index -= 1) {
+        const randomIndex = Math.floor(Math.random() * (index + 1));
+        [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
+      }
+      return shuffled;
+    }
 
-    for (const variant of variants) {
-      random -= variant.weight;
-      if (random <= 0) {
-        selected = variant;
-        break;
+    function readState() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(stateKey) || "{}");
+        return {
+          queue: Array.isArray(parsed.queue)
+            ? parsed.queue.filter((url) => specialVariants.includes(url))
+            : [],
+          last: specialVariants.includes(parsed.last) || parsed.last === classicVariant ? parsed.last : ""
+        };
+      } catch {
+        return { queue: [], last: "" };
       }
     }
 
+    function writeState(state) {
+      try {
+        localStorage.setItem(stateKey, JSON.stringify(state));
+      } catch {
+        // Die Vorschau funktioniert auch ohne gespeicherte Reihenfolge.
+      }
+    }
+
+    function createQueue(last) {
+      const queue = shuffle(specialVariants);
+      if (queue.length > 1 && queue[0] === last) {
+        [queue[0], queue[1]] = [queue[1], queue[0]];
+      }
+      return queue;
+    }
+
+    const state = readState();
+    let selected = classicVariant;
+    let queue = state.queue;
+
+    if (Math.random() < specialChance) {
+      queue = queue.length ? queue : createQueue(state.last);
+      selected = queue.shift() || classicVariant;
+    }
+
+    writeState({ queue, last: selected });
+
     const cacheBuster = Date.now().toString(36);
-    window.location.replace(`${selected.url}?random=1&v=${cacheBuster}`);
+    window.location.replace(`${selected}?random=1&v=${cacheBuster}`);
   </script>
 </head>
 <body>
