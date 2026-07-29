@@ -20,14 +20,14 @@ const LEGAL_TRANSLATIONS = {
     title: "Terms and Conditions",
     description: "Terms and Conditions for PointerScore.",
     sections: [
-      ["1. Scope", "These Terms and Conditions apply to the use of pointerscore.com, user registration and the paid PointerScore subscription. The service is intended for adults. These terms apply to consumers and businesses unless a provision expressly states otherwise."],
+      ["1. Scope", "These Terms and Conditions apply to the use of pointerscore.com, user registration and the current free PointerScore functions. The service is intended for adults. These terms apply to consumers and businesses unless a provision expressly states otherwise."],
       ["2. Provider and contracting party", "Provider and contracting party is Emilian Pohle, trading under PointerScore, Allensteiner Straße 1, 38642 Goslar, Germany. Email: pointerscore@outlook.com. PointerScore is currently a business name of the sole proprietorship of Emilian Pohle."],
       ["3. Description of PointerScore", "PointerScore is a digital platform for structured company analysis using its own scoring system. It may provide metrics, scoring rules, inputs, calculations, evaluations and protected account functions. PointerScore is not investment, financial, tax or legal advice."],
-      ["4. Subscription scope", "The paid subscription gives users access to the digital functions activated in their account. This may include scoring functions, input and processing of company metrics, score calculations, evaluations, protected account areas and further functions provided by PointerScore. Future functions are not guaranteed and the platform may be developed further."],
-      ["5. Registration and user account", "A user account is required for the subscription. Users must provide accurate information, keep login details confidential and protect them from third-party access. Each account is intended for one person only."],
-      ["6. Contract conclusion", "The subscription presentation on the website is not a legally binding offer but an invitation to order. A contract is concluded once payment has been processed successfully and access is activated. The final order button should clearly indicate that a paid order is being placed."],
-      ["7. Prices and payment", "The price shown during the order process applies. The current price is €7.99 per month. Payment is made in advance for the relevant billing period. Payments may be processed by an external payment provider."],
-      ["8. Term and cancellation", "The PointerScore subscription runs for an indefinite period and can be cancelled monthly. Cancellation takes effect at the end of the already paid billing period. Statutory rights remain unaffected."],
+      ["4. Scope of the free access", "PointerScore currently provides the activated digital functions free of charge. This may include scoring functions, input and processing of company metrics, score calculations, evaluations, protected account areas and further functions provided by PointerScore. Future functions are not guaranteed and the platform may be developed further."],
+      ["5. Registration and user account", "A user account may be required for protected functions. Users must provide accurate information, keep login details confidential and protect them from third-party access. Each account is intended for one person only."],
+      ["6. Registration and access activation", "The presentation of the free PointerScore functions on the website does not trigger payment. Access is activated after successful registration and login, subject to technical availability and any necessary account confirmation."],
+      ["7. Prices and future paid extensions", "The current PointerScore functions are offered free of charge. Roki may later be available as an optional paid extension. Any future paid extension will be displayed separately with its own price and terms before purchase."],
+      ["8. Duration of access", "The free PointerScore access is provided for an indefinite period, subject to technical availability, lawful use and possible future changes to the platform."],
       ["9. Right of withdrawal for consumers", "Consumers generally have a statutory right of withdrawal. Details are set out in the separate withdrawal instructions. The withdrawal period is generally fourteen days."],
       ["10. No investment advice", "PointerScore provides information, education and structured analysis only. It is not investment advice, a recommendation to buy, sell or hold securities, or a substitute for personal responsibility and independent research."],
       ["11. No guarantee of returns or success", "PointerScore does not guarantee profits, returns, price developments, successful investments or specific results. Investments can lead to losses, including total loss."],
@@ -37,9 +37,9 @@ const LEGAL_TRANSLATIONS = {
       ["15. Copyright, trademarks and rights of use", "All content, designs, texts, graphics, logos, calculations and software components are protected by intellectual property rights. Users receive only a limited, personal right to use the service."],
       ["16. Availability and technical changes", "PointerScore strives for stable availability but cannot guarantee uninterrupted operation. Maintenance, updates, technical problems or external service interruptions may temporarily affect availability."],
       ["17. External services and infrastructure", "PointerScore may use external technical service providers for hosting, authentication, email delivery, payment processing or similar functions. Details on personal data processing are provided in the privacy policy."],
-      ["18. Free content and handbook", "Free content such as handbooks may be made available independently of the paid subscription. Such content can be changed or removed."],
+      ["18. Free content and handbook", "Free content such as handbooks may be made available as part of PointerScore. Such content can be changed or removed."],
       ["19. Beta functions and further development", "New functions may be tested or provided as beta features. They may be incomplete, changed or discontinued."],
-      ["20. Account suspension", "PointerScore may restrict or suspend accounts in cases of misuse, security risks, payment default or serious breaches of these terms."],
+      ["20. Account suspension", "PointerScore may restrict or suspend accounts in cases of misuse, security risks or serious breaches of these terms."],
       ["21. Liability", "PointerScore is liable according to statutory provisions for intent, gross negligence, injury to life, body or health and mandatory legal liability. For simple negligence, liability may be limited to foreseeable typical damages where legally permitted."],
       ["22. Privacy", "Information about the processing of personal data can be found in the privacy policy."],
       ["23. Changes to these terms", "PointerScore may update these terms where necessary, especially for legal, technical or functional changes. Users will be informed appropriately."],
@@ -57,7 +57,7 @@ const LEGAL_TRANSLATIONS = {
       ["4. Start of service before the end of the withdrawal period", "If you expressly request that the service begins before the withdrawal period has expired, you may owe reasonable compensation for the services already provided up to the time of withdrawal, where legally permitted."],
       ["5. No shipment of goods", "PointerScore provides digital services. No physical goods are shipped."],
       ["6. Notice for businesses", "Business customers do not have a statutory consumer right of withdrawal."],
-      ["Checkout notes", "The checkout should clearly display the price, subscription period, cancellation option, legal links and the consequences of starting the service before the withdrawal period ends."]
+      ["Access notes", "PointerScore is currently free. If optional paid extensions are introduced later, the order process should clearly display the price, period, legal links and the consequences of starting the service before the withdrawal period ends."]
     ]
   },
   widerrufsformular: {
@@ -66,7 +66,7 @@ const LEGAL_TRANSLATIONS = {
     sections: [
       ["Instructions for use", "If you want to withdraw from the contract, you may use this form and send it to us. Use of this form is not mandatory."],
       ["To", "Emilian Pohle, PointerScore, Allensteiner Straße 1, 38642 Goslar, Germany. Email: pointerscore@outlook.com"],
-      ["Withdrawal declaration", "I/we hereby withdraw from the contract concluded by me/us for the provision of the PointerScore subscription."],
+      ["Withdrawal declaration", "I/we hereby withdraw from the contract concluded by me/us for the provision of the selected PointerScore service."],
       ["Ordered on", "________________________________________"],
       ["Name of consumer", "________________________________________"],
       ["Email address of the PointerScore user account", "________________________________________"],
@@ -109,17 +109,12 @@ const LEGAL_TRANSLATIONS = {
   },
   kuendigung: {
     title: "Cancel Subscription",
-    description: "Information on cancelling the PointerScore subscription.",
+    description: "Information on ending or managing future paid PointerScore extensions.",
     sections: [
-      ["1. Cancelling the PointerScore subscription", "The PointerScore subscription can be cancelled monthly. Cancellation takes effect at the end of the already paid billing period."],
-      ["2. Cancellation through the user account", "If an account-based cancellation function is available, users can cancel the subscription directly in their account."],
-      ["3. Cancellation through this page", "A dedicated cancellation page may be provided so users can submit a cancellation request clearly and easily."],
-      ["4. Cancellation form", "A cancellation form should request only the information necessary to identify the subscription, such as email address and account details."],
-      ["5. Cancellation buttons", "Cancellation buttons should be easy to find, clearly labelled and not misleading."],
-      ["6. Confirmation page before submitting cancellation", "Before submitting the cancellation, users may be shown a clear confirmation page summarising the cancellation request."],
-      ["7. Confirmation after submitting cancellation", "After submission, users should receive a clear confirmation that the cancellation request has been received."],
-      ["8. Automatic email confirmation", "Where technically implemented, an automatic email confirmation should be sent after cancellation."],
-      ["9. Alternative cancellation by email", "Users can alternatively contact PointerScore by email at pointerscore@outlook.com to request cancellation."]
+      ["1. Current free access", "PointerScore is currently free, so there is no paid PointerScore access to cancel."],
+      ["2. Future paid extensions", "If optional paid extensions such as Roki are introduced later, cancellation information will be provided clearly before purchase and inside the user account where technically available."],
+      ["3. Account management", "Users can manage their PointerScore account through the profile area or contact PointerScore by email."],
+      ["4. Contact by email", "Users can contact PointerScore by email at pointerscore@outlook.com for questions about account access or future paid extensions."]
     ]
   }
 };

@@ -48,16 +48,17 @@ function renderProfile(profile) {
 
 function renderSubscription(subscription) {
   const active = ["active", "trialing"].includes(subscription?.status);
-  document.querySelector("[data-subscription-active]").hidden = !active;
-  document.querySelector("[data-subscription-inactive]").hidden = active;
+  document.querySelector("[data-subscription-active]").hidden = false;
+  document.querySelector("[data-subscription-inactive]").hidden = true;
   const badge = document.querySelector("[data-subscription-status]");
-  badge.textContent = active ? `✓ ${t("Abo aktiv")}` : `✕ ${t("Kein aktives Abo")}`;
-  badge.classList.toggle("is-active", active);
+  badge.textContent = active ? `✓ ${t("Kostenlos aktiv")}` : `✓ ${t("Kostenlos aktiv")}`;
+  badge.classList.add("is-active");
   if (active) {
-    document.querySelector("[data-next-billing]").textContent = formatDate(subscription.current_period_end);
+    document.querySelector("[data-next-billing]").textContent = t("Dauerhaft kostenlos");
     const manage = document.querySelector("[data-manage-subscription]");
-    if (subscription.manage_url) manage.href = subscription.manage_url;
-    else { manage.removeAttribute("href"); manage.setAttribute("aria-disabled", "true"); manage.title = t("Die Abo-Verwaltung wird mit dem Zahlungsanbieter verbunden."); }
+    manage.href = "dashboard.html";
+    manage.removeAttribute("aria-disabled");
+    manage.removeAttribute("title");
   }
 }
 
@@ -77,16 +78,14 @@ async function loadProfile() {
     renderStatistics([{ company_name: "Nordlicht Systems AG", score: 82, updated_at: previewNow }, { company_name: "Atlas Consumer SE", score: 68, updated_at: "2026-06-30T10:00:00Z" }]);
     return;
   }
-  const [profileResult, subscriptionResult, analysesResult] = await Promise.all([
+  const [profileResult, analysesResult] = await Promise.all([
     supabase.from("profiles").select("id,display_name,username,avatar_url,created_at,updated_at").eq("id", user.id).maybeSingle(),
-    supabase.from("subscriptions").select("status,current_period_end,manage_url").eq("user_id", user.id).maybeSingle(),
     supabase.from("analyses").select("company_name,score,updated_at").eq("user_id", user.id)
   ]);
   if (profileResult.error) throw profileResult.error;
-  if (subscriptionResult.error) throw subscriptionResult.error;
   if (analysesResult.error) throw analysesResult.error;
   renderProfile(profileResult.data);
-  renderSubscription(subscriptionResult.data);
+  renderSubscription(null);
   renderStatistics(analysesResult.data || []);
 }
 
