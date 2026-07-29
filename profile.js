@@ -9,8 +9,16 @@ const profileForm = document.querySelector("[data-profile-form]");
 const passwordForm = document.querySelector("[data-password-form]");
 const avatarInput = document.querySelector("[data-avatar-input]");
 const deleteDialog = document.querySelector("[data-delete-dialog]");
-const t = (value) => window.PointerScoreI18n?.translate(value) ?? value;
+const dynamicTranslations = {
+  "Kostenlos aktiv": { en: "Free access active" },
+  "Dauerhaft kostenlos": { en: "Free forever" }
+};
+const t = (value) => {
+  const language = window.PointerScoreI18n?.language || document.documentElement.lang || "de";
+  return window.PointerScoreI18n?.translate(value, language) ?? dynamicTranslations[value]?.[language] ?? value;
+};
 let currentProfile = null;
+let currentSubscription = null;
 
 function formatDate(value, includeTime = false) {
   if (!value) return "–";
@@ -47,11 +55,12 @@ function renderProfile(profile) {
 }
 
 function renderSubscription(subscription) {
+  currentSubscription = subscription;
   const active = ["active", "trialing"].includes(subscription?.status);
   document.querySelector("[data-subscription-active]").hidden = false;
   document.querySelector("[data-subscription-inactive]").hidden = true;
   const badge = document.querySelector("[data-subscription-status]");
-  badge.textContent = active ? `✓ ${t("Kostenlos aktiv")}` : `✓ ${t("Kostenlos aktiv")}`;
+  badge.textContent = `✓ ${t("Kostenlos aktiv")}`;
   badge.classList.add("is-active");
   if (active) {
     document.querySelector("[data-next-billing]").textContent = t("Dauerhaft kostenlos");
@@ -61,6 +70,10 @@ function renderSubscription(subscription) {
     manage.removeAttribute("title");
   }
 }
+
+window.addEventListener("pointerscore:languagechange", () => {
+  renderSubscription(currentSubscription);
+});
 
 function renderStatistics(analyses) {
   const scores = analyses.map((item) => Number(item.score)).filter(Number.isFinite);

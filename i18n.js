@@ -785,6 +785,7 @@ Object.assign(translations, {
   "Keine Kreditkarte": "No credit card",
   "Verwalte dein PointerScore-Profil, deine Sicherheit und deine Nutzung.": "Manage your PointerScore profile, security and usage.",
   "Zugang": "Access",
+  "Kostenlos": "Free access",
   "Kostenlos nutzen": "Use for free",
   "Kostenlos aktiv": "Free access active",
   "Dein kostenloser PointerScore-Zugang ist aktiv.": "Your free PointerScore access is active.",
