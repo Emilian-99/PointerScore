@@ -7,6 +7,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
 const sourceEntries = [
   "index.html",
+  "privacy.html",
   "auth.html",
   "dashboard.html",
   "profile.html",

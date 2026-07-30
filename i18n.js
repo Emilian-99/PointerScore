@@ -249,6 +249,7 @@ Object.assign(translations, {
   "Registrieren": "Register",
   "Willkommen zurück": "Welcome back",
   "Konto erstellen": "Create account",
+  "Bestätigungs-E-Mail erneut senden": "Resend confirmation email",
   "E-Mail-Adresse": "Email address",
   "Passwort": "Password",
   "Passwort vergessen?": "Forgot password?",
