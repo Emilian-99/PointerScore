@@ -1,5 +1,5 @@
 import { requireUser, revealProtectedPage, supabase } from "./auth-client.js";
-import { friendlyAnalysisError, listAnalyses, readAnalysisCache } from "./analysis-store.js";
+import { friendlyAnalysisError, listAnalyses, readAnalysisCache } from "./analysis-store.js?v=2";
 
 const isLocalPreview = ["localhost", "127.0.0.1"].includes(window.location.hostname)
   && new URLSearchParams(window.location.search).get("preview") === "1";

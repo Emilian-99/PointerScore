@@ -101,8 +101,21 @@
       </div>
     </form>
   </dialog>
+  <dialog class="app-install-dialog" data-store-app-dialog>
+    <form method="dialog">
+      <div class="app-install-logo" aria-hidden="true"><img src="assets/logo-new-v2.png" alt="" width="54" height="54"></div>
+      <p class="eyebrow">Desktop-App</p>
+      <h2>PointerScore als Windows-App nutzen</h2>
+      <p>Starte PointerScore schneller und arbeite direkter mit deinen Analysen – direkt vom Desktop oder Startmenü.</p>
+      <div class="app-install-actions">
+        <a class="button button-primary" href="https://apps.microsoft.com/detail/9PJQQX25V0C7?hl=de-de&amp;gl=DE&amp;ocid=pdpshare" target="_blank" rel="noopener" data-store-app-link>Microsoft Store öffnen</a>
+        <button class="button button-secondary" type="button" data-store-app-later>Später</button>
+      </div>
+      <button class="app-install-never-button" type="button" data-store-app-never>Nicht mehr fragen</button>
+    </form>
+  </dialog>
   <script src="runtime-config.js?v=2"></script>
-  <script src="i18n.js" defer></script>
-  <script type="module" src="dashboard.js?v=3"></script>
+  <script src="i18n.js?v=5" defer></script>
+  <script type="module" src="dashboard.js?v=5"></script>
 </body>
 </html>

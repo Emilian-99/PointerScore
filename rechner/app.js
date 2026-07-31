@@ -1,7 +1,7 @@
 import {INDUSTRIES,MARKET_POSITIONS,calculatePointerScore,parseGermanNumber} from "./logic.js";
 import {createAnalysisReport} from "./report.js";
 import{requireUser,revealProtectedPage,supabase}from"../auth-client.js";
-import{friendlyAnalysisError,getAnalysis,readAnalysisCache,saveAnalysis as saveCloudAnalysis,saveAnalysisCache}from"../analysis-store.js";
+import{friendlyAnalysisError,getAnalysis,readAnalysisCache,saveAnalysis as saveCloudAnalysis,saveAnalysisCache}from"../analysis-store.js?v=2";
 const isLocalPreview=["localhost","127.0.0.1"].includes(window.location.hostname)&&new URLSearchParams(window.location.search).get("preview")==="1";
 const user=isLocalPreview?{id:"preview",email:"demo@pointerscore.com"}:await requireUser();
 if(!user)throw new Error("Authentication required.");

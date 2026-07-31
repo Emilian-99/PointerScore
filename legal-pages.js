@@ -120,9 +120,22 @@ const LEGAL_TRANSLATIONS = {
 };
 
 const originalLegalHtml = new Map();
+const originalLegalMeta = new Map();
 
 function getLegalKey() {
   return document.body?.dataset?.legalPage || "";
+}
+
+function captureOriginalLegal(key = getLegalKey()) {
+  if (!key || !LEGAL_TRANSLATIONS[key]) return;
+  const container = document.querySelector(".legal-document");
+  if (container && !originalLegalHtml.has(key)) originalLegalHtml.set(key, container.innerHTML);
+  if (!originalLegalMeta.has(key)) {
+    originalLegalMeta.set(key, {
+      title: document.title,
+      description: document.querySelector('meta[name="description"]')?.getAttribute("content") || ""
+    });
+  }
 }
 
 function renderEnglishLegal(key) {
@@ -145,16 +158,22 @@ function renderGermanLegal(key) {
   const container = document.querySelector(".legal-document");
   if (!container || !originalLegalHtml.has(key)) return;
   container.innerHTML = originalLegalHtml.get(key);
+  const meta = originalLegalMeta.get(key);
+  if (meta) {
+    document.title = meta.title;
+    const description = document.querySelector('meta[name="description"]');
+    if (description) description.setAttribute("content", meta.description);
+  }
 }
 
 function applyLegalLanguage(language = document.documentElement.lang) {
   const key = getLegalKey();
   if (!key || !LEGAL_TRANSLATIONS[key]) return;
-  const container = document.querySelector(".legal-document");
-  if (container && !originalLegalHtml.has(key)) originalLegalHtml.set(key, container.innerHTML);
+  captureOriginalLegal(key);
   if (language === "en") renderEnglishLegal(key);
   else renderGermanLegal(key);
 }
 
+captureOriginalLegal();
 document.addEventListener("DOMContentLoaded", () => applyLegalLanguage(window.PointerScoreI18n?.language || document.documentElement.lang));
 window.addEventListener("pointerscore:languagechange", event => applyLegalLanguage(event.detail?.language || document.documentElement.lang));

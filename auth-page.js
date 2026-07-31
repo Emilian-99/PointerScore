@@ -7,11 +7,12 @@ const message = document.querySelector("[data-auth-message]");
 const resendConfirmationButton = document.querySelector("[data-resend-confirmation]");
 let lastConfirmationEmail = "";
 const titles = {
-  login: "Willkommen zurück",
-  register: "Konto erstellen",
-  reset: "Passwort zurücksetzen",
-  recovery: "Neues Passwort festlegen"
+  login: { de: "Willkommen zurück", en: "Welcome back" },
+  register: { de: "Konto erstellen", en: "Create account" },
+  reset: { de: "Passwort zurücksetzen", en: "Reset password" },
+  recovery: { de: "Neues Passwort festlegen", en: "Set a new password" }
 };
+let activeView = "login";
 
 function currentLanguage() {
   return window.PointerScoreI18n?.language || document.documentElement.lang || "de";
@@ -52,6 +53,7 @@ function showResendConfirmationButton(show) {
 
 function showView(view, { updateUrl = true } = {}) {
   const nextView = ["login", "register", "reset", "recovery"].includes(view) ? view : "login";
+  activeView = nextView;
   viewButtons.forEach((button) => {
     const active = button.dataset.authViewButton === nextView;
     if (button.getAttribute("role") === "tab") {
@@ -60,8 +62,9 @@ function showView(view, { updateUrl = true } = {}) {
     }
   });
   forms.forEach((form) => { form.hidden = form.dataset.authForm !== nextView; });
-  title.textContent = titles[nextView];
-  document.title = `${titles[nextView]} | PointerScore`;
+  const translatedTitle = titles[nextView][currentLanguage()] || titles[nextView].de;
+  title.textContent = translatedTitle;
+  document.title = `${translatedTitle} | PointerScore`;
   setMessage();
   if (nextView !== "register") showResendConfirmationButton(false);
 
@@ -183,6 +186,10 @@ showView(requestedMode || "login", { updateUrl: false });
 window.addEventListener("popstate", () => {
   const mode = new URLSearchParams(window.location.search).get("mode");
   showView(mode || "login", { updateUrl: false });
+});
+
+window.addEventListener("pointerscore:languagechange", () => {
+  showView(activeView, { updateUrl: false });
 });
 
 if (requestedMode !== "recovery" && await getVerifiedUser()) {

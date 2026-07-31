@@ -4,11 +4,16 @@
   const title = document.querySelector("[data-auth-title]");
   const message = document.querySelector("[data-auth-message]");
   const titles = {
-    login: "Willkommen zurück",
-    register: "Konto erstellen",
-    reset: "Passwort zurücksetzen",
-    recovery: "Neues Passwort festlegen"
+    login: { de: "Willkommen zurück", en: "Welcome back" },
+    register: { de: "Konto erstellen", en: "Create account" },
+    reset: { de: "Passwort zurücksetzen", en: "Reset password" },
+    recovery: { de: "Neues Passwort festlegen", en: "Set a new password" }
   };
+  let activeView = "login";
+
+  function currentLanguage() {
+    return document.documentElement.lang === "en" ? "en" : "de";
+  }
 
   function setMessage(text = "", type = "") {
     message.textContent = text;
@@ -17,6 +22,7 @@
 
   function showView(view, { updateUrl = true } = {}) {
     const nextView = Object.hasOwn(titles, view) ? view : "login";
+    activeView = nextView;
     forms.forEach((form) => { form.hidden = form.dataset.authForm !== nextView; });
     viewButtons.forEach((button) => {
       const active = button.dataset.authViewButton === nextView;
@@ -25,8 +31,9 @@
         button.setAttribute("aria-selected", String(active));
       }
     });
-    title.textContent = titles[nextView];
-    document.title = `${titles[nextView]} | PointerScore`;
+    const translatedTitle = titles[nextView][currentLanguage()] || titles[nextView].de;
+    title.textContent = translatedTitle;
+    document.title = `${translatedTitle} | PointerScore`;
     setMessage();
 
     if (updateUrl) {
@@ -40,6 +47,7 @@
   window.addEventListener("popstate", () => {
     showView(new URLSearchParams(window.location.search).get("mode") || "login", { updateUrl: false });
   });
+  window.addEventListener("pointerscore:languagechange", () => showView(activeView, { updateUrl: false }));
   showView(new URLSearchParams(window.location.search).get("mode") || "login", { updateUrl: false });
   window.PointerScoreAuthView = Object.freeze({ setMessage, showView });
 })();

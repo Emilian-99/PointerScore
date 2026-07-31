@@ -1,8 +1,10 @@
 import { supabase } from "./auth-client.js";
+import { calculatePointerScore } from "./rechner/logic.js";
 
 const CACHE_PREFIX = "pointerscore-analyses:";
 const LEGACY_STORAGE_KEY = "pointerscore-analyses";
 const MIGRATION_PREFIX = "pointerscore-cloud-migrated:";
+const EXAMPLE_ANALYSIS_SEEDED_KEY = "pointerscore_example_analysis_seeded";
 
 function cacheKey(userId) {
   return `${CACHE_PREFIX}${userId}`;
@@ -63,7 +65,10 @@ export async function listAnalyses(userId) {
     .order("created_at", { ascending: false });
 
   if (error) throw error;
-  const analyses = (data || []).map(fromRow);
+  let analyses = (data || []).map(fromRow);
+  if (analyses.length === 0) {
+    analyses = await maybeCreateExampleAnalysis(userId);
+  }
   writeAnalysisCache(userId, analyses);
   return analyses;
 }
@@ -130,6 +135,67 @@ async function migrateLegacyAnalyses(userId) {
     localStorage.setItem(`${MIGRATION_PREFIX}${userId}`, "1");
   } catch {
     // A blocked browser cache must not prevent cloud storage from working.
+  }
+}
+
+function buildExampleAnalysis(userId) {
+  const now = new Date().toISOString();
+  const input = {
+    companyName: "PointerScore Demo",
+    industry: "cloud",
+    marketPosition: "top",
+    revenue1: 800,
+    revenue2: 980,
+    revenue3: 1180,
+    profit1: 80,
+    profit2: 115,
+    profit3: 155,
+    totalDebt: 260,
+    totalAssets: 1400,
+    currentRevenue: 1180,
+    currentProfit: 155,
+    peRatio: 26,
+    qualityMetric: 22,
+    qualityMetricType: "ROE",
+    moneyUnit: "Mio."
+  };
+  const result = calculatePointerScore(input);
+  if (!result.ok) return null;
+  return {
+    id: userId,
+    company: "PointerScore Demo",
+    score: result.total,
+    notes: "Demo analysis: Open, edit, duplicate or delete this example. / Beispielanalyse: Öffnen, bearbeiten, duplizieren oder löschen.",
+    input,
+    result,
+    createdAt: now,
+    updatedAt: now
+  };
+}
+
+async function maybeCreateExampleAnalysis(userId) {
+  try {
+    const { data, error } = await supabase.auth.getUser();
+    if (error || data?.user?.id !== userId) return [];
+    const metadata = data.user.user_metadata || {};
+    if (metadata[EXAMPLE_ANALYSIS_SEEDED_KEY] === true) return [];
+
+    const example = buildExampleAnalysis(userId);
+    if (!example) return [];
+    const saved = await saveAnalysis(userId, example);
+
+    try {
+      await supabase.auth.updateUser({
+        data: { ...metadata, [EXAMPLE_ANALYSIS_SEEDED_KEY]: true }
+      });
+    } catch {
+      // The example analysis is already saved. A failed metadata update must not block the dashboard.
+    }
+
+    return [saved];
+  } catch (error) {
+    console.warn("PointerScore example analysis could not be created:", error);
+    return [];
   }
 }
 

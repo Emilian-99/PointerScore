@@ -1,11 +1,41 @@
 import { requireUser, revealProtectedPage, supabase } from "./auth-client.js";
-import { deleteAnalysis, friendlyAnalysisError, listAnalyses, readAnalysisCache, saveAnalysis, saveAnalysisCache } from "./analysis-store.js";
+import { deleteAnalysis, friendlyAnalysisError, listAnalyses, readAnalysisCache, saveAnalysis, saveAnalysisCache } from "./analysis-store.js?v=2";
 
 const t = (value) => window.PointerScoreI18n?.translate(value) ?? value;
 let analyses = [];
 let sortMode = "date";
 let searchQuery = "";
 let pendingDeleteAnalysis = null;
+const storeAppPromptKey = "pointerscore-store-app-prompt-dismissed";
+
+function isDesktopShell() {
+  return document.documentElement.classList.contains("pointerscore-desktop-app")
+    || document.body.classList.contains("is-desktop-app")
+    || Boolean(window.PointerScoreDesktop)
+    || navigator.userAgent.includes("PointerScoreDesktop");
+}
+
+function initializeStoreAppPrompt() {
+  const dialog = document.querySelector("[data-store-app-dialog]");
+  if (!dialog || isDesktopShell()) return;
+  const params = new URLSearchParams(window.location.search);
+  const forcePrompt = params.get("install") === "1" || params.get("storeApp") === "1";
+  const isMobile = window.matchMedia("(max-width: 780px)").matches;
+  if (isMobile && !forcePrompt) return;
+  if (!forcePrompt && localStorage.getItem(storeAppPromptKey) === "1") return;
+
+  const closePrompt = () => { if (dialog.open) dialog.close(); };
+  dialog.querySelector("[data-store-app-later]")?.addEventListener("click", closePrompt);
+  dialog.querySelector("[data-store-app-never]")?.addEventListener("click", () => {
+    localStorage.setItem(storeAppPromptKey, "1");
+    closePrompt();
+  });
+  dialog.querySelector("[data-store-app-link]")?.addEventListener("click", closePrompt);
+
+  window.setTimeout(() => {
+    if (!dialog.open && typeof dialog.showModal === "function") dialog.showModal();
+  }, 2000);
+}
 
 function initializeAnnouncements() {
   const root = document.querySelector("[data-announcements]");
@@ -217,6 +247,7 @@ if (user) {
     setStatus();
   }
   renderAnalyses();
+  initializeStoreAppPrompt();
   window.dispatchEvent(new CustomEvent("pointerscore:dashboard-ready"));
 }
 
