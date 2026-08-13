@@ -23,6 +23,7 @@ const sourceEntries = [
   "legal-pages.js",
   "runtime-config.js",
   "auth-client.js",
+  "company-data-client.js",
   "analysis-store.js",
   "auth-view.js",
   "auth-page.js",

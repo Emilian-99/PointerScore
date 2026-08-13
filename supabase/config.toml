@@ -1,2 +1,5 @@
 [functions.send-welcome-email]
 verify_jwt = false
+
+[functions.fetch-company-data]
+verify_jwt = true

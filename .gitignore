@@ -11,3 +11,4 @@ desktop/msix-delivery/
 *.zip
 .env
 .env.local
+supabase/.temp/

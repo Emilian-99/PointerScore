@@ -822,6 +822,43 @@ Object.assign(translations, {
   "Weiter ausfüllen": "Continue filling out"
 });
 
+Object.assign(translations, {
+  "Optional: SEC-Daten für US-Unternehmen über den Ticker abrufen, z. B. MSFT, AAPL oder NVDA.": "Optional: Retrieve SEC data for US companies by ticker, e.g. MSFT, AAPL or NVDA.",
+  "Info zum US-Ticker": "US ticker info",
+  "Company data found": "Company data found",
+  "Company data import": "Company data import",
+  "Unternehmensdaten finden": "Find company data",
+  "Gib einen US-Ticker ein. PointerScore ruft verfügbare Fundamentaldaten aus der offiziellen SEC-Datenbank ab.": "Enter a US ticker. PointerScore retrieves available fundamental data from the official SEC database.",
+  "Review the values before importing them into your analysis.": "Review the values before importing them into your analysis.",
+  "Ausgewählte Werte übernehmen": "Import selected values",
+  "Schließen": "Close",
+  "SEC-Daten werden geladen …": "Loading SEC data …",
+  "Bitte gib zuerst einen US-Ticker ein.": "Please enter a US ticker first.",
+  "Ticker nicht gefunden.": "Ticker not found.",
+  "Dieses Unternehmen wird von SEC Company Facts nicht unterstützt.": "This company is not supported by SEC Company Facts.",
+  "SEC ist gerade nicht erreichbar. Bitte versuche es später erneut.": "SEC is currently unavailable. Please try again later.",
+  "Bitte melde dich an, um SEC-Unternehmensdaten abzurufen.": "Please sign in to retrieve SEC company data.",
+  "Unternehmensdaten konnten nicht geladen werden.": "Company data could not be loaded.",
+  "Kennzahl nicht verfügbar.": "Metric unavailable.",
+  "Daten erfolgreich geladen. Bitte prüfe die Werte vor dem Import.": "Data loaded successfully. Please review the values before importing.",
+  "Keine passenden Formularwerte verfügbar.": "No matching form values available.",
+  "Bestehende Werte überschreiben?": "Overwrite existing values?",
+  "SEC-Daten wurden übernommen. Bitte prüfe die Werte und ergänze fehlende Kennzahlen.": "SEC data was imported. Please review the values and add missing metrics.",
+  "Filing": "Filing",
+  "Revenue": "Revenue",
+  "Net income": "Net income",
+  "Total assets": "Total assets",
+  "Total liabilities": "Total liabilities",
+  "Stockholders' equity": "Stockholders' equity",
+  "Cash and cash equivalents": "Cash and cash equivalents",
+  "Long-term debt": "Long-term debt",
+  "Current assets": "Current assets",
+  "Current liabilities": "Current liabilities",
+  "Operating income": "Operating income",
+  "Shares outstanding": "Shares outstanding",
+  "shares": "shares"
+});
+
 function translatedValue(original, language) {
   return language === "en" ? (translations[original] ?? original) : original;
 }

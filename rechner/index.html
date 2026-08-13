@@ -8,7 +8,7 @@
   <link rel="shortcut icon" href="/favicon.ico?v=4">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=4">
   <link rel="manifest" href="/site.webmanifest?v=4">
-  <link rel="stylesheet" href="./styles.css?v=17">
+  <link rel="stylesheet" href="./styles.css?v=18">
 </head>
 <body class="is-auth-loading">
 <header class="site-header">
@@ -33,6 +33,7 @@
       </div>
 
       <div id="form-message" class="form-message" role="alert" hidden></div>
+      <button type="button" class="sec-helper-pill" id="sec-helper-open"><span>SEC EDGAR</span><strong>Unternehmensdaten finden</strong></button>
 
       <section class="form-card">
         <div class="section-heading"><span class="step">01</span><div><h2>Unternehmen einordnen</h2><p>Branche und Stellung im Markt</p></div></div>
@@ -126,5 +127,26 @@
     <button class="guest-auth-subtle" type="button" data-guest-auth-close>Weiter ausfüllen</button>
   </form>
 </dialog>
-<script src="../runtime-config.js?v=2"></script><script src="../i18n.js?v=6" defer></script><script type="module" src="./app.js?v=3"></script>
+<dialog class="sec-import-dialog" id="sec-import-dialog">
+  <form method="dialog">
+    <button type="button" class="guest-auth-close" id="sec-dialog-close" aria-label="Schließen">×</button>
+    <p class="page-kicker">SEC EDGAR</p>
+    <h2>Unternehmensdaten finden</h2>
+    <p class="sec-dialog-copy">Gib einen US-Ticker ein. PointerScore ruft verfügbare Fundamentaldaten aus der offiziellen SEC-Datenbank ab.</p>
+    <div class="field company-ticker-field"><label for="companyTicker">US-Ticker <span class="info-tip" tabindex="0" data-tooltip="Optional: SEC-Daten für US-Unternehmen über den Ticker abrufen, z. B. MSFT, AAPL oder NVDA." aria-label="Info zum US-Ticker">i</span></label><div class="ticker-import-row"><input id="companyTicker" name="companyTicker" type="text" autocomplete="off" maxlength="12" placeholder="MSFT"><button type="button" class="data-import-button" id="find-company-data">Find company data</button></div></div>
+    <section class="sec-import-panel" id="sec-import-panel" hidden aria-live="polite">
+      <div class="sec-import-head">
+        <div><p class="page-kicker">SEC EDGAR</p><h2 id="sec-import-title">Company data found</h2></div>
+        <span id="sec-import-source">SEC EDGAR</span>
+      </div>
+      <p id="sec-import-message">Review the values before importing them into your analysis.</p>
+      <dl class="sec-import-values" id="sec-import-values"></dl>
+      <div class="sec-import-actions">
+        <button type="button" class="secondary-button" id="sec-import-apply">Ausgewählte Werte übernehmen</button>
+        <button type="button" class="text-button" id="sec-import-close">Schließen</button>
+      </div>
+    </section>
+  </form>
+</dialog>
+<script src="../runtime-config.js?v=2"></script><script src="../i18n.js?v=8" defer></script><script type="module" src="./app.js?v=4"></script>
 </body></html>

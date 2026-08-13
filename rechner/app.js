@@ -2,6 +2,7 @@ import {INDUSTRIES,MARKET_POSITIONS,calculatePointerScore,parseGermanNumber} fro
 import {createAnalysisReport} from "./report.js";
 import{getVerifiedUser,revealProtectedPage,supabase}from"../auth-client.js";
 import{friendlyAnalysisError,getAnalysis,readAnalysisCache,saveAnalysis as saveCloudAnalysis,saveAnalysisCache}from"../analysis-store.js?v=2";
+import{companyDataMetricLabels,companyDataToPointerScoreInput,fetchCompanyData,formatCompanyDataMetric}from"../company-data-client.js?v=1";
 const isLocalPreview=["localhost","127.0.0.1"].includes(window.location.hostname)&&new URLSearchParams(window.location.search).get("preview")==="1";
 const user=isLocalPreview?{id:"preview",email:"demo@pointerscore.com"}:await getVerifiedUser();
 const isGuest=!user;
@@ -55,6 +56,18 @@ const noteEditor=document.querySelector("#analysis-note-editor");
 const noteInput=document.querySelector("#analysis-note");
 const saveNote=document.querySelector("#save-note");
 const moneyUnitLabels=document.querySelectorAll("[data-money-unit-label]");
+const tickerInput=document.querySelector("#companyTicker");
+const findCompanyDataButton=document.querySelector("#find-company-data");
+const secHelperOpen=document.querySelector("#sec-helper-open");
+const secImportDialog=document.querySelector("#sec-import-dialog");
+const secDialogClose=document.querySelector("#sec-dialog-close");
+const secImportPanel=document.querySelector("#sec-import-panel");
+const secImportTitle=document.querySelector("#sec-import-title");
+const secImportMessage=document.querySelector("#sec-import-message");
+const secImportValues=document.querySelector("#sec-import-values");
+const secImportSource=document.querySelector("#sec-import-source");
+const secImportApply=document.querySelector("#sec-import-apply");
+const secImportClose=document.querySelector("#sec-import-close");
 const reduceMotion=window.matchMedia("(prefers-reduced-motion: reduce)");
 let qualityMetricType="ROE";
 let moneyUnit="Mio.";
@@ -63,6 +76,7 @@ let lastResult=null;
 let currentNotes="";
 let currentCreatedAt=null;
 let calculationTimer=0;
+let pendingCompanyData=null;
 
 function appendOptions(select,options){options.forEach(item=>select.add(new Option(t(item.label),item.value)))}
 appendOptions(industry,INDUSTRIES);appendOptions(marketPosition,MARKET_POSITIONS);
@@ -119,6 +133,7 @@ const positiveFields=new Set(["revenue1","revenue2","revenue3","totalAssets","cu
 function fieldIsValid(field){
  if(!field||!field.name)return false;
  if(field.name==="companyName")return field.value.trim().length>=2;
+ if(field.name==="companyTicker")return !field.value.trim()||/^[A-Za-z0-9.-]{1,12}$/.test(field.value.trim());
  if(field.tagName==="SELECT")return Boolean(field.value);
  const value=parseGermanNumber(field.value);
  if(!Number.isFinite(value))return false;
@@ -139,6 +154,7 @@ function showFieldError(field,text){
 function updateFieldVisual(field,revealError=false,errorText=""){
  if(!field?.name)return;const wrapper=field.closest(".field");if(!wrapper)return;
  const valid=fieldIsValid(field);wrapper.classList.toggle("is-valid",valid);
+ if(field.name==="companyTicker"&&!valid&&revealError){showFieldError(field,errorText||"Bitte gib einen gültigen US-Ticker ein.");return}
  if(valid)clearFieldError(field);else if(revealError)showFieldError(field,errorText||(field.name==="companyName"?"Bitte mindestens 2 Zeichen eingeben.":(field.tagName==="SELECT"?"Bitte eine Auswahl treffen.":"Bitte eine gültige Zahl eingeben.")));
 }
 function clearErrors(){
@@ -152,6 +168,88 @@ function showErrors(errors){
  message.hidden=false;
  Object.keys(errors).forEach(name=>{const field=form.elements[name];if(field)updateFieldVisual(field,true,errors[name])});
  message.scrollIntoView({behavior:reduceMotion.matches?"auto":"smooth",block:"center"});
+}
+const secMetricOrder=["revenue","netIncome","assets","liabilities","equity","cash","longTermDebt","currentAssets","currentLiabilities","operatingIncome","eps","sharesOutstanding"];
+const secErrorMessages={
+ ticker_not_found:"Ticker nicht gefunden.",
+ company_not_supported:"Dieses Unternehmen wird von SEC Company Facts nicht unterstützt.",
+ sec_unavailable:"SEC ist gerade nicht erreichbar. Bitte versuche es später erneut.",
+ authentication_required:"Bitte melde dich an, um SEC-Unternehmensdaten abzurufen.",
+ company_data_failed:"Unternehmensdaten konnten nicht geladen werden."
+};
+function formNumber(value){return new Intl.NumberFormat(currentLocale(),{useGrouping:false,maximumFractionDigits:2}).format(value)}
+function secMetaText(meta){
+ if(!meta)return t("Kennzahl nicht verfügbar.");
+ return [meta.form,meta.fiscalYear?"FY"+meta.fiscalYear:null,meta.periodEndDate,meta.filingDate?t("Filing")+": "+meta.filingDate:null].filter(Boolean).join(" · ");
+}
+function setSecPanelState(text,type="info"){
+ if(!secImportPanel)return;
+ secImportPanel.hidden=false;
+ secImportPanel.dataset.state=type;
+ secImportMessage.textContent=t(text);
+}
+function renderCompanyData(companyData){
+ pendingCompanyData=companyData;
+ const labels=companyDataMetricLabels();
+ const locale=currentLocale();
+ secImportTitle.textContent=(companyData.companyName||companyData.ticker)+" · "+t("Company data found");
+ secImportSource.textContent=[companyData.source,companyData.period].filter(Boolean).join(" · ");
+ secImportValues.innerHTML=secMetricOrder.map(key=>{
+  const rawValue=companyData[key];
+  const formatted=formatCompanyDataMetric(key,rawValue,locale);
+  const unavailable=formatted===null;
+  return '<div class="sec-import-value '+(unavailable?"is-unavailable":"")+'"><dt>'+t(labels[key]||key)+'</dt><dd><strong>'+t(formatted||"Kennzahl nicht verfügbar.")+'</strong><span>'+secMetaText(companyData.metadata?.[key])+'</span></dd></div>';
+ }).join("");
+ setSecPanelState("Daten erfolgreich geladen. Bitte prüfe die Werte vor dem Import.",companyData.unavailableMetrics?.length?"warning":"success");
+ secImportPanel.scrollIntoView({behavior:reduceMotion.matches?"auto":"smooth",block:"nearest"});
+}
+async function hasSignedInSession(){
+ const {data}=await supabase.auth.getSession();
+ return Boolean(data?.session?.access_token);
+}
+async function handleFindCompanyData(){
+ const ticker=tickerInput?.value.trim().toUpperCase().replace(".","-")||"";
+ if(!ticker){setSecPanelState("Bitte gib zuerst einen US-Ticker ein.","error");tickerInput?.focus();return}
+ if(isGuest||!(await hasSignedInSession())){openGuestAuthDialog();return}
+ findCompanyDataButton.disabled=true;
+ findCompanyDataButton.textContent=t("SEC-Daten werden geladen …");
+ setSecPanelState("SEC-Daten werden geladen …","loading");
+ try{
+  const data=await fetchCompanyData(supabase,ticker);
+  renderCompanyData(data);
+ }catch(error){
+  const code=error?.code||"company_data_failed";
+  pendingCompanyData=null;
+  secImportValues.innerHTML="";
+  secImportTitle.textContent=t("Company data import");
+  secImportSource.textContent="SEC EDGAR";
+  setSecPanelState(secErrorMessages[code]||secErrorMessages.company_data_failed,"error");
+ }finally{
+  findCompanyDataButton.disabled=false;
+  findCompanyDataButton.textContent=t("Find company data");
+ }
+}
+function applyCompanyData(){
+ if(!pendingCompanyData)return;
+ const values=companyDataToPointerScoreInput(pendingCompanyData);
+ const entries=Object.entries(values).filter(([name,value])=>name==="moneyUnit"||(form.elements[name]&&value!==""&&value!==null&&value!==undefined));
+ if(entries.length<=1){setSecPanelState("Keine passenden Formularwerte verfügbar.","warning");return}
+ const conflicts=entries.filter(([name,value])=>{
+  if(name==="moneyUnit")return false;
+  const field=form.elements[name];
+  return field?.value.trim()&&field.value.trim()!==String(value);
+ });
+ if(conflicts.length&&!window.confirm(t("Bestehende Werte überschreiben?")))return;
+ if(values.moneyUnit)setMoneyUnit(values.moneyUnit);
+ entries.forEach(([name,value])=>{
+  if(name==="moneyUnit")return;
+  const field=form.elements[name];
+  if(!field)return;
+  field.value=typeof value==="number"?formNumber(value):String(value);
+  updateFieldVisual(field);
+ });
+ updateCompletion();
+ setSecPanelState("SEC-Daten wurden übernommen. Bitte prüfe die Werte und ergänze fehlende Kennzahlen.","success");
 }
 function formatPercent(value){return value===null?t("nicht sinnvoll"):new Intl.NumberFormat(currentLocale(),{minimumFractionDigits:1,maximumFractionDigits:1}).format(value)+" %"}
 
@@ -278,6 +376,16 @@ function printAnalysis(){
 }
 document.querySelector("#pdf-button").addEventListener("click",exportAnalysisPdf);
 document.querySelector("#print-button").addEventListener("click",printAnalysis);
+findCompanyDataButton?.addEventListener("click",()=>{void handleFindCompanyData()});
+tickerInput?.addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();void handleFindCompanyData()}});
+secHelperOpen?.addEventListener("click",()=>{
+ if(typeof secImportDialog?.showModal==="function"){secImportDialog.showModal();tickerInput?.focus();return}
+ secImportDialog?.setAttribute("open","");
+ tickerInput?.focus();
+});
+secDialogClose?.addEventListener("click",()=>{if(secImportDialog?.open)secImportDialog.close();else secImportDialog?.removeAttribute("open")});
+secImportApply?.addEventListener("click",applyCompanyData);
+secImportClose?.addEventListener("click",()=>{secImportPanel.hidden=true;if(secImportDialog?.open)secImportDialog.close()});
 saveButton.addEventListener("click",()=>{void saveAnalysis()});
 noteToggle.addEventListener("click",()=>{
  const open=noteEditor.hidden;
@@ -313,6 +421,7 @@ if(isGuest){
 window.addEventListener("pointerscore:languagechange",()=>{
  refreshSelectOptions(industry,INDUSTRIES);refreshSelectOptions(marketPosition,MARKET_POSITIONS);
  updateCompletion();
+ if(pendingCompanyData&&!secImportPanel.hidden)renderCompanyData(pendingCompanyData);
  if(lastResult)renderResult(lastResult);
 });
 
