@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=16">
+  <link rel="stylesheet" href="style.css?v=17">
 </head>
 <body class="protected-page dashboard-page is-auth-loading">
   <div class="auth-loading-screen" aria-live="polite"><img src="assets/logo-new-v2.png" alt="" width="56" height="56"><span>Zugang wird geprüft …</span></div>
@@ -101,6 +101,20 @@
       </div>
     </form>
   </dialog>
+  <dialog class="guest-auth-dialog" data-guest-auth-dialog>
+    <form method="dialog">
+      <button class="dashboard-dialog-close" type="button" data-guest-auth-close aria-label="Schließen">×</button>
+      <div class="app-install-logo" aria-hidden="true"><img src="assets/logo-new-v2.png" alt="" width="54" height="54"></div>
+      <p class="eyebrow">Kostenlos starten</p>
+      <h2>Erstelle dein kostenloses PointerScore-Konto</h2>
+      <p>Du kannst Dashboard und Rechner als Gast ansehen. Zum Speichern deiner Analysen und für deine persönliche Beispielanalyse registriere dich kostenlos.</p>
+      <div class="app-install-actions">
+        <a class="button button-primary" href="auth.html?mode=register&amp;redirect=dashboard.html">Kostenlos registrieren</a>
+        <a class="button button-secondary" href="auth.html?mode=login&amp;redirect=dashboard.html">Anmelden</a>
+      </div>
+      <button class="app-install-never-button" type="button" data-guest-auth-close>Erst ansehen</button>
+    </form>
+  </dialog>
   <dialog class="app-install-dialog" data-store-app-dialog>
     <form method="dialog">
       <div class="app-install-logo" aria-hidden="true"><img src="assets/logo-new-v2.png" alt="" width="54" height="54"></div>
@@ -115,7 +129,7 @@
     </form>
   </dialog>
   <script src="runtime-config.js?v=2"></script>
-  <script src="i18n.js?v=5" defer></script>
-  <script type="module" src="dashboard.js?v=5"></script>
+  <script src="i18n.js?v=6" defer></script>
+  <script type="module" src="dashboard.js?v=6"></script>
 </body>
 </html>

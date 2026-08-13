@@ -1,10 +1,10 @@
 import {INDUSTRIES,MARKET_POSITIONS,calculatePointerScore,parseGermanNumber} from "./logic.js";
 import {createAnalysisReport} from "./report.js";
-import{requireUser,revealProtectedPage,supabase}from"../auth-client.js";
+import{getVerifiedUser,revealProtectedPage,supabase}from"../auth-client.js";
 import{friendlyAnalysisError,getAnalysis,readAnalysisCache,saveAnalysis as saveCloudAnalysis,saveAnalysisCache}from"../analysis-store.js?v=2";
 const isLocalPreview=["localhost","127.0.0.1"].includes(window.location.hostname)&&new URLSearchParams(window.location.search).get("preview")==="1";
-const user=isLocalPreview?{id:"preview",email:"demo@pointerscore.com"}:await requireUser();
-if(!user)throw new Error("Authentication required.");
+const user=isLocalPreview?{id:"preview",email:"demo@pointerscore.com"}:await getVerifiedUser();
+const isGuest=!user;
 revealProtectedPage();
 if(isLocalPreview)document.querySelectorAll('a[href="../dashboard.html"]').forEach(link=>{link.href="../dashboard.html?preview=1"});
 const t=value=>{
@@ -14,6 +14,23 @@ const t=value=>{
  if(document.documentElement.lang==="en"&&text.endsWith(" ist die stärkste Kategorie"))return t(text.replace(/ ist die stärkste Kategorie$/,""))+" is the strongest category";
  return text;
 };
+function authUrl(mode="register"){
+ const url=new URL("../auth.html",window.location.href);
+ url.searchParams.set("mode",mode);
+ url.searchParams.set("redirect","/rechner/");
+ return url.href;
+}
+function openGuestAuthDialog(){
+ const dialog=document.querySelector("[data-guest-auth-dialog]");
+ if(!dialog){window.location.href=authUrl("register");return}
+ if(!dialog.open&&typeof dialog.showModal==="function"){dialog.showModal();return}
+ if(typeof dialog.showModal!=="function")window.location.href=authUrl("register");
+}
+function requireLoginForGuest(){
+ if(!isGuest)return false;
+ openGuestAuthDialog();
+ return true;
+}
 const currentLocale=()=>document.documentElement.lang==="en"?"en-GB":"de-DE";
 let currentAnalysisId=new URLSearchParams(window.location.search).get("analysis");
 const form=document.querySelector("#score-form");
@@ -180,6 +197,7 @@ function renderResult(result){
 }
 async function saveAnalysis(){
  if(!lastResult)return;
+ if(requireLoginForGuest())return;
  saveButton.disabled=true;saveNote.textContent=t("Analyse wird in der Cloud gespeichert …");
  currentNotes=noteInput.value.trim();
  const analysis={id:currentAnalysisId||crypto.randomUUID(),company:lastResult.companyName,score:lastResult.total,notes:currentNotes,createdAt:currentCreatedAt,input:collectInput(),result:lastResult};
@@ -195,6 +213,7 @@ async function saveAnalysis(){
 }
 async function openSavedAnalysis(){
  if(!currentAnalysisId)return;
+ if(!user){openGuestAuthDialog();return}
  saveNote.textContent=t("Analyse wird geladen …");
  let analysis;
  try{
@@ -221,13 +240,14 @@ async function openSavedAnalysis(){
  if(result.ok)renderResult(result);
  saveNote.textContent="";
 }
-form.addEventListener("submit",event=>{event.preventDefault();clearTimeout(calculationTimer);clearErrors();const result=calculatePointerScore(collectInput());if(!result.ok)return showErrors(result.errors);showCalculationLoading();calculationTimer=setTimeout(()=>renderResult(result),1500)});
+form.addEventListener("submit",event=>{event.preventDefault();clearTimeout(calculationTimer);clearErrors();if(requireLoginForGuest())return;const result=calculatePointerScore(collectInput());if(!result.ok)return showErrors(result.errors);showCalculationLoading();calculationTimer=setTimeout(()=>renderResult(result),1500)});
 form.addEventListener("input",event=>{clearFieldError(event.target);updateFieldVisual(event.target);updateCompletion()});
 form.addEventListener("change",event=>{updateFieldVisual(event.target);updateCompletion()});
 form.addEventListener("focusout",event=>{if(event.target.matches("input,select"))updateFieldVisual(event.target,true)});
 
 async function exportAnalysisPdf(){
  if(!lastResult)return;
+ if(requireLoginForGuest())return;
  exportNote.textContent=t("Der hochwertige PDF-Bericht wird vorbereitet …");exportNote.hidden=false;
  currentNotes=noteInput.value.trim();
  try{
@@ -251,6 +271,7 @@ async function exportAnalysisPdf(){
 }
 function printAnalysis(){
  if(!lastResult)return;
+ if(requireLoginForGuest())return;
  const previousTitle=document.title;document.title="PointerScore-Analyse-"+lastResult.total+"-Punkte";
  document.body.classList.add("printing-analysis");setTimeout(()=>window.print(),80);
  window.addEventListener("afterprint",()=>{document.body.classList.remove("printing-analysis");document.title=previousTitle},{once:true});
@@ -272,7 +293,22 @@ scrollSaveButton.addEventListener("click",()=>{
  saveButton.scrollIntoView({behavior:reduceMotion.matches?"auto":"smooth",block:"center"});
  window.setTimeout(()=>saveButton.focus({preventScroll:true}),reduceMotion.matches?0:650);
 });
-document.querySelectorAll("[data-logout]").forEach(button=>button.addEventListener("click",async()=>{button.disabled=true;await supabase.auth.signOut({scope:"local"});window.location.replace("../index.html")}));
+document.querySelectorAll("[data-guest-auth-close]").forEach(button=>button.addEventListener("click",()=>{
+ const dialog=document.querySelector("[data-guest-auth-dialog]");
+ if(dialog?.open)dialog.close();
+}));
+document.querySelectorAll("[data-logout]").forEach(button=>{
+ if(isGuest){
+  button.textContent=t("Anmelden");
+  button.addEventListener("click",()=>{window.location.href=authUrl("login")});
+  return;
+ }
+ button.addEventListener("click",async()=>{button.disabled=true;await supabase.auth.signOut({scope:"local"});window.location.replace("../index.html")});
+});
+if(isGuest){
+ document.body.classList.add("is-guest");
+ document.querySelectorAll('a[href="../profile.html"]').forEach(link=>link.addEventListener("click",event=>{event.preventDefault();openGuestAuthDialog()}));
+}
 
 window.addEventListener("pointerscore:languagechange",()=>{
  refreshSelectOptions(industry,INDUSTRIES);refreshSelectOptions(marketPosition,MARKET_POSITIONS);

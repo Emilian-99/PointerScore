@@ -1,4 +1,4 @@
-import { requireUser, revealProtectedPage, supabase } from "./auth-client.js";
+import { getVerifiedUser, revealProtectedPage, supabase } from "./auth-client.js";
 import { deleteAnalysis, friendlyAnalysisError, listAnalyses, readAnalysisCache, saveAnalysis, saveAnalysisCache } from "./analysis-store.js?v=2";
 
 const t = (value) => window.PointerScoreI18n?.translate(value) ?? value;
@@ -7,6 +7,26 @@ let sortMode = "date";
 let searchQuery = "";
 let pendingDeleteAnalysis = null;
 const storeAppPromptKey = "pointerscore-store-app-prompt-dismissed";
+
+function authUrl(mode = "register") {
+  const url = new URL("auth.html", window.location.href);
+  url.searchParams.set("mode", mode);
+  url.searchParams.set("redirect", "dashboard.html");
+  return url.href;
+}
+
+function openGuestAuthDialog() {
+  const dialog = document.querySelector("[data-guest-auth-dialog]");
+  if (!dialog) {
+    window.location.href = authUrl("register");
+    return;
+  }
+  if (!dialog.open && typeof dialog.showModal === "function") {
+    dialog.showModal();
+    return;
+  }
+  if (typeof dialog.showModal !== "function") window.location.href = authUrl("register");
+}
 
 function isDesktopShell() {
   return document.documentElement.classList.contains("pointerscore-desktop-app")
@@ -226,7 +246,8 @@ async function confirmDeleteAnalysis() {
 }
 
 const isLocalPreview = ["localhost", "127.0.0.1"].includes(window.location.hostname) && new URLSearchParams(window.location.search).get("preview") === "1";
-const user = isLocalPreview ? { id: "preview", email: "demo@pointerscore.com" } : await requireUser();
+const user = isLocalPreview ? { id: "preview", email: "demo@pointerscore.com" } : await getVerifiedUser();
+const isGuest = !user;
 
 if (isLocalPreview) {
   document.querySelectorAll("[data-calculator-link]").forEach((link) => { link.href = "rechner/?preview=1"; });
@@ -249,9 +270,34 @@ if (user) {
   renderAnalyses();
   initializeStoreAppPrompt();
   window.dispatchEvent(new CustomEvent("pointerscore:dashboard-ready"));
+} else {
+  document.body.classList.add("is-guest");
+  const guestBadge = document.querySelector(".dashboard-user span");
+  if (guestBadge) guestBadge.textContent = t("Gastmodus");
+  document.querySelectorAll("[data-user-email]").forEach((element) => { element.textContent = t("Nicht angemeldet"); });
+  document.querySelectorAll("[data-user-name]").forEach((element) => { element.textContent = t("Gast"); });
+  const storageNote = document.querySelector(".dashboard-storage-note");
+  if (storageNote) storageNote.textContent = t("Kostenloses Konto zum Speichern erforderlich");
+  revealProtectedPage();
+  setStatus();
+  renderAnalyses();
+  document.querySelectorAll("[data-profile-link], [data-compare-link]").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      openGuestAuthDialog();
+    });
+  });
+  document.querySelectorAll("[data-guest-auth-close]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const dialog = document.querySelector("[data-guest-auth-dialog]");
+      if (dialog?.open) dialog.close();
+    });
+  });
+  window.setTimeout(openGuestAuthDialog, 700);
+  window.dispatchEvent(new CustomEvent("pointerscore:dashboard-ready"));
 }
 
-window.addEventListener("pointerscore:languagechange", () => { if (user) renderAnalyses(); });
+window.addEventListener("pointerscore:languagechange", () => { renderAnalyses(); });
 document.querySelector("[data-analysis-sort]").addEventListener("change", (event) => { sortMode = event.target.value; renderAnalyses(); });
 document.querySelector("[data-analysis-search]").addEventListener("input", (event) => { searchQuery = event.target.value; renderAnalyses(); });
 document.querySelector("[data-delete-confirm]").addEventListener("click", () => { void confirmDeleteAnalysis(); });
@@ -260,4 +306,11 @@ document.querySelector("[data-delete-dialog]").addEventListener("click", (event)
   if (event.target === event.currentTarget) closeDeleteDialog();
 });
 
-document.querySelectorAll("[data-logout]").forEach((button) => button.addEventListener("click", async () => { button.disabled = true; await supabase.auth.signOut({ scope: "local" }); window.location.replace("index.html"); }));
+document.querySelectorAll("[data-logout]").forEach((button) => {
+  if (isGuest) {
+    button.textContent = t("Anmelden");
+    button.addEventListener("click", () => { window.location.href = authUrl("login"); });
+    return;
+  }
+  button.addEventListener("click", async () => { button.disabled = true; await supabase.auth.signOut({ scope: "local" }); window.location.replace("index.html"); });
+});

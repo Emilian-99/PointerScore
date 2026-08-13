@@ -8,7 +8,7 @@
   <link rel="shortcut icon" href="/favicon.ico?v=4">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=4">
   <link rel="manifest" href="/site.webmanifest?v=4">
-  <link rel="stylesheet" href="./styles.css?v=16">
+  <link rel="stylesheet" href="./styles.css?v=17">
 </head>
 <body class="is-auth-loading">
 <header class="site-header">
@@ -112,5 +112,19 @@
   <section class="disclaimer" id="faq-note"><span>i</span><p><strong>Keine Anlageberatung.</strong> PointerScore dient ausschließlich Bildungs- und Informationszwecken. Der Score ersetzt weder eigene Recherche noch eine persönliche Beratung.</p></section>
 </main>
 <footer><span>PointerScore</span><span>Investieren nach System, nicht nach Gefühl.</span></footer>
-<script src="../runtime-config.js?v=2"></script><script src="../i18n.js?v=5" defer></script><script type="module" src="./app.js?v=2"></script>
+<dialog class="guest-auth-dialog" data-guest-auth-dialog>
+  <form method="dialog">
+    <button class="guest-auth-close" type="button" data-guest-auth-close aria-label="Schließen">×</button>
+    <div class="guest-auth-logo" aria-hidden="true"><span class="brand-logo"></span></div>
+    <p class="page-kicker">Kostenlos starten</p>
+    <h2>Zum Auswerten bitte kostenlos registrieren</h2>
+    <p>Du kannst den Rechner als Gast ausfüllen. Den PointerScore auswerten, speichern und als PDF nutzen kannst du nach der kostenlosen Registrierung.</p>
+    <div class="guest-auth-actions">
+      <a class="primary-button" href="../auth.html?mode=register&amp;redirect=/rechner/">Kostenlos registrieren</a>
+      <a class="secondary-button" href="../auth.html?mode=login&amp;redirect=/rechner/">Anmelden</a>
+    </div>
+    <button class="guest-auth-subtle" type="button" data-guest-auth-close>Weiter ausfüllen</button>
+  </form>
+</dialog>
+<script src="../runtime-config.js?v=2"></script><script src="../i18n.js?v=6" defer></script><script type="module" src="./app.js?v=3"></script>
 </body></html>

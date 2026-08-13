@@ -809,7 +809,17 @@ Object.assign(translations, {
   "PointerScore ist kostenlos für dich freigeschaltet. Roki wird später als optionale kostenpflichtige Erweiterung verfügbar sein.": "PointerScore is enabled for you for free. Roki will later be available as an optional paid extension.",
   "Zugang / Konto": "Access / account",
   "Kündigung": "Cancellation",
-  "Rechtliche Hinweise": "Legal information"
+  "Rechtliche Hinweise": "Legal information",
+  "Gastmodus": "Guest mode",
+  "Gast": "Guest",
+  "Nicht angemeldet": "Not signed in",
+  "Kostenloses Konto zum Speichern erforderlich": "Free account required to save",
+  "Erstelle dein kostenloses PointerScore-Konto": "Create your free PointerScore account",
+  "Du kannst Dashboard und Rechner als Gast ansehen. Zum Speichern deiner Analysen und für deine persönliche Beispielanalyse registriere dich kostenlos.": "You can view the dashboard and calculator as a guest. Register for free to save your analyses and get your personal example analysis.",
+  "Erst ansehen": "Keep viewing",
+  "Zum Auswerten bitte kostenlos registrieren": "Register for free to calculate the score",
+  "Du kannst den Rechner als Gast ausfüllen. Den PointerScore auswerten, speichern und als PDF nutzen kannst du nach der kostenlosen Registrierung.": "You can fill out the calculator as a guest. Calculating the PointerScore, saving analyses and using PDFs are available after free registration.",
+  "Weiter ausfüllen": "Continue filling out"
 });
 
 function translatedValue(original, language) {
