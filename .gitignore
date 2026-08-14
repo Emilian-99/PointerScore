@@ -12,3 +12,4 @@ desktop/msix-delivery/
 .env
 .env.local
 supabase/.temp/
+tmp/

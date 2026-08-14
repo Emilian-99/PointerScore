@@ -2,7 +2,7 @@ import {INDUSTRIES,MARKET_POSITIONS,calculatePointerScore,parseGermanNumber} fro
 import {createAnalysisReport} from "./report.js";
 import{getVerifiedUser,revealProtectedPage,supabase}from"../auth-client.js";
 import{friendlyAnalysisError,getAnalysis,readAnalysisCache,saveAnalysis as saveCloudAnalysis,saveAnalysisCache}from"../analysis-store.js?v=2";
-import{companyDataMetricLabels,companyDataToPointerScoreInput,fetchCompanyData,formatCompanyDataMetric}from"../company-data-client.js?v=1";
+import{companyDataMetricLabels,companyDataToPointerScoreInput,fetchCompanyData,formatCompanyDataMetric}from"../company-data-client.js?v=2";
 const isLocalPreview=["localhost","127.0.0.1"].includes(window.location.hostname)&&new URLSearchParams(window.location.search).get("preview")==="1";
 const user=isLocalPreview?{id:"preview",email:"demo@pointerscore.com"}:await getVerifiedUser();
 const isGuest=!user;
@@ -169,7 +169,7 @@ function showErrors(errors){
  Object.keys(errors).forEach(name=>{const field=form.elements[name];if(field)updateFieldVisual(field,true,errors[name])});
  message.scrollIntoView({behavior:reduceMotion.matches?"auto":"smooth",block:"center"});
 }
-const secMetricOrder=["revenue","netIncome","assets","liabilities","equity","cash","longTermDebt","currentAssets","currentLiabilities","operatingIncome","eps","sharesOutstanding"];
+const secMetricOrder=["revenue","netIncome","assets","liabilities","equity","cash","longTermDebt","currentAssets","currentLiabilities","operatingIncome","marketPrice","peRatio","roe","roic","eps","sharesOutstanding"];
 const secErrorMessages={
  ticker_not_found:"Ticker nicht gefunden.",
  company_not_supported:"Dieses Unternehmen wird von SEC Company Facts nicht unterstützt.",
@@ -180,6 +180,9 @@ const secErrorMessages={
 function formNumber(value){return new Intl.NumberFormat(currentLocale(),{useGrouping:false,maximumFractionDigits:2}).format(value)}
 function secMetaText(meta){
  if(!meta)return t("Kennzahl nicht verfügbar.");
+ if(meta.source||meta.formula){
+  return [meta.source,meta.formula?t(meta.formula):null,meta.priceDate,meta.fiscalYear?"FY"+meta.fiscalYear:null,meta.periodEndDate].filter(Boolean).join(" · ");
+ }
  return [meta.form,meta.fiscalYear?"FY"+meta.fiscalYear:null,meta.periodEndDate,meta.filingDate?t("Filing")+": "+meta.filingDate:null].filter(Boolean).join(" · ");
 }
 function setSecPanelState(text,type="info"){
@@ -232,10 +235,11 @@ async function handleFindCompanyData(){
 function applyCompanyData(){
  if(!pendingCompanyData)return;
  const values=companyDataToPointerScoreInput(pendingCompanyData);
- const entries=Object.entries(values).filter(([name,value])=>name==="moneyUnit"||(form.elements[name]&&value!==""&&value!==null&&value!==undefined));
+ const entries=Object.entries(values).filter(([name,value])=>(name==="moneyUnit"||name==="qualityMetricType"||form.elements[name])&&value!==""&&value!==null&&value!==undefined);
  if(entries.length<=1){setSecPanelState("Keine passenden Formularwerte verfügbar.","warning");return}
  const conflicts=entries.filter(([name,value])=>{
   if(name==="moneyUnit")return false;
+  if(name==="qualityMetricType")return false;
   const field=form.elements[name];
   return field?.value.trim()&&field.value.trim()!==String(value);
  });
@@ -243,6 +247,12 @@ function applyCompanyData(){
  if(values.moneyUnit)setMoneyUnit(values.moneyUnit);
  entries.forEach(([name,value])=>{
   if(name==="moneyUnit")return;
+  if(name==="qualityMetricType"){
+   qualityMetricType=value==="ROIC"?"ROIC":"ROE";
+   document.querySelectorAll("[data-metric]").forEach(button=>{const selected=button.dataset.metric===qualityMetricType;button.classList.toggle("active",selected);button.setAttribute("aria-pressed",String(selected))});
+   qualityLabelText.textContent=qualityMetricType;
+   return;
+  }
   const field=form.elements[name];
   if(!field)return;
   field.value=typeof value==="number"?formNumber(value):String(value);

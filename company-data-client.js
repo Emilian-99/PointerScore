@@ -1,16 +1,20 @@
 const METRIC_LABELS = {
-  revenue: "Revenue",
-  netIncome: "Net income",
-  assets: "Total assets",
-  liabilities: "Total liabilities",
-  equity: "Stockholders' equity",
-  cash: "Cash and cash equivalents",
-  longTermDebt: "Long-term debt",
-  currentAssets: "Current assets",
-  currentLiabilities: "Current liabilities",
-  operatingIncome: "Operating income",
+  revenue: "Umsatz",
+  netIncome: "Gewinn",
+  assets: "Gesamtvermögen",
+  liabilities: "Gesamtschulden",
+  equity: "Eigenkapital",
+  cash: "Cash und Zahlungsmittel",
+  longTermDebt: "Langfristige Schulden",
+  currentAssets: "Umlaufvermögen",
+  currentLiabilities: "Kurzfristige Verbindlichkeiten",
+  operatingIncome: "Operatives Ergebnis",
+  marketPrice: "Aktienkurs",
+  peRatio: "KGV",
+  roe: "ROE",
+  roic: "ROIC",
   eps: "EPS",
-  sharesOutstanding: "Shares outstanding"
+  sharesOutstanding: "Aktien ausstehend"
 };
 
 const FORM_FIELDS = {
@@ -24,7 +28,9 @@ const FORM_FIELDS = {
   totalDebt: "totalDebt",
   totalAssets: "totalAssets",
   currentRevenue: "currentRevenue",
-  currentProfit: "currentProfit"
+  currentProfit: "currentProfit",
+  peRatio: "peRatio",
+  qualityMetric: "qualityMetric"
 };
 
 function toMillions(value) {
@@ -95,11 +101,24 @@ export function companyDataToPointerScoreInput(companyData) {
   if (totalAssets !== null) values[FORM_FIELDS.totalAssets] = totalAssets;
   if (currentRevenue !== null) values[FORM_FIELDS.currentRevenue] = currentRevenue;
   if (currentProfit !== null) values[FORM_FIELDS.currentProfit] = currentProfit;
+  if (typeof companyData?.peRatio === "number" && Number.isFinite(companyData.peRatio)) {
+    values[FORM_FIELDS.peRatio] = Math.round(companyData.peRatio * 10) / 10;
+  }
+  if (typeof companyData?.roe === "number" && Number.isFinite(companyData.roe)) {
+    values.qualityMetricType = "ROE";
+    values[FORM_FIELDS.qualityMetric] = Math.round(companyData.roe * 10) / 10;
+  } else if (typeof companyData?.roic === "number" && Number.isFinite(companyData.roic)) {
+    values.qualityMetricType = "ROIC";
+    values[FORM_FIELDS.qualityMetric] = Math.round(companyData.roic * 10) / 10;
+  }
   return values;
 }
 
 export function formatCompanyDataMetric(key, value, locale = "de-DE") {
   if (value === null || value === undefined) return null;
+  if (key === "marketPrice") return `${formatNumber(value, locale, { maximumFractionDigits: 2 })} USD`;
+  if (key === "peRatio") return `${formatNumber(value, locale, { maximumFractionDigits: 1 })}x`;
+  if (key === "roe" || key === "roic") return `${formatNumber(value, locale, { maximumFractionDigits: 1 })} %`;
   if (key === "eps") return `${formatNumber(value, locale, { maximumFractionDigits: 2 })} USD`;
   if (key === "sharesOutstanding") return `${formatNumber(value, locale, { maximumFractionDigits: 0 })} shares`;
   return `${formatNumber(value / 1_000_000, locale, { maximumFractionDigits: 1 })} Mio. USD`;

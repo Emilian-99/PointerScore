@@ -10,6 +10,7 @@ const SEC_USER_AGENT = Deno.env.get("SEC_USER_AGENT") ||
 const SEC_CONTACT_EMAIL = Deno.env.get("SEC_CONTACT_EMAIL") || "pointerscore@outlook.com";
 const TICKER_MAPPING_URL = "https://www.sec.gov/files/company_tickers.json";
 const COMPANY_FACTS_URL = "https://data.sec.gov/api/xbrl/companyfacts";
+const STOOQ_QUOTE_URL = "https://stooq.com/q/l/";
 const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
 
 type SecTickerEntry = { cik_str: number; ticker: string; title: string };
@@ -36,6 +37,10 @@ type MetricConfig = {
   units: string[];
 };
 type NormalizedMetric = {
+  value: number | null;
+  metadata: Record<string, string | number | null> | null;
+};
+type MarketPrice = {
   value: number | null;
   metadata: Record<string, string | number | null> | null;
 };
@@ -195,6 +200,38 @@ async function secJson<T>(url: string): Promise<T> {
   return await response.json();
 }
 
+async function stooqLatestClose(ticker: string): Promise<MarketPrice> {
+  const stooqTicker = `${ticker.toLowerCase().replace("-", ".")}.us`;
+  const url = `${STOOQ_QUOTE_URL}?s=${encodeURIComponent(stooqTicker)}&f=sd2t2ohlcv&h&e=csv`;
+  const response = await fetch(url, {
+    headers: {
+      "User-Agent": SEC_USER_AGENT,
+      "From": SEC_CONTACT_EMAIL,
+      "Accept": "text/csv"
+    }
+  });
+  if (!response.ok) return { value: null, metadata: null };
+
+  const text = await response.text();
+  const [, row] = text.trim().split(/\r?\n/);
+  if (!row || /N\/D/i.test(row)) return { value: null, metadata: null };
+
+  const columns = row.split(",");
+  const close = Number(columns[6]);
+  if (!Number.isFinite(close) || close <= 0) return { value: null, metadata: null };
+
+  return {
+    value: close,
+    metadata: {
+      source: "Stooq",
+      ticker: stooqTicker.toUpperCase(),
+      priceDate: columns[1] || null,
+      priceTime: columns[2] || null,
+      currency: "USD"
+    }
+  };
+}
+
 async function getTickerMap() {
   if (tickerMapCache && tickerMapCache.expiresAt > Date.now()) return tickerMapCache.data;
   const data = await secJson<SecTickerMap>(TICKER_MAPPING_URL);
@@ -283,6 +320,18 @@ function periodFrom(metrics: Record<string, NormalizedMetric>) {
   return first?.metadata?.fiscalYear ? `FY${first.metadata.fiscalYear}` : null;
 }
 
+function percentRatio(numerator: number | null, denominator: number | null) {
+  if (typeof numerator !== "number" || typeof denominator !== "number") return null;
+  if (!Number.isFinite(numerator) || !Number.isFinite(denominator) || denominator <= 0) return null;
+  return (numerator / denominator) * 100;
+}
+
+function priceEarningsRatio(price: number | null, eps: number | null) {
+  if (typeof price !== "number" || typeof eps !== "number") return null;
+  if (!Number.isFinite(price) || !Number.isFinite(eps) || price <= 0 || eps <= 0) return null;
+  return price / eps;
+}
+
 Deno.serve(async (request) => {
   if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS_HEADERS });
   if (request.method !== "POST") return json({ error: "Method not allowed", code: "method_not_allowed" }, 405);
@@ -316,16 +365,28 @@ Deno.serve(async (request) => {
     const quarterlyResults = Object.fromEntries(
       Object.entries(METRICS).map(([key, config]) => [key, selectMetric(companyFacts, config, "quarterly")])
     ) as Record<string, NormalizedMetric>;
+    const marketPrice = await stooqLatestClose(ticker).catch(() => ({ value: null, metadata: null }));
+    const peRatio = priceEarningsRatio(marketPrice.value, metricResults.eps.value);
+    const roe = percentRatio(metricResults.netIncome.value, metricResults.equity.value);
+    const investedCapital = typeof metricResults.equity.value === "number" && typeof metricResults.longTermDebt.value === "number"
+      ? metricResults.equity.value + metricResults.longTermDebt.value - (metricResults.cash.value || 0)
+      : null;
+    const roic = percentRatio(metricResults.operatingIncome.value, investedCapital);
 
     const unavailableMetrics = Object.entries(metricResults)
       .filter(([, metric]) => metric.value === null)
-      .map(([key]) => key);
+      .map(([key]) => key)
+      .concat([
+        peRatio === null ? "peRatio" : "",
+        roe === null ? "roe" : "",
+        roic === null ? "roic" : ""
+      ].filter(Boolean));
 
     return json({
       ticker,
       cik,
       companyName: companyFacts.entityName || tickerEntry.title,
-      source: "SEC EDGAR",
+      source: marketPrice.value ? "SEC EDGAR + Stooq" : "SEC EDGAR",
       period: periodFrom(metricResults),
       revenue: metricResults.revenue.value,
       netIncome: metricResults.netIncome.value,
@@ -339,7 +400,34 @@ Deno.serve(async (request) => {
       operatingIncome: metricResults.operatingIncome.value,
       eps: metricResults.eps.value,
       sharesOutstanding: metricResults.sharesOutstanding.value,
-      metadata: Object.fromEntries(Object.entries(metricResults).map(([key, metric]) => [key, metric.metadata])),
+      marketPrice: marketPrice.value,
+      peRatio,
+      roe,
+      roic,
+      metadata: {
+        ...Object.fromEntries(Object.entries(metricResults).map(([key, metric]) => [key, metric.metadata])),
+        marketPrice: marketPrice.metadata,
+        peRatio: peRatio === null ? null : {
+          source: "Stooq + SEC EDGAR",
+          formula: "Aktienkurs / EPS",
+          price: marketPrice.value,
+          eps: metricResults.eps.value,
+          priceDate: marketPrice.metadata?.priceDate || null,
+          epsFiscalYear: metricResults.eps.metadata?.fiscalYear || null
+        },
+        roe: roe === null ? null : {
+          source: "SEC EDGAR",
+          formula: "Gewinn / Eigenkapital",
+          fiscalYear: metricResults.netIncome.metadata?.fiscalYear || metricResults.equity.metadata?.fiscalYear || null,
+          periodEndDate: metricResults.netIncome.metadata?.periodEndDate || metricResults.equity.metadata?.periodEndDate || null
+        },
+        roic: roic === null ? null : {
+          source: "SEC EDGAR",
+          formula: "Operatives Ergebnis / (Eigenkapital + langfristige Schulden - Cash)",
+          fiscalYear: metricResults.operatingIncome.metadata?.fiscalYear || null,
+          periodEndDate: metricResults.operatingIncome.metadata?.periodEndDate || null
+        }
+      },
       annualHistory: {
         revenue: annualHistory(companyFacts, METRICS.revenue),
         netIncome: annualHistory(companyFacts, METRICS.netIncome)
