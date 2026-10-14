@@ -109,7 +109,7 @@ document.querySelector('[data-auth-form="register"]').addEventListener("submit",
   const { data, error } = await supabase.auth.signUp({
     email,
     password: String(values.get("password") || ""),
-    options: { emailRedirectTo: new URL("dashboard.html", window.location.href).href }
+    options: { emailRedirectTo: new URL("/dashboard.html", window.location.origin).href }
   });
   setBusy(form, false);
   if (error) return setMessage(friendlyAuthError(error), "error");
@@ -135,7 +135,7 @@ resendConfirmationButton?.addEventListener("click", async () => {
   const { error } = await supabase.auth.resend({
     type: "signup",
     email,
-    options: { emailRedirectTo: new URL("dashboard.html", window.location.href).href }
+    options: { emailRedirectTo: new URL("/dashboard.html", window.location.origin).href }
   });
   resendConfirmationButton.disabled = false;
   if (error) return setMessage(friendlyAuthError(error), "error");
@@ -151,7 +151,7 @@ document.querySelector('[data-auth-form="reset"]').addEventListener("submit", as
   const form = event.currentTarget;
   const values = new FormData(form);
   setBusy(form, true);
-  const recoveryUrl = new URL("auth.html?mode=recovery", window.location.href).href;
+  const recoveryUrl = new URL("/auth.html?mode=recovery", window.location.origin).href;
   const { error } = await supabase.auth.resetPasswordForEmail(String(values.get("email") || "").trim(), {
     redirectTo: recoveryUrl
   });

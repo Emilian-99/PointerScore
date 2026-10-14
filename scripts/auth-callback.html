@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>PointerScore | E-Mail-Bestätigung</title>
+  <link rel="stylesheet" href="/assets/fonts/inter/inter.css">
+  <link rel="stylesheet" href="/style.css?v=20">
+</head>
+<body>
+  <main class="legal-page"><div class="shell legal-content legal-document">
+    <h1>PointerScore</h1>
+    <p role="status" data-callback-message>Öffne diesen Link in der aktuellen Desktop-App. / Open this link in the current desktop app.</p>
+    <p><a class="button button-primary" data-open-desktop hidden>In der Desktop-App öffnen / Open in desktop app</a></p>
+    <button class="button button-secondary" type="button" data-verify-browser>Im Browser bestätigen / Verify in browser</button>
+    <form data-recovery-form hidden>
+      <label for="password">Neues Passwort / New password</label>
+      <input id="password" name="password" type="password" autocomplete="new-password" minlength="8" required>
+      <label for="password-confirm">Passwort wiederholen / Repeat password</label>
+      <input id="password-confirm" name="confirmation" type="password" autocomplete="new-password" minlength="8" required>
+      <button class="button button-primary" type="submit">Passwort speichern / Save password</button>
+    </form>
+    <p>Zur Anmeldung und für deine Analysen öffne bitte die PointerScore-App.<br>Open the PointerScore app to sign in and access your analyses.</p>
+    <a class="button button-secondary" href="/#apps">Zu den Apps / Explore apps</a>
+    <p><a href="/pages/kontakt.html">Hilfe / Support</a></p>
+  </div></main>
+  <script src="runtime-config.js"></script>
+  <script type="module" src="auth-callback.js"></script>
+</body>
+</html>

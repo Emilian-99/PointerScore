@@ -87,6 +87,14 @@ function patchStoreManifest(layoutDir) {
     '<TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.17763.0" MaxVersionTested="10.0.22621.0" />'
   );
 
+  // Store packages need their own protocol association for email callbacks.
+  if (!/<uap:Protocol\b[^>]*Name="pointerscore"/.test(manifest)) {
+    const extension = '<uap:Extension Category="windows.protocol"><uap:Protocol Name="pointerscore"><uap:DisplayName>PointerScore</uap:DisplayName></uap:Protocol></uap:Extension>';
+    manifest = manifest.includes('</Extensions>')
+      ? manifest.replace('</Extensions>', extension + '</Extensions>')
+      : manifest.replace('</Application>', '<Extensions>' + extension + '</Extensions></Application>');
+  }
+
   fs.writeFileSync(manifestPath, manifest, "utf8");
 }
 

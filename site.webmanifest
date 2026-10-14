@@ -1,8 +1,8 @@
 {
   "name": "PointerScore",
   "short_name": "PointerScore",
-  "description": "PointerScore Dashboard und Unternehmensanalysen.",
-  "start_url": "/dashboard.html",
+  "description": "Informationen zu PointerScore und den Apps.",
+  "start_url": "/",
   "scope": "/",
   "icons": [
     { "src": "/assets/favicon.svg?v=4", "sizes": "64x64", "type": "image/svg+xml" },
@@ -13,6 +13,6 @@
   ],
   "theme_color": "#eef8ff",
   "background_color": "#eef8ff",
-  "display": "standalone",
+  "display": "browser",
   "orientation": "portrait-primary"
 }

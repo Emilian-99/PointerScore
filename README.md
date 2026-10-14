@@ -1,13 +1,13 @@
 # PointerScore
 
-PointerScore-Landingpage mit Supabase Auth, geschütztem Dashboard und Rechner.
+PointerScore-Informationswebsite mit App-Verweisen. Die neue Desktop-App ab Version 1.0.10 liefert Dashboard und Rechner im Installationspaket mit. Das künftige Abo wird ausschließlich in der mobilen App über Google Play abgeschlossen.
+
+**Wichtig für diese Umstellung:** Erst die gebündelte Desktop-Version 1.0.10 veröffentlichen und prüfen, dann den Web-Rechner entfernen. Nur `dist/` veröffentlichen, niemals das Repository-Wurzelverzeichnis. In GitHub unter Settings → Pages → Source auf **GitHub Actions** umstellen. Der Workflow veröffentlicht die neue Infoseite erst, wenn die Repository-Variable `POINTERSCORE_BUNDLED_DESKTOP_RELEASED` ausdrücklich auf `1.0.10` gesetzt wurde. Details: [docs/app-first-transition.md](docs/app-first-transition.md).
 
 ## Struktur
 
 - `index.html` – Landingpage
-- `auth.html` – Registrierung, Login und Passwort-Reset
-- `dashboard.html` – geschütztes Nutzer-Dashboard
-- `calculator.html` – geschützter PointerScore-Rechner
+- `auth.html`, `dashboard.html`, `calculator.html`, `rechner/` – Desktop-App-Quellen, durch `npm run desktop:prepare` lokal nach `desktop/renderer/` gebündelt; **nicht** Bestandteil der veröffentlichten Website. Die bisherigen Web-Adressen enthalten nur noch einen Update-Hinweis bzw. eine Weiterleitung zu den Apps.
 - `auth-client.js` – Supabase-Client und Zugriffsschutz
 - `calculator-logic.js` – Berechnungslogik
 - `assets/` und `pages/` – Medien und Rechtstexte

@@ -30,13 +30,30 @@ const supabaseUrl = String(fileEnvironment.SUPABASE_URL || environment.SUPABASE_
 const publishableKey = String(fileEnvironment.SUPABASE_PUBLISHABLE_KEY || environment.SUPABASE_PUBLISHABLE_KEY || "");
 
 if (!supabaseUrl || !publishableKey) {
-  throw new Error("SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY are required in .env.local or the environment.");
+  // The checked-in browser configuration contains only public client credentials.
+  // A static-site CI build must not need a service-role key or personal access token.
+  const saved = await readFile(path.join(root, "runtime-config.js"), "utf8");
+  const value = saved.match(/Object\.freeze\((\{[^\n]+\})\)/)?.[1];
+  const config = value ? JSON.parse(value) : null;
+  if (!config?.supabaseUrl || !isPublicKey(config.supabasePublishableKey)) {
+    throw new Error("Valid public Supabase configuration is required for desktop compatibility.");
+  }
+  console.log("Existing public desktop configuration retained.");
+} else {
+  if (!isPublicKey(publishableKey)) throw new Error("Only a public Supabase client key may be shipped.");
+
+  const runtimeConfig = `window.__POINTERSCORE_CONFIG__ = Object.freeze(${JSON.stringify({
+    supabaseUrl,
+    supabasePublishableKey: publishableKey
+  })});\n`;
+
+  await writeFile(path.join(root, "runtime-config.js"), runtimeConfig, "utf8");
+  console.log("Runtime configuration generated.");
 }
 
-const runtimeConfig = `window.__POINTERSCORE_CONFIG__ = Object.freeze(${JSON.stringify({
-  supabaseUrl,
-  supabasePublishableKey: publishableKey
-})});\n`;
-
-await writeFile(path.join(root, "runtime-config.js"), runtimeConfig, "utf8");
-console.log("Runtime configuration generated.");
+function isPublicKey(value) {
+  if (typeof value !== "string") return false;
+  if (value.startsWith("sb_publishable_")) return true;
+  try { return JSON.parse(Buffer.from(value.split(".")[1], "base64url").toString()).role === "anon"; }
+  catch { return false; }
+}

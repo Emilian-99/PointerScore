@@ -1,10 +1,13 @@
-const { app, BrowserWindow, Menu, shell, ipcMain, dialog } = require("electron");
+const { app, BrowserWindow, Menu, shell, ipcMain, dialog, session } = require("electron");
+const { APP_ORIGIN, isAppURL, installLocalRenderer, callbackURL, safeExternalURL } = require("./local-renderer.cjs");
 const fs = require("node:fs/promises");
 const fsSync = require("node:fs");
 const path = require("node:path");
 
-const appUrl = process.env.POINTERSCORE_APP_URL || "https://pointerscore.com/dashboard.html";
-const allowedHosts = new Set(["pointerscore.com", "www.pointerscore.com"]);
+// This compatibility origin is served entirely from the installed renderer, never the website.
+const appUrl = APP_ORIGIN + "/dashboard.html";
+let mainAppWindow = null;
+let pendingCallback = process.argv.map(callbackURL).find(Boolean) || null;
 const appId = "com.pointerscore.app";
 const splashDurationMs = 13100;
 const appPreRevealMs = 12700;
@@ -33,10 +36,10 @@ function getIconPath() {
 function normalizeAppUrl(targetUrl) {
   try {
     const url = new URL(targetUrl);
-    if (!allowedHosts.has(url.hostname)) return null;
+    if (!isAppURL(targetUrl)) return null;
 
     const pathName = url.pathname.replace(/\/+$/, "") || "/";
-    if (pathName === "/" || pathName === "/index.html") return withDesktopAppMarker(appUrl);
+    if (pathName === "/" || pathName === "/index.html") return withDesktopAppMarker(APP_ORIGIN + "/auth.html");
 
     return withDesktopAppMarker(targetUrl);
   } catch {
@@ -166,6 +169,7 @@ function createReportWindowOptions() {
     show: true,
     autoHideMenuBar: true,
     webPreferences: {
+      partition: "persist:pointerscore",
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: true
@@ -188,7 +192,7 @@ function attachAppNavigation(window) {
       return { action: "deny" };
     }
 
-    shell.openExternal(url);
+    if (safeExternalURL(url)) shell.openExternal(url);
     return { action: "deny" };
   });
 
@@ -203,7 +207,7 @@ function attachAppNavigation(window) {
     }
 
     event.preventDefault();
-    shell.openExternal(url);
+    if (safeExternalURL(url)) shell.openExternal(url);
   });
 
   window.webContents.on("page-title-updated", (event) => {
@@ -228,6 +232,7 @@ ipcMain.handle("pointerscore:save-analysis-pdf", async (event, payload = {}) => 
     backgroundColor: "#edf7ff",
     autoHideMenuBar: true,
     webPreferences: {
+      partition: "persist:pointerscore",
       nodeIntegration: false,
       contextIsolation: true,
       sandbox: true
@@ -349,6 +354,7 @@ async function showAppBehindSplash(appWindow, splashWindow) {
 function createWindow() {
   const splashWindow = createBaseWindow({ backgroundColor: "#000000" });
   const appWindow = createBaseWindow({ backgroundColor: "#000000" });
+  mainAppWindow = appWindow;
 
   attachAppNavigation(appWindow);
   appWindow.webContents.setUserAgent(`${appWindow.webContents.getUserAgent()} PointerScoreDesktop/1.0`);
@@ -362,7 +368,8 @@ function createWindow() {
   });
 
   splashWindow.loadFile(path.join(__dirname, selectSplashFile()));
-  appWindow.loadURL(withDesktopAppMarker(appUrl));
+  appWindow.loadURL(withDesktopAppMarker(pendingCallback || appUrl));
+  pendingCallback = null;
   const appReady = waitForAppReady(appWindow);
 
   Promise.all([
@@ -376,12 +383,36 @@ function createWindow() {
   ]).then(() => revealAppWindow(appWindow, splashWindow));
 }
 
-app.whenReady().then(() => {
+const hasLock = app.requestSingleInstanceLock();
+if (!hasLock) app.quit();
+app.on("second-instance", (_event, argv) => {
+  const target = argv.map(callbackURL).find(Boolean);
+  if (target && mainAppWindow && !mainAppWindow.isDestroyed()) mainAppWindow.loadURL(withDesktopAppMarker(target));
+  else if (target) pendingCallback = target;
+  if (mainAppWindow && !mainAppWindow.isDestroyed()) { if (mainAppWindow.isMinimized()) mainAppWindow.restore(); mainAppWindow.show(); mainAppWindow.focus(); }
+});
+app.on("open-url", (event, value) => {
+  event.preventDefault();
+  const target=callbackURL(value);
+  if (!target) return;
+  if (mainAppWindow && !mainAppWindow.isDestroyed()) mainAppWindow.loadURL(withDesktopAppMarker(target));
+  else pendingCallback=target;
+});
+
+app.whenReady().then(async () => {
+  if (!hasLock) return;
+  await installLocalRenderer(session.fromPartition("persist:pointerscore"), path.join(__dirname,"renderer"));
+  // Installers/Store manifest register the protocol; never change OS associations in development.
+  if (app.isPackaged && process.platform !== "win32") app.setAsDefaultProtocolClient("pointerscore");
   Menu.setApplicationMenu(null);
   createWindow();
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
+}).catch(error => {
+  dialog.showErrorBox("PointerScore", "Die lokalen App-Dateien konnten nicht geladen werden. Bitte installiere PointerScore erneut. / Local app files could not be loaded. Please reinstall PointerScore.");
+  console.error("Bundled renderer could not start:", error?.code || "initialization-failed");
+  app.quit();
 });
 
 app.on("window-all-closed", () => {

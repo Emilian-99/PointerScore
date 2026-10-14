@@ -175,6 +175,9 @@ const secErrorMessages={
  company_not_supported:"Dieses Unternehmen wird von SEC Company Facts nicht unterstützt.",
  sec_unavailable:"SEC ist gerade nicht erreichbar. Bitte versuche es später erneut.",
  authentication_required:"Bitte melde dich an, um SEC-Unternehmensdaten abzurufen.",
+ auth_unavailable:"Die Anmeldung konnte gerade nicht geprüft werden. Bitte versuche es erneut.",
+ request_timeout:"Der Datenabruf dauert zu lange. Bitte versuche es erneut.",
+ rate_limited:"Zu viele Anfragen. Bitte warte einen Moment und versuche es erneut.",
  company_data_failed:"Unternehmensdaten konnten nicht geladen werden."
 };
 function formNumber(value){return new Intl.NumberFormat(currentLocale(),{useGrouping:false,maximumFractionDigits:2}).format(value)}
@@ -206,14 +209,11 @@ function renderCompanyData(companyData){
  setSecPanelState("Daten erfolgreich geladen. Bitte prüfe die Werte vor dem Import.",companyData.unavailableMetrics?.length?"warning":"success");
  secImportPanel.scrollIntoView({behavior:reduceMotion.matches?"auto":"smooth",block:"nearest"});
 }
-async function hasSignedInSession(){
- const {data}=await supabase.auth.getSession();
- return Boolean(data?.session?.access_token);
-}
 async function handleFindCompanyData(){
+ if(findCompanyDataButton?.disabled)return;
  const ticker=tickerInput?.value.trim().toUpperCase().replace(".","-")||"";
  if(!ticker){setSecPanelState("Bitte gib zuerst einen US-Ticker ein.","error");tickerInput?.focus();return}
- if(isGuest||!(await hasSignedInSession())){openGuestAuthDialog();return}
+ if(isGuest){openGuestAuthDialog();return}
  findCompanyDataButton.disabled=true;
  findCompanyDataButton.textContent=t("SEC-Daten werden geladen …");
  setSecPanelState("SEC-Daten werden geladen …","loading");

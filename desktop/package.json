@@ -1,16 +1,17 @@
 {
   "name": "pointerscore-desktop",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "private": true,
-  "description": "PointerScore desktop app shell",
+  "description": "PointerScore desktop app with bundled analysis interface",
   "author": "Emilian Pohle",
   "main": "main.cjs",
   "scripts": {
-    "start": "electron .",
-    "build": "electron-builder --win nsis",
-    "build:portable": "electron-builder --win portable --config.directories.output=portable-delivery --config.artifactName=PointerScore.exe --config.win.signAndEditExecutable=false --config.win.verifyUpdateCodeSignature=false",
-    "build:store": "electron-builder --win appx --config.directories.output=store-delivery --config.win.signAndEditExecutable=false --config.win.verifyUpdateCodeSignature=false",
-    "build:msix": "node scripts/build-msix.mjs"
+    "prepare:renderer": "node ../scripts/build-desktop.mjs",
+    "start": "npm run prepare:renderer && electron .",
+    "build": "npm run prepare:renderer && electron-builder --win nsis",
+    "build:portable": "npm run prepare:renderer && electron-builder --win portable --config.directories.output=portable-delivery --config.artifactName=PointerScore.exe --config.win.signAndEditExecutable=false --config.win.verifyUpdateCodeSignature=false",
+    "build:store": "npm run prepare:renderer && electron-builder --win appx --config.directories.output=store-delivery --config.win.signAndEditExecutable=false --config.win.verifyUpdateCodeSignature=false",
+    "build:msix": "npm run prepare:renderer && node scripts/build-msix.mjs"
   },
   "devDependencies": {
     "electron": "^31.7.7",
@@ -26,6 +27,8 @@
     },
     "files": [
       "main.cjs",
+      "local-renderer.cjs",
+      "renderer/**/*",
       "preload.cjs",
       "splash.html",
       "splash.css",
@@ -53,6 +56,7 @@
       }
     ],
     "afterPack": "after-pack.cjs",
+    "protocols": [{ "name": "PointerScore authentication", "schemes": ["pointerscore"] }],
     "win": {
       "target": "nsis",
       "icon": "icon.ico",

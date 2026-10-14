@@ -2,10 +2,10 @@ import http from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import "./generate-config.mjs";
+import "./build.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const publicDir = path.join(root, "public");
+const publicDir = path.join(root, "dist");
 const environment = globalThis.process?.env ?? {};
 const port = Number(environment.PORT || 4173);
 const host = environment.HOST || "127.0.0.1";
@@ -32,8 +32,7 @@ async function findFile(urlPath) {
   if (pathname === "/") pathname = "/index.html";
 
   const publicCandidate = safePath(publicDir, pathname);
-  const rootCandidate = safePath(root, pathname);
-  for (const candidate of [publicCandidate, rootCandidate]) {
+  for (const candidate of [publicCandidate]) {
     if (!candidate) continue;
     try {
       const info = await stat(candidate);
@@ -61,7 +60,7 @@ const server = http.createServer(async (request, response) => {
     }
 
     response.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
-    response.end(await readFile(path.join(root, "404.html")));
+    response.end(await readFile(path.join(publicDir, "404.html")));
   } catch {
     response.writeHead(500, { "Content-Type": "text/plain; charset=utf-8" });
     response.end("Internal server error");

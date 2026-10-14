@@ -7,7 +7,7 @@
   <meta name="description" content="PointerScore hilft dir, Unternehmen strukturiert zu bewerten, Analysen zu speichern und Firmen direkt miteinander zu vergleichen.">
   <meta name="theme-color" content="#f1f7ff">
   <meta property="og:title" content="PointerScore | Unternehmensanalyse mit System">
-  <meta property="og:description" content="Kennzahlen selbst eingeben und nach der PointerScore-Methode V1.2 strukturiert bewerten.">
+  <meta property="og:description" content="Lerne PointerScore kennen: strukturierte Unternehmensanalyse in der mobilen App und der Windows-App.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://pointerscore.com/">
   <meta property="og:image" content="assets/logo-new-v2.png">
@@ -18,7 +18,7 @@
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=4">
   <link rel="manifest" href="/site.webmanifest?v=4">
   <link rel="stylesheet" href="assets/fonts/inter/inter.css">
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=19">
 </head>
 <body>
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -34,7 +34,7 @@
         <a href="#vergleich">Vergleich</a>
         <a href="#zielgruppe">Für wen?</a>
         <a href="#faq">FAQ</a>
-        <a class="nav-cta" href="rechner/">Rechner starten</a>
+        <a class="nav-cta" href="#apps">Apps entdecken</a>
       </div>
     </nav>
   </header>
@@ -44,17 +44,17 @@
       <div class="hero-wash" aria-hidden="true"></div>
       <div class="shell conversion-hero-layout">
         <div class="conversion-hero-copy">
-          <p class="eyebrow reveal">PointerScore ist ab sofort kostenlos</p>
+          <p class="eyebrow reveal">Deine Analyse. In deiner App.</p>
           <h1 id="hero-title" class="reveal"><span class="hero-title-together">Investieren nach</span> System. Nicht nach Gefühl.</h1>
-          <p class="hero-subtitle reveal">Erstelle strukturierte Unternehmensanalysen, berechne deinen Score und speichere deine Ergebnisse – ohne Abo.</p>
+          <p class="hero-subtitle reveal">Analysiere Unternehmen mit einem klaren System – künftig vor allem in der mobilen PointerScore-App. Die Windows-App steht dir weiterhin zur Verfügung.</p>
           <div class="hero-actions reveal">
-            <a class="button button-primary" href="auth.html?mode=register&amp;redirect=%2Fdashboard.html">Kostenlos starten</a>
+            <a class="button button-primary" href="#apps">Apps entdecken</a>
             <a class="button button-secondary" href="#warum">Warum PointerScore?</a>
           </div>
           <div class="hero-proof reveal" aria-label="Produktvorteile">
             <span><i aria-hidden="true">✓</i> Klare Bewertungsregeln</span>
             <span><i aria-hidden="true">✓</i> In wenigen Minuten zum Score</span>
-            <span><i aria-hidden="true">✓</i> Keine Kreditkarte erforderlich</span>
+            <span><i aria-hidden="true">✓</i> Abo nur in der mobilen App</span>
           </div>
         </div>
 
@@ -89,14 +89,23 @@
       </div>
     </section>
 
-    <section class="desktop-app-section" aria-labelledby="desktop-app-title">
+    <section class="desktop-app-section" id="apps" aria-label="PointerScore Apps">
       <div class="shell">
+        <div class="desktop-app-panel mobile-app-panel reveal">
+          <div class="desktop-app-icon" aria-hidden="true"><img src="assets/logo-new-v2.png" alt="" width="48" height="48"></div>
+          <div>
+            <p class="eyebrow">Mobile App · Android</p>
+            <h2>PointerScore für unterwegs.</h2>
+            <p>Die mobile App wird zum Mittelpunkt von PointerScore. Ein Abo kannst du ausschließlich dort über Google Play abschließen – nicht auf dieser Website oder in der Desktop-App.</p>
+          </div>
+          <div class="app-availability"><button class="button button-secondary" type="button" disabled>Google-Play-Link folgt</button><small>Der Download-Link ist noch nicht verfügbar.</small></div>
+        </div>
         <div class="desktop-app-panel reveal">
           <div class="desktop-app-icon" aria-hidden="true"><img src="assets/logo-new-v2.png" alt="" width="48" height="48"></div>
           <div>
             <p class="eyebrow">Windows-App</p>
             <h2 id="desktop-app-title">PointerScore direkt vom Desktop starten.</h2>
-            <p>Nutze PointerScore als eigene Windows-App aus dem Microsoft Store – für schnelleres Arbeiten mit Dashboard, Rechner und Analysen.</p>
+            <p>Dashboard und Rechner sind in der aktuellen Desktop-Version direkt integriert. Anmeldung und gespeicherte Analysen bleiben mit deinem PointerScore-Konto verbunden.</p>
           </div>
           <a class="button button-secondary" href="https://apps.microsoft.com/detail/9PJQQX25V0C7?hl=de-de&amp;gl=DE&amp;ocid=pdpshare" target="_blank" rel="noopener">Zum Microsoft Store</a>
         </div>
@@ -157,47 +166,6 @@
     </section>
 
 
-    <section class="section product-core-section" aria-labelledby="core-title">
-      <div class="shell product-demo-layout">
-        <div class="analysis-demo calculator-demo reveal" id="rechner-demo" data-calculator-demo>
-          <div class="analysis-demo-head calculator-demo-head">
-            <div><small>INTERAKTIVE DEMO</small><h2 id="core-title">PointerScore Rechner Demo</h2></div>
-            <span>V1.2 Methode</span>
-          </div>
-          <div class="demo-company-control">
-            <div class="demo-company-meta">
-              <span>Beispielunternehmen</span>
-              <small><span data-demo-data-note>GJ 2023–2025 · Bilanz 27.09.2025 · ROE · KGV 26.06.2026</span> <a data-demo-source-link href="https://www.apple.com/newsroom/pdfs/fy2025-q4/FY25_Q4_Consolidated_Financial_Statements.pdf" target="_blank" rel="noopener">Finanzquelle</a></small>
-            </div>
-            <div class="demo-company-tabs" role="group" aria-label="Unternehmen auswählen">
-              <button class="is-active" type="button" data-demo-company-button="apple" data-testid="demo-company-apple" aria-pressed="true"><span>AAPL</span><strong>Apple</strong></button>
-              <button type="button" data-demo-company-button="microsoft" data-testid="demo-company-microsoft" aria-pressed="false"><span>MSFT</span><strong>Microsoft</strong></button>
-              <button type="button" data-demo-company-button="cocaCola" data-testid="demo-company-cocacola" aria-pressed="false"><span>KO</span><strong>Coca-Cola</strong></button>
-              <button type="button" data-demo-company-button="bmw" data-testid="demo-company-bmw" aria-pressed="false"><span>BMW</span><strong>BMW</strong></button>
-              <button type="button" data-demo-company-button="nvidia" data-testid="demo-company-nvidia" aria-pressed="false"><span>NVDA</span><strong>Nvidia</strong></button>
-            </div>
-          </div>
-          <div class="analysis-demo-summary">
-            <div class="demo-current-company" aria-live="polite">
-              <span data-demo-current-ticker>AAPL</span>
-              <strong data-demo-current-name>Apple</strong>
-            </div>
-            <div class="analysis-score-ring" data-demo-ring><div><strong data-demo-score>0</strong><span>/ 100</span></div></div>
-            <div class="demo-signal-copy"><b data-demo-signal>Ergebnis wird berechnet</b><p data-demo-summary>Die fünf Bewertungsbereiche werden nach der PointerScore-Methode zusammengeführt.</p></div>
-          </div>
-          <div class="analysis-demo-rows" data-demo-categories aria-live="polite"></div>
-          <div class="demo-metrics" data-demo-metrics></div>
-          <div class="demo-analysis-grid">
-            <div class="demo-analysis-card demo-strengths"><h4><span aria-hidden="true">✓</span> Stärken</h4><ul data-demo-strengths></ul></div>
-            <div class="demo-analysis-card demo-questions"><h4><span aria-hidden="true">!</span> Offene Fragen</h4><ul data-demo-questions></ul></div>
-          </div>
-          <p class="demo-disclaimer">Illustrative Demo auf Basis fest hinterlegter Beispieldaten. Keine Anlageberatung.</p>
-        </div>
-      </div>
-    </section>
-
-    
-
     <section class="section categories-conversion" id="kategorien" aria-labelledby="categories-title">
       <div class="shell">
         <div class="section-heading centered reveal">
@@ -228,28 +196,6 @@
             <article><strong>Fortgeschrittene Anleger</strong><p>Du bringst deine bestehende Analyse in ein konsistentes, wiederholbares System.</p></article>
             <article><strong>Langfristige Investoren</strong><p>Du vergleichst Unternehmen mit Blick auf Qualität, Stabilität und Zukunft.</p></article>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section handbook-lead-section" aria-labelledby="handbook-title">
-      <div class="shell handbook-lead-layout">
-        <div class="handbook-lead-copy reveal">
-          <p class="eyebrow">Kostenlos kennenlernen</p>
-          <h2 id="handbook-title">Erst die Methode verstehen. Dann fundierter bewerten.</h2>
-          <p>Das kostenlose Quick-Start-Handbuch zeigt dir in wenigen Minuten, welche Kennzahlen wichtig sind, wo du sie findest und wie PointerScore daraus eine strukturierte Bewertung macht.</p>
-          <ul>
-            <li><span>✓</span>Die komplette Methode kompakt erklärt</li>
-            <li><span>✓</span>Konkrete Datenquellen und Kennzahlen</li>
-            <li><span>✓</span>Deutsch und Englisch verfügbar</li>
-          </ul>
-          <a class="button button-secondary handbook-download" href="assets/PointerScore-Handbook.pdf" download>Kostenloses Handbuch herunterladen</a>
-        </div>
-        <div class="handbook-mini-visual reveal">
-          <a class="book-mockup" href="assets/PointerScore-Handbook.pdf" download aria-label="PointerScore Handbuch als PDF herunterladen">
-            <span class="book-pages" aria-hidden="true"></span>
-            <img src="assets/handbook-cover.png" alt="Titelseite des PointerScore Handbuchs" width="983" height="1390">
-          </a>
         </div>
       </div>
     </section>
@@ -295,19 +241,19 @@
           </div>
         </div>
         <article class="calculator-plan premium-plan reveal">
-          <div class="premium-plan-label">Kostenloser Zugang</div>
-          <div class="calculator-plan-head"><img src="assets/logo-new-v2.png" alt="" width="72" height="72"><div><h3>PointerScore</h3><p>Alle aktuellen PointerScore-Funktionen kostenlos nutzen.</p></div></div>
-          <div class="price calculator-price"><span class="price-amount">0 €</span><div><strong>dauerhaft kostenlos</strong><small>Keine Kreditkarte erforderlich</small></div></div>
+          <div class="premium-plan-label">PointerScore in der App</div>
+          <div class="calculator-plan-head"><img src="assets/logo-new-v2.png" alt="" width="72" height="72"><div><h3>PointerScore</h3><p>Unternehmensanalysen, Score und Ergebnisse in deiner PointerScore-App.</p></div></div>
+          <div class="app-plan-summary"><strong>Abo über Google Play</strong><p>Preise, Laufzeit und enthaltene Leistungen siehst du vor dem Abschluss in der mobilen App.</p></div>
           <ul class="calculator-plan-features">
             <li><span aria-hidden="true">✓</span>Unternehmensanalysen erstellen</li>
             <li><span aria-hidden="true">✓</span>Automatische Scoreberechnung</li>
             <li><span aria-hidden="true">✓</span>Analysen speichern &amp; bearbeiten</li>
             <li><span aria-hidden="true">✓</span>Dashboard vollständig nutzen</li>
             <li><span aria-hidden="true">✓</span>Zugriff auf Handbuch und Hilfebereich</li>
-            <li><span aria-hidden="true">✓</span>Zukünftige Community-Funktionen</li>
+            <li><span aria-hidden="true">✓</span>Deutsch und Englisch</li>
           </ul>
-          <a class="button button-primary calculator-access" href="auth.html?mode=register&amp;redirect=%2Fdashboard.html">Kostenlos registrieren</a>
-          <p class="pricing-reassurance"><span>✓</span> Roki wird später als optionale kostenpflichtige Erweiterung verfügbar sein.</p>
+          <a class="button button-primary calculator-access" href="#apps">Zu den Apps</a>
+          <p class="pricing-reassurance"><span>✓</span> Auf dieser Website gibt es keine Registrierung, Anmeldung oder Abo-Buchung.</p>
           <div class="plan-legal-links" aria-label="Rechtliche Hinweise">
             <a href="pages/agb.html">AGB</a>
             <a href="pages/widerruf.html">Widerruf</a>
@@ -323,8 +269,11 @@
         <div class="section-heading reveal"><p class="eyebrow">Noch Fragen?</p><h2 id="faq-title">Klarheit vor dem Start.</h2><p>Die wichtigsten Antworten zum Rechner und zur Methode.</p></div>
         <div class="faq-list reveal">
           <div class="faq-item"><button type="button" aria-expanded="false">Was genau macht der PointerScore Rechner?<span></span></button><div class="faq-content"><p>Du trägst die gefragten Unternehmensdaten selbst ein. Der Rechner bewertet sie nach festen Regeln, berechnet die Teilpunkte und führt sie zu einem Gesamtscore von maximal 100 Punkten zusammen.</p></div></div>
-          <div class="faq-item"><button type="button" aria-expanded="false">Werden Unternehmensdaten automatisch geladen?<span></span></button><div class="faq-content"><p>Nein. In dieser Version recherchierst und übernimmst du die Kennzahlen selbst. Dadurch behältst du die Kontrolle über Quelle, Zeitraum und Qualität der Daten.</p></div></div>
-          <div class="faq-item"><button type="button" aria-expanded="false">Ist PointerScore wirklich kostenlos?<span></span></button><div class="faq-content"><p>Ja. PointerScore ist ab sofort kostenlos nutzbar. Du kannst Analysen erstellen, speichern und bearbeiten, ohne ein Abo abzuschließen.</p></div></div>
+          <div class="faq-item"><button type="button" aria-expanded="false">Werden Unternehmensdaten automatisch geladen?<span></span></button><div class="faq-content"><p>In der bestehenden Desktop-App hilft dir die Unternehmensdatensuche bei unterstützten US-Tickern. Prüfe die Quellen und Zeiträume und ergänze fehlende Kennzahlen selbst.</p></div></div>
+          <div class="faq-item"><button type="button" aria-expanded="false">Wo kann ich ein Abo abschließen?<span></span></button><div class="faq-content"><p>Ein Abo wird ausschließlich in der mobilen App über Google Play abgeschlossen. Auf der Website und in der Desktop-App gibt es keinen Abo-Abschluss. Den Google-Play-Link ergänzen wir, sobald er verfügbar ist.</p></div></div>
+          <div class="faq-item"><button type="button" aria-expanded="false">Kann ich die Windows-App weiter nutzen?<span></span></button><div class="faq-content"><p>Ja, mit der aktuellen Desktop-Version. Bitte aktualisiere ältere Installationen: Die neue Version enthält Dashboard und Rechner direkt im App-Paket. Dein Konto und deine gespeicherten Analysen bleiben erhalten.</p></div></div>
+          <div class="faq-item"><button type="button" aria-expanded="false">Wie verwalte oder kündige ich mein Abo?<span></span></button><div class="faq-content"><p>Ein über Google Play abgeschlossenes Abo verwaltest du in deinem Google-Play-Konto. Weitere Informationen findest du unter Abo &amp; Kündigung.</p><a href="pages/kuendigung.html">Abo &amp; Kündigung</a></div></div>
+          <div class="faq-item"><button type="button" aria-expanded="false">Kann ich mich auf der Website anmelden?<span></span></button><div class="faq-content"><p>Nein. Die Website informiert über PointerScore und führt zu den Apps. Anmeldung, Dashboard und Rechner nutzt du in der App.</p></div></div>
           <div class="faq-item"><button type="button" aria-expanded="false">Ist PointerScore ein Kauf- oder Verkaufssignal?<span></span></button><div class="faq-content"><p>Nein. PointerScore ist ein Analysewerkzeug und keine Anlageberatung. Der Score unterstützt deine eigene Recherche, ersetzt aber weder persönliche Verantwortung noch eine individuelle Beratung.</p></div></div>
           <div class="faq-item"><button type="button" aria-expanded="false">Für welche Unternehmen eignet sich das System?<span></span></button><div class="faq-content"><p>Das System eignet sich besonders für börsennotierte Unternehmen mit nachvollziehbaren Finanzdaten. Bei Banken, Versicherungen, REITs und Holdings sind einzelne Kennzahlen nur eingeschränkt vergleichbar.</p></div></div>
         </div>
@@ -337,9 +286,9 @@
         <p class="eyebrow">Bereit für eine klarere Entscheidung?</p>
         <h2>Bereit, deine nächste Aktienidee nicht mehr nach Gefühl zu bewerten?</h2>
         <p>Starte mit einem festen Bewertungsrahmen und vergleiche Unternehmen nachvollziehbarer.</p>
-        <a class="button button-primary" href="auth.html?mode=register&amp;redirect=%2Fdashboard.html">Kostenlos starten</a>
+        <a class="button button-primary" href="#apps">Apps entdecken</a>
         <a class="button button-secondary desktop-store-link" href="https://apps.microsoft.com/detail/9PJQQX25V0C7?hl=de-de&amp;gl=DE&amp;ocid=pdpshare" target="_blank" rel="noopener">Windows-App im Microsoft Store</a>
-        <div class="final-cta-details"><span>Dauerhaft kostenlos</span><i></i><span>Keine Kreditkarte</span><i></i><span>Handbuch inklusive</span><i></i><span>Deutsch &amp; Englisch</span></div>
+        <div class="final-cta-details"><span>Mobile App im Fokus</span><i></i><span>Windows-App verfügbar</span><i></i><span>Deutsch &amp; Englisch</span></div>
       </div>
     </section>
   </main>
@@ -347,11 +296,10 @@
   <footer class="site-footer">
     <div class="shell footer-inner">
       <div><a class="brand footer-brand" href="#top"><img src="assets/logo-new-v2.png" alt="" width="34" height="34"><span>PointerScore</span></a><p>Keine Anlageberatung. PointerScore dient ausschließlich Bildungs- und Informationszwecken. Die Nutzung des Scores ersetzt keine persönliche Beratung und keine eigene Recherche. Investitionen können zu Verlusten führen.</p></div>
-      <div class="footer-links"><a href="pages/impressum.html">Impressum</a><a href="pages/datenschutz.html">Datenschutz</a><a href="pages/agb.html">AGB</a><a href="pages/widerruf.html">Widerruf</a><a href="pages/widerrufsformular.html">Widerrufsformular</a><a href="pages/haftungsausschluss.html">Haftungsausschluss</a><a href="pages/cookies.html">Cookies</a><a href="pages/kuendigung.html">Kündigung</a><a href="pages/kontakt.html">Kontakt</a></div>
+      <div class="footer-links"><a href="pages/impressum.html">Impressum</a><a href="pages/datenschutz.html">Datenschutz</a><a href="pages/agb.html">AGB</a><a href="pages/kuendigung.html">Abo &amp; Kündigung</a><a href="pages/widerruf.html">Widerruf</a><a href="pages/kontakt.html">Kontakt</a></div>
     </div>
   </footer>
-  <script src="i18n.js?v=5" defer></script>
+  <script src="i18n.js?v=11" defer></script>
   <script src="script.js" defer></script>
-  <script type="module" src="demo-calculator.js?v=9"></script>
 </body>
 </html>

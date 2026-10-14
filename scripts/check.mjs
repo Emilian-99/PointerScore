@@ -1,7 +1,8 @@
 import { readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
-import vm from "node:vm";
+import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { appEntries, appRoutes } from "./site-layout.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
@@ -39,8 +40,24 @@ for (const file of ["assets/fonts/inter/inter.css", "assets/fonts/inter/OFL.txt"
   if (!relativeFiles.has(file)) errors.push(`Missing font asset: ${file}`);
 }
 
-for (const required of ["index.html", "auth.html", "dashboard.html", "profile.html", "compare.html", "help.html", "calculator.html", "404.html", "style.css", "script.js", "i18n.js", "runtime-config.js", "auth-client.js", "company-data-client.js", "analysis-store.js", "auth-view.js", "auth-page.js", "dashboard.js", "profile.js", "compare.js", "help.js", "calculator-app.js", "calculator-logic.js", "demo-calculator.js", "demo-company-data.js", "pdfs/de/PointerScore-Handbook-DE.pdf", "pdfs/en/PointerScore-Handbook-EN.pdf"]) {
+for (const required of ["index.html", "privacy.html", "404.html", "style.css", "script.js", "i18n.js", "legal-content.js", "legal-pages.js", ...appRoutes, "auth-callback/index.html", "auth-callback/auth-callback.js", "auth-callback/vendor/supabase.js"]) {
   if (!relativeFiles.has(required)) errors.push(`Missing required build file: ${required}`);
+}
+
+for (const entry of appEntries.filter(entry=>entry.endsWith('.js'))) {
+  if (relativeFiles.has(entry)) errors.push(`Desktop-only script exposed at website root: ${entry}`);
+}
+const landing = await readFile(path.join(dist, "index.html"), "utf8");
+if (/<form\b|href=["'](?:auth\.html|dashboard\.html|rechner\/)|data-calculator-demo|runtime-config\.js|demo-calculator\.js/i.test(landing)) {
+  errors.push("Public landing contains a web-app entry, interactive calculator or login form");
+}
+if ([...relativeFiles].some(file => file.startsWith('app/'))) errors.push('Desktop renderer must not be published on the website');
+for (const file of ['dashboard.js','calculator-app.js','calculator-logic.js','rechner/app.js','rechner/logic.js','company-data-client.js']) {
+  if (relativeFiles.has(file)) errors.push(`Application file shipped on public website: ${file}`);
+}
+for (const route of appRoutes) {
+  const html=await readFile(path.join(dist,route),'utf8');
+  if (/<form\b|score-form|runtime-config|type="module"/.test(html)) errors.push(`Functional app page exposed publicly: ${route}`);
 }
 
 for (const file of files.filter((entry) => entry.endsWith(".html"))) {
@@ -72,11 +89,8 @@ for (const file of files.filter((entry) => entry.endsWith(".html"))) {
 for (const file of files.filter((entry) => entry.endsWith(".js"))) {
   try {
     const source = await readFile(file, "utf8");
-    if (/^\s*(?:import|export)\s/m.test(source) && typeof vm.SourceTextModule === "function") {
-      new vm.SourceTextModule(source, { identifier: file });
-    } else if (!/^\s*(?:import|export)\s/m.test(source)) {
-      new vm.Script(source, { filename: file });
-    }
+    const result = spawnSync(process.execPath, ["--check", "--input-type=module"], { input: source, encoding: "utf8", maxBuffer: 2 * 1024 * 1024 });
+    if (result.status !== 0) throw new Error(result.stderr.match(/SyntaxError:[^\n]+/)?.[0] || "JavaScript syntax check failed");
   } catch (error) {
     errors.push(`${path.relative(dist, file)}: ${error.message}`);
   }

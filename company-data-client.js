@@ -45,6 +45,8 @@ function formatNumber(value, locale = "de-DE", options = {}) {
 
 async function normalizeError(error) {
   const context = error?.context;
+  if (context?.status === 401 || context?.status === 403) return { code: "authentication_required" };
+  if (context?.status === 429) return { code: "rate_limited" };
   if (context && typeof context.json === "function") {
     try {
       const parsed = await context.json();
@@ -64,12 +66,29 @@ async function normalizeError(error) {
   return { code: error?.code || "company_data_failed", error: String(raw || "Company data could not be loaded") };
 }
 
-export async function fetchCompanyData(supabase, ticker) {
-  const { data, error } = await supabase.functions.invoke("fetch-company-data", {
-    body: { ticker }
-  });
-  if (error) throw await normalizeError(error);
-  return data;
+export async function fetchCompanyData(supabase, ticker, { timeoutMs = 50_000 } = {}) {
+  const controller = new AbortController();
+  let timer;
+  try {
+    // Also bounds session refresh before the SDK starts its HTTP request.
+    return await Promise.race([
+      (async () => {
+        const { data, error } = await supabase.functions.invoke("fetch-company-data", {
+          body: { ticker }, signal: controller.signal, timeout: timeoutMs
+        });
+        if (error) throw await normalizeError(error);
+        return data;
+      })(),
+      new Promise((_, reject) => {
+        timer = setTimeout(() => {
+          reject({ code: "request_timeout" });
+          controller.abort();
+        }, timeoutMs);
+      })
+    ]);
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 export function companyDataToPointerScoreInput(companyData) {

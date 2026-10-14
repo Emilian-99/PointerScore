@@ -837,6 +837,9 @@ Object.assign(translations, {
   "Ticker nicht gefunden.": "Ticker not found.",
   "Dieses Unternehmen wird von SEC Company Facts nicht unterstützt.": "This company is not supported by SEC Company Facts.",
   "SEC ist gerade nicht erreichbar. Bitte versuche es später erneut.": "SEC is currently unavailable. Please try again later.",
+  "Die Anmeldung konnte gerade nicht geprüft werden. Bitte versuche es erneut.": "Your sign-in could not be verified right now. Please try again.",
+  "Der Datenabruf dauert zu lange. Bitte versuche es erneut.": "The data request is taking too long. Please try again.",
+  "Zu viele Anfragen. Bitte warte einen Moment und versuche es erneut.": "Too many requests. Please wait a moment and try again.",
   "Bitte melde dich an, um SEC-Unternehmensdaten abzurufen.": "Please sign in to retrieve SEC company data.",
   "Unternehmensdaten konnten nicht geladen werden.": "Company data could not be loaded.",
   "Kennzahl nicht verfügbar.": "Metric unavailable.",
@@ -863,6 +866,46 @@ Object.assign(translations, {
   "Aktienkurs / EPS": "share price / EPS",
   "Gewinn / Eigenkapital": "net income / stockholders' equity",
   "Operatives Ergebnis / (Eigenkapital + langfristige Schulden - Cash)": "operating income / (equity + long-term debt - cash)"
+});
+
+Object.assign(translations, {
+  "Ich stimme den": "I agree to the",
+  "zu und habe die": "and have read the",
+  "zur Kenntnis genommen": ""
+});
+
+// Public information site; desktop-specific translations above remain intact.
+Object.assign(translations, {
+  "Deine Analyse. In deiner App.": "Your analysis. In your app.",
+  "Analysiere Unternehmen mit einem klaren System – künftig vor allem in der mobilen PointerScore-App. Die Windows-App steht dir weiterhin zur Verfügung.": "Analyse companies with a clear system – primarily in the mobile PointerScore app in future. The Windows app remains available.",
+  "Apps entdecken": "Explore apps",
+  "Zu den Apps": "Explore the apps",
+  "Abo nur in der mobilen App": "Subscribe only in the mobile app",
+  "Mobile App · Android": "Mobile app · Android",
+  "PointerScore für unterwegs.": "PointerScore on the go.",
+  "Die mobile App wird zum Mittelpunkt von PointerScore. Ein Abo kannst du ausschließlich dort über Google Play abschließen – nicht auf dieser Website oder in der Desktop-App.": "The mobile app will become the heart of PointerScore. Subscriptions can only be purchased there through Google Play – not on this website or in the desktop app.",
+  "Google-Play-Link folgt": "Google Play link coming soon",
+  "Der Download-Link ist noch nicht verfügbar.": "The download link is not available yet.",
+  "Die bestehende Windows-App bleibt nutzbar. Öffne dein Dashboard, den Rechner und deine Analysen direkt in der Desktop-App.": "The existing Windows app remains usable. Open your dashboard, calculator and analyses directly in the desktop app.",
+  "PointerScore in der App": "PointerScore in the app",
+  "Unternehmensanalysen, Score und Ergebnisse in deiner PointerScore-App.": "Company analyses, scores and results in your PointerScore app.",
+  "Abo über Google Play": "Subscribe through Google Play",
+  "Preise, Laufzeit und enthaltene Leistungen siehst du vor dem Abschluss in der mobilen App.": "Prices, billing periods and included features are shown before purchase in the mobile app.",
+  "Auf dieser Website gibt es keine Registrierung, Anmeldung oder Abo-Buchung.": "There is no registration, login or subscription checkout on this website.",
+  "In der bestehenden Desktop-App hilft dir die Unternehmensdatensuche bei unterstützten US-Tickern. Prüfe die Quellen und Zeiträume und ergänze fehlende Kennzahlen selbst.": "In the existing desktop app, company data lookup helps with supported US tickers. Check sources and periods, and add missing metrics yourself.",
+  "Wo kann ich ein Abo abschließen?": "Where can I subscribe?",
+  "Ein Abo wird ausschließlich in der mobilen App über Google Play abgeschlossen. Auf der Website und in der Desktop-App gibt es keinen Abo-Abschluss. Den Google-Play-Link ergänzen wir, sobald er verfügbar ist.": "Subscriptions are purchased only in the mobile app through Google Play. There is no subscription checkout on the website or in the desktop app. We will add the Google Play link when it becomes available.",
+  "Kann ich die Windows-App weiter nutzen?": "Can I keep using the Windows app?",
+  "Ja. Die bestehende Desktop-App bleibt während der Umstellung nutzbar. Deine Konten und gespeicherten Analysen werden durch die Website-Umstellung nicht gelöscht.": "Yes. The existing desktop app remains usable during the transition. The website transition does not delete your accounts or saved analyses.",
+  "Wie verwalte oder kündige ich mein Abo?": "How do I manage or cancel my subscription?",
+  "Ein über Google Play abgeschlossenes Abo verwaltest du in deinem Google-Play-Konto. Weitere Informationen findest du unter Abo & Kündigung.": "Manage a subscription purchased through Google Play in your Google Play account. See Subscriptions & cancellation for more information.",
+  "Abo & Kündigung": "Subscriptions & cancellation",
+  "Kann ich mich auf der Website anmelden?": "Can I sign in on the website?",
+  "Nein. Die Website informiert über PointerScore und führt zu den Apps. Anmeldung, Dashboard und Rechner nutzt du in der App.": "No. The website provides information about PointerScore and links to the apps. Sign in and use the dashboard and calculator in the app.",
+  "Mobile App im Fokus": "Mobile app first",
+  "Windows-App verfügbar": "Windows app available",
+  "Dashboard und Rechner sind in der aktuellen Desktop-Version direkt integriert. Anmeldung und gespeicherte Analysen bleiben mit deinem PointerScore-Konto verbunden.": "The current desktop version includes the dashboard and calculator directly. Authentication and saved analyses remain linked to your PointerScore account.",
+  "Ja, mit der aktuellen Desktop-Version. Bitte aktualisiere ältere Installationen: Die neue Version enthält Dashboard und Rechner direkt im App-Paket. Dein Konto und deine gespeicherten Analysen bleiben erhalten.": "Yes, with the current desktop version. Please update older installations: the new version includes the dashboard and calculator in the app package. Your account and saved analyses are retained."
 });
 
 function translatedValue(original, language) {

@@ -1,3 +1,6 @@
+import { searchCompanies } from "./company-search.ts";
+import { upstream } from "./upstream.ts";
+
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
@@ -46,6 +49,7 @@ type MarketPrice = {
 };
 
 let tickerMapCache: { expiresAt: number; data: SecTickerMap } | null = null;
+let tickerMapRequest: Promise<SecTickerMap> | null = null;
 
 const METRICS: Record<string, MetricConfig> = {
   revenue: {
@@ -175,41 +179,49 @@ async function verifyUser(request: Request) {
 
   const supabaseUrl = Deno.env.get("SUPABASE_URL");
   const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY");
-  if (!supabaseUrl || !supabaseAnonKey) return { id: "verified-by-edge-gateway" };
+  if (!supabaseUrl || !supabaseAnonKey) return null;
 
-  const response = await fetch(`${supabaseUrl}/auth/v1/user`, {
+  return await upstream("auth", `${supabaseUrl}/auth/v1/user`, {
     headers: { Authorization: authorization, apikey: supabaseAnonKey }
+  }, 8_000, async (response) => {
+    if (!response.ok) return null;
+    const user = await response.json();
+    return typeof user?.id === "string" && user.id.length > 0 ? user : null;
   });
-  if (!response.ok) return null;
-  return await response.json();
 }
 
 async function secJson<T>(url: string): Promise<T> {
-  const response = await fetch(url, {
+  try {
+  return await upstream(url === TICKER_MAPPING_URL ? "sec_tickers" : "sec_facts", url, {
     headers: {
       "User-Agent": SEC_USER_AGENT,
       "From": SEC_CONTACT_EMAIL,
       "Accept": "application/json",
       "Accept-Encoding": "gzip, deflate"
     }
-  });
+  }, 18_000, async (response) => {
 
   if (response.status === 404) throw Object.assign(new Error("SEC resource not found"), { code: "sec_not_found" });
   if (response.status === 429 || response.status >= 500) throw Object.assign(new Error("SEC unavailable"), { code: "sec_unavailable" });
   if (!response.ok) throw Object.assign(new Error(`SEC request failed: ${response.status}`), { code: "sec_unavailable" });
   return await response.json();
+  });
+  } catch (error) {
+    if ((error as { code?: string })?.code === "sec_not_found") throw error;
+    throw Object.assign(new Error("SEC unavailable"), { code: "sec_unavailable" });
+  }
 }
 
 async function stooqLatestClose(ticker: string): Promise<MarketPrice> {
   const stooqTicker = `${ticker.toLowerCase().replace("-", ".")}.us`;
   const url = `${STOOQ_QUOTE_URL}?s=${encodeURIComponent(stooqTicker)}&f=sd2t2ohlcv&h&e=csv`;
-  const response = await fetch(url, {
+  return await upstream("stooq", url, {
     headers: {
       "User-Agent": SEC_USER_AGENT,
       "From": SEC_CONTACT_EMAIL,
       "Accept": "text/csv"
     }
-  });
+  }, 5_000, async (response) => {
   if (!response.ok) return { value: null, metadata: null };
 
   const text = await response.text();
@@ -230,13 +242,18 @@ async function stooqLatestClose(ticker: string): Promise<MarketPrice> {
       currency: "USD"
     }
   };
+  });
 }
 
 async function getTickerMap() {
   if (tickerMapCache && tickerMapCache.expiresAt > Date.now()) return tickerMapCache.data;
-  const data = await secJson<SecTickerMap>(TICKER_MAPPING_URL);
-  tickerMapCache = { data, expiresAt: Date.now() + CACHE_TTL_MS };
-  return data;
+  if (!tickerMapRequest) {
+    tickerMapRequest = secJson<SecTickerMap>(TICKER_MAPPING_URL).then((data) => {
+      tickerMapCache = { data, expiresAt: Date.now() + CACHE_TTL_MS };
+      return data;
+    }).finally(() => { tickerMapRequest = null; });
+  }
+  return await tickerMapRequest;
 }
 
 async function resolveTicker(ticker: string) {
@@ -336,15 +353,57 @@ Deno.serve(async (request) => {
   if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS_HEADERS });
   if (request.method !== "POST") return json({ error: "Method not allowed", code: "method_not_allowed" }, 405);
 
-  const user = await verifyUser(request);
+  let user: { id?: string } | null;
+  try { user = await verifyUser(request); }
+  catch { return json({ error: "Authentication service unavailable", code: "auth_unavailable" }, 503); }
   if (!user) return json({ error: "Authentication required", code: "authentication_required" }, 401);
 
-  let body: { ticker?: string };
+  let body: { ticker?: string; action?: string; query?: string };
   try {
     body = await request.json();
   } catch {
     return json({ error: "Invalid JSON body", code: "invalid_json" }, 400);
   }
+
+  if (body.action === "search") {
+    if (typeof body.query !== "string" || body.query.trim().length < 1 || body.query.trim().length > 100) {
+      return json({ error: "Invalid search query", code: "invalid_query" }, 400);
+    }
+    try {
+      const map = await getTickerMap();
+      return json({ schemaVersion: 1, source: "SEC EDGAR", companies: searchCompanies(Object.values(map), body.query) });
+    } catch {
+      return json({ error: "Company search unavailable", code: "sec_unavailable" }, 503);
+    }
+  }
+  if (body.action === "select") {
+    const ticker = normalizeTicker(body.ticker);
+    if (!isTickerValid(ticker)) return json({ error: "Ticker not found", code: "ticker_not_found" }, 404);
+    try {
+      const entry = await resolveTicker(ticker);
+      if (!entry || !Number.isSafeInteger(entry.cik_str) || entry.cik_str <= 0 || entry.cik_str > 9999999999) {
+        return json({ error: "Ticker not found", code: "ticker_not_found" }, 404);
+      }
+      const supabaseUrl = Deno.env.get("SUPABASE_URL");
+      const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+      if (!supabaseUrl || !serviceKey) return json({ error: "Selection confirmation unavailable", code: "selection_unavailable" }, 503);
+      const response = await fetch(supabaseUrl + "/rest/v1/rpc/company_selection_issue_v1", {
+        method: "POST",
+        headers: { apikey: serviceKey, Authorization: "Bearer " + serviceKey, "Content-Type": "application/json" },
+        body: JSON.stringify({ p_owner: user.id, p_company_key: "sec:" + cik10(entry.cik_str), p_ticker: entry.ticker.toUpperCase() })
+      });
+      if (!response.ok) return json({ error: "Selection confirmation unavailable", code: "selection_unavailable" }, 503);
+      const rows = await response.json();
+      const selectionId = Array.isArray(rows) && rows.length === 1 ? rows[0]?.selectionId : null;
+      if (typeof selectionId !== "string" || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(selectionId)) {
+        return json({ error: "Selection confirmation unavailable", code: "selection_unavailable" }, 503);
+      }
+      return json({ selectionId });
+    } catch {
+      return json({ error: "Selection confirmation unavailable", code: "selection_unavailable" }, 503);
+    }
+  }
+  if (body.action !== undefined) return json({ error: "Unsupported action", code: "invalid_action" }, 400);
 
   const ticker = normalizeTicker(body.ticker);
   if (!isTickerValid(ticker)) return json({ error: "Ticker not found", code: "ticker_not_found" }, 404);

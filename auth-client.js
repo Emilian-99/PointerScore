@@ -10,7 +10,8 @@ export const supabase = createClient(config.supabaseUrl, config.supabasePublisha
   auth: {
     persistSession: true,
     autoRefreshToken: true,
-    detectSessionInUrl: true,
+    // The dedicated external email callback processes its code explicitly, once.
+    detectSessionInUrl: !window.location.pathname.startsWith("/auth-callback/"),
     flowType: "pkce"
   }
 });

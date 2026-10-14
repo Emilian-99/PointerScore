@@ -1,4 +1,12 @@
 User-agent: *
 Allow: /
+Disallow: /app/
+Disallow: /auth.html
+Disallow: /dashboard.html
+Disallow: /profile.html
+Disallow: /compare.html
+Disallow: /help.html
+Disallow: /calculator.html
+Disallow: /rechner/
 
 Sitemap: https://pointerscore.com/sitemap.xml

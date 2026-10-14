@@ -3,18 +3,24 @@
   "version": "1.0.9",
   "private": true,
   "type": "module",
-  "description": "PointerScore website with Supabase authentication and protected calculator",
+  "description": "PointerScore information website and bundled desktop interface",
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "start": "node scripts/dev.mjs",
     "build": "node scripts/build.mjs",
-    "check": "npm run build && node scripts/check.mjs",
+    "check": "npm run build && node scripts/check.mjs && node scripts/render-legal.mjs",
+    "test:transition": "node --test scripts/site-layout.test.mjs",
     "desktop:install": "npm --prefix desktop install",
+    "desktop:prepare": "node scripts/build-desktop.mjs",
     "desktop:start": "npm --prefix desktop start",
     "desktop:build": "npm --prefix desktop run build",
     "desktop:portable": "npm --prefix desktop run build:portable"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@supabase/supabase-js": "2.117.3",
+    "esbuild": "0.28.2"
   }
 }
