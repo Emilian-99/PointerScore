@@ -20,6 +20,25 @@ async function walk(directory) {
 const files = await walk(dist);
 const relativeFiles = new Set(files.map((file) => path.relative(dist, file).split(path.sep).join("/")));
 
+// Keep web fonts self-hosted, including references injected by scripts or CSS imports.
+const remoteFontHost = /fonts\.(?:googleapis|gstatic)\.com/i;
+for (const file of files.filter((entry) => /\.(?:html|css|js)$/i.test(entry))) {
+  if (remoteFontHost.test(await readFile(file, "utf8"))) {
+    errors.push(`${path.relative(dist, file)}: external Google Fonts reference`);
+  }
+}
+for (const subset of ["latin", "latin-ext", "cyrillic", "cyrillic-ext", "greek", "greek-ext", "vietnamese"]) {
+  const file = `assets/fonts/inter/inter-${subset}.woff2`;
+  if (!relativeFiles.has(file)) {
+    errors.push(`Missing local font: ${file}`);
+  } else if ((await readFile(path.join(dist, file))).toString("ascii", 0, 4) !== "wOF2") {
+    errors.push(`Invalid WOFF2 font: ${file}`);
+  }
+}
+for (const file of ["assets/fonts/inter/inter.css", "assets/fonts/inter/OFL.txt"]) {
+  if (!relativeFiles.has(file)) errors.push(`Missing font asset: ${file}`);
+}
+
 for (const required of ["index.html", "auth.html", "dashboard.html", "profile.html", "compare.html", "help.html", "calculator.html", "404.html", "style.css", "script.js", "i18n.js", "runtime-config.js", "auth-client.js", "company-data-client.js", "analysis-store.js", "auth-view.js", "auth-page.js", "dashboard.js", "profile.js", "compare.js", "help.js", "calculator-app.js", "calculator-logic.js", "demo-calculator.js", "demo-company-data.js", "pdfs/de/PointerScore-Handbook-DE.pdf", "pdfs/en/PointerScore-Handbook-EN.pdf"]) {
   if (!relativeFiles.has(required)) errors.push(`Missing required build file: ${required}`);
 }

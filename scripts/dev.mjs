@@ -11,6 +11,7 @@ const port = Number(environment.PORT || 4173);
 const host = environment.HOST || "127.0.0.1";
 const mimeTypes = {
   ".css": "text/css; charset=utf-8",
+  ".woff2": "font/woff2",
   ".html": "text/html; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
