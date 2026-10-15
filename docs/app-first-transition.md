@@ -23,18 +23,18 @@ Diese Abgrenzung wird durch einen sitzungsgebundenen Electron-Protokollhandler u
 
 Änderungen an der Infoseite verändern die gebündelte App-Oberfläche künftig nicht mehr. Änderungen an Dashboard/Rechner erfordern ein neues Desktop-Paket und dessen Veröffentlichung.
 
-## Wichtige Reihenfolge beim Veröffentlichen
+## Veröffentlichung und ältere Desktop-Versionen
 
-Die derzeit installierten älteren Desktop-Versionen laden ihren Rechner noch von der Website. Ein vollständiges Abschalten dieses Bereichs vor dem App-Update würde sie unbrauchbar machen. Daher:
+Die derzeit installierten älteren Desktop-Versionen laden ihren Rechner noch von der Website. Nach Entfernen dieses Bereichs benötigen sie das Desktop-Update. Am 15.10.2026 wurde ausdrücklich entschieden, diesen vorübergehenden Ausfall zu akzeptieren und die Website unabhängig von der Store-Freigabe veröffentlichen zu können. Supabase, Konten und gespeicherte Analysen bleiben unverändert.
 
 1. Neue Desktop-Version **1.0.10** über Partner Center einreichen.
-2. Store-Freigabe/Verfügbarkeit abwarten und das Update auf einer **bestehenden Installation mit echtem Testkonto** prüfen: Anmeldung, vorhandene Analyse, Speichern, PDF, Bestätigungs-/Passwort-Reset-Link.
+2. Sobald das Store-Update verfügbar ist, auf einer **bestehenden Installation mit echtem Testkonto** prüfen: Anmeldung, vorhandene Analyse, Speichern, PDF, Bestätigungs-/Passwort-Reset-Link. Dies ist keine Veröffentlichungssperre für die Website mehr.
 3. Nutzer älterer Versionen zum Update anhalten. Eine Store-Freigabe bedeutet nicht, dass bereits jedes Gerät aktualisiert ist. Nach Entfernen des Web-Rechners benötigen alte Versionen zwingend das Update; es gibt keinen unsichtbaren Ersatz durch einen anderen Web-Rechner.
-4. Erst dann die Website ohne Rechner veröffentlichen.
-5. Für den vorbereiteten GitHub-Workflow muss unter **Settings → Pages → Source → GitHub Actions** die richtige Veröffentlichungsquelle ausgewählt sein. Danach die Repository-Variable **POINTERSCORE_BUNDLED_DESKTOP_RELEASED = 1.0.10** unter **Settings → Secrets and variables → Actions → Variables** bewusst freigeben und den Workflow erneut starten.
+4. Die Website ohne Rechner darf bereits vor der Store-Freigabe veröffentlicht werden.
+5. Unter **Settings → Pages → Source → GitHub Actions** die richtige Veröffentlichungsquelle auswählen. Ein Push auf `main` oder ein manueller Workflow-Start veröffentlicht nach erfolgreichen Build-Prüfungen. Es ist keine zusätzliche Repository-Variable erforderlich.
 6. Ausschließlich `dist/` veröffentlichen. Nicht den Repository-Wurzelordner und nicht `desktop/renderer/`.
 
-Ohne die Variable wird der Deploy-Job übersprungen. **Diese Sperre schützt nur den vorbereiteten Actions-Workflow**, nicht einen weiterhin konfigurierten automatischen Pages-Branch-Deploy oder andere Hosting-Systeme. Hosting-Einstellungen wurden hier nicht geändert. Es wurde nichts hochgeladen, committed oder veröffentlicht.
+Die frühere Store-Freigabesperre im Deploy-Job wurde auf Nutzerwunsch entfernt. Der Deploy-Job hängt weiterhin vom erfolgreichen Build ab. Die lokale Änderung veröffentlicht noch nichts; sie muss zunächst committed und gepusht werden. Hosting-Einstellungen und Supabase werden dadurch nicht verändert.
 
 ## E-Mail-Links ohne Website-Dashboard
 

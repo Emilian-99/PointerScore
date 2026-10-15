@@ -2,7 +2,7 @@
 
 PointerScore-Informationswebsite mit App-Verweisen. Die neue Desktop-App ab Version 1.0.10 liefert Dashboard und Rechner im Installationspaket mit. Das künftige Abo wird ausschließlich in der mobilen App über Google Play abgeschlossen.
 
-**Wichtig für diese Umstellung:** Erst die gebündelte Desktop-Version 1.0.10 veröffentlichen und prüfen, dann den Web-Rechner entfernen. Nur `dist/` veröffentlichen, niemals das Repository-Wurzelverzeichnis. In GitHub unter Settings → Pages → Source auf **GitHub Actions** umstellen. Der Workflow veröffentlicht die neue Infoseite erst, wenn die Repository-Variable `POINTERSCORE_BUNDLED_DESKTOP_RELEASED` ausdrücklich auf `1.0.10` gesetzt wurde. Details: [docs/app-first-transition.md](docs/app-first-transition.md).
+**Wichtig für diese Umstellung:** Nur `dist/` veröffentlichen, niemals das Repository-Wurzelverzeichnis. In GitHub unter Settings → Pages → Source **GitHub Actions** verwenden. Der Workflow veröffentlicht die neue Infoseite nach erfolgreichen Prüfungen bei einem Push auf `main` oder einem manuellen Start; eine Store-Freigabe ist nicht mehr erforderlich. Der vorübergehende Ausfall älterer Desktop-Versionen nach Entfernung des Web-Rechners wurde bewusst akzeptiert. Supabase bleibt unverändert aktiv. Details: [docs/app-first-transition.md](docs/app-first-transition.md).
 
 ## Struktur
 

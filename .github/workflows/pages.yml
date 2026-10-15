@@ -32,8 +32,6 @@ jobs:
           path: dist
   deploy:
     needs: build
-    # Do not remove the web renderer until the bundled desktop update is actually released.
-    if: ${{ vars.POINTERSCORE_BUNDLED_DESKTOP_RELEASED == '1.0.10' }}
     runs-on: ubuntu-latest
     environment:
       name: github-pages
